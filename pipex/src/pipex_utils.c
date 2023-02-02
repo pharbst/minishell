@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:07:33 by sschanga          #+#    #+#             */
-/*   Updated: 2023/02/02 05:50:31 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/02 06:46:24 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static char	*set_argv(char **path, char *cmd)
 {
 	char	*add_slash;
 	char	*add_argv;
-	// t_path	pipex;
 
 	while (*path != NULL)
 	{

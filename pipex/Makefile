@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/02 06:19:48 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/02 06:44:13 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -163,7 +163,7 @@ push:
 
 update:
 	git pull
-	make update -C ./libft
+	make update -C $(LIBFTIO_DIR)
 
 # **************************************************************************** #
 # Header Rules

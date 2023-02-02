@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:25:24 by sschanga          #+#    #+#             */
-/*   Updated: 2023/02/02 05:52:12 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/02 06:45:54 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ typedef struct s_path
 }	t_path;
 
 //Pipex
-// static char	*find_path(char **path);
 void		parse_argv(t_path *pipex, char **argv, char **envp);
-// static char	*set_argv(char **path, char *cmd);
 void		set_pipe(t_path *pipex, char **envp);
 void		argv_child(t_path *pipex, char **envp);
 void		argv_parent(t_path *pipex, char **envp);
