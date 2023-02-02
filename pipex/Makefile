@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/02 06:44:13 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/02 06:53:13 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ TICK			=	$(shell echo "\xE2\x9C\x94")
 # **************************************************************************** #
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS		+=	-g
+CFLAGS		+=	-g
 # CFLAGS		+=	-fsanitize=address
 
 
@@ -57,7 +57,7 @@ CFLAGS		=	-Wall -Wextra -Werror
 # Project
 # **************************************************************************** #
 PRONAME		=	Pipex
-NAME		=	pipex
+NAME		=	pipex.a
 
 
 # **************************************************************************** #
@@ -109,7 +109,7 @@ hard_re:
 	@./spinner.sh make proname_header hard_clean $(NAME)
 
 $(NAME):	proname_header libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFTIO) -o $(NAME)
+	@ar rcs $(NAME) $(OBJ) $(LIBFTIO)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
