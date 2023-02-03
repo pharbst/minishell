@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/02 06:58:53 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/03 18:26:38 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ Black			=	$(shell echo "\033[0;30m")
 FBlack			=	$(shell echo "\033[1;30m")
 Red				=	$(shell echo "\033[0;31m")
 FRed			=	$(shell echo "\033[1;31m")
+BRed			=	$(shell echo "\033[1;41m")
 Green			=	$(shell echo "\033[0;32m")
 FGreen			=	$(shell echo "\033[1;32m")
 Brown/Orange	=	$(shell echo "\033[0;33m")
@@ -138,18 +139,18 @@ hard_clean:	proname_header
 	@./spinner.sh make hard_cleanall
 
 cleanall:
-	@printf "$(FRed)FCleaning$(RESET)										  	    "
+	@printf "$(FRed)FCleaning$(RESET)										  	      "
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(NAME)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 clean_simple:
-	@printf "$(FRed)Cleaning$(RESET)		 			 						    "
+	@printf "$(FRed)Cleaning$(RESET)		 			 						      "
 	@rm -rf $(OBJ_DIR)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 hard_cleanall:
-	@printf "$(FRed)Hard Cleaning$(RESET)										  	    "
+	@printf "$(FRed)Hard Cleaning$(RESET)										  	      "
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(NAME)
 	@make -C $(LIBFTIO_DIR) fclean > /dev/null
@@ -175,24 +176,24 @@ update:
 # Header Rules
 # **************************************************************************** #
 libftio_header:
-	@printf "$(FBlue)Compiling Libftio$(Reset)										   "
+	@printf "$(FBlue)Compiling Libftio$(Reset)										     "
 
 pipex_header:
-	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling Pipex$(Reset)											   "
+	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling Pipex$(Reset)											     "
 
 obj_header:
-	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling .o files$(RESET)										   "
+	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling .o files$(RESET)										     "
 
 linking_header:
-	@printf " $(FGreen)[$(TICK)]\n$(Green)Linking $(PRONAME)$(RESET)										    "
+	@printf " $(FGreen)[$(TICK)]\n$(Green)Linking $(PRONAME)$(RESET)										      "
 
 proname_header:
 	@printf "$(FYellow)╔═══════════════════════════════════════════════════════════════════════════════════════════════════════╗\n\
-║	 ▄▀▀▄ ▄▀▄  ▄▀▀█▀▄    ▄▀▀▄ ▀▄  ▄▀▀█▀▄   ▄▀▀▀▀▄      ▄▀▀▄ ▄▄   ▄▀▀█▄▄▄▄  ▄▀▀▀▀▄    ▄▀▀▀▀▄     	║\n\
-║	█  █ ▀  █ █   █  █  █  █ █ █ █   █  █ █ █   ▐     █  █   ▄▀ ▐  ▄▀   ▐ █    █    █    █      	║\n\
-║	▐  █    █ ▐   █  ▐  ▐  █  ▀█ ▐   █  ▐    ▀▄       ▐  █▄▄▄█    █▄▄▄▄▄  ▐    █    ▐    █      	║\n\
-║	  █    █      █       █   █      █    ▀▄   █         █   █    █    ▌      █         █       	║\n\
-║	▄▀   ▄▀    ▄▀▀▀▀▀▄  ▄▀   █    ▄▀▀▀▀▀▄  █▀▀▀         ▄▀  ▄▀   ▄▀▄▄▄▄     ▄▀▄▄▄▄▄▄▀ ▄▀▄▄▄▄▄▄▀ 	║\n\
-║	█    █    █       █ █    ▐   █       █ ▐           █   █     █    ▐     █         █         	║\n\
-║	▐    ▐    ▐       ▐ ▐        ▐       ▐             ▐   ▐     ▐          ▐         ▐         	║\n\
-╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝\n"
+$(FYellow)║$(FGreen)	 ▄▀▀▄ ▄▀▄$(FYellow)  ▄▀▀█▀▄  $(FPurple)  ▄▀▀▄ ▀▄$(FCyan)  ▄▀▀█▀▄  $(FBlue) ▄▀▀▀▀▄    $(FRed)  ▄▀▀▄ ▄▄   ▄▀▀█▄▄▄▄  ▄▀▀▀▀▄    ▄▀▀▀▀▄     	$(FYellow)║\n\
+$(FYellow)║$(FGreen)	█  █ ▀  █$(FYellow) █   █  █ $(FPurple) █  █ █ █$(FCyan) █   █  █ $(FBlue)█ █   ▐    $(FRed) █  █   ▄▀ ▐  ▄▀   ▐ █    █    █    █      	$(FYellow)║\n\
+$(FYellow)║$(FGreen)	▐  █    █$(FYellow) ▐   █  ▐ $(FPurple) ▐  █  ▀█$(FCyan) ▐   █  ▐ $(FBlue)   ▀▄      $(FRed) ▐  █▄▄▄█    █▄▄▄▄▄  ▐    █    ▐    █      	$(FYellow)║\n\
+$(FYellow)║$(FGreen)	  █    █ $(FYellow)     █    $(FPurple)   █   █ $(FCyan)     █    $(FBlue)▀▄   █     $(FRed)    █   █    █    ▌      █         █       	$(FYellow)║\n\
+$(FYellow)║$(FGreen)	▄▀   ▄▀  $(FYellow)  ▄▀▀▀▀▀▄ $(FPurple) ▄▀   █  $(FCyan)  ▄▀▀▀▀▀▄ $(FBlue) █▀▀▀      $(FRed)   ▄▀  ▄▀   ▄▀▄▄▄▄     ▄▀▄▄▄▄▄▄▀ ▄▀▄▄▄▄▄▄▀ 	$(FYellow)║\n\
+$(FYellow)║$(FGreen)	█    █   $(FYellow) █       █$(FPurple) █    ▐  $(FCyan) █       █$(FBlue) ▐         $(FRed)  █   █     █    ▐     █         █         	$(FYellow)║\n\
+$(FYellow)║$(FGreen)	▐    ▐   $(FYellow) ▐       ▐$(FPurple) ▐       $(FCyan) ▐       ▐$(FBlue)           $(FRed)  ▐   ▐     ▐          ▐         ▐         	$(FYellow)║\n\
+$(FYellow)╚═══════════════════════════════════════════════════════════════════════════════════════════════════════╝\n$(RESET)"
