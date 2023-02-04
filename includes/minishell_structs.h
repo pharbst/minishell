@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/04 02:03:39 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/04 02:01:11 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MINISHELL_STRUCTS_H
+# define MINISHELL_STRUCTS_H
 
-int main(int argc, char **argv)
+typedef struct s_shell
 {
-	t_shell shell;
+	char *user;
+	char *pwd;
+}	t_shell;
 
-	shell.user = "Peter";
-	shell.pwd = "home/peter";
-	if (!argc || !argv)
-		return (1);
-	prompt_line(&shell);
-	return (0);
-}
+#endif

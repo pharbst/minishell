@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   minishell_functions.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/04 02:03:39 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/04 02:03:21 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MINISHELL_FUNCTIONS_H
+# define MINISHELL_FUNCTIONS_H
 
-int main(int argc, char **argv)
-{
-	t_shell shell;
+# include "minishell_structs.h"
 
-	shell.user = "Peter";
-	shell.pwd = "home/peter";
-	if (!argc || !argv)
-		return (1);
-	prompt_line(&shell);
-	return (0);
-}
+void	prompt_line(t_shell *shell);
+
+#endif
