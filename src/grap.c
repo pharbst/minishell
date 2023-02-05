@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_structs.h                                :+:      :+:    :+:   */
+/*   grap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/05 03:13:21 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/05 02:56:28 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/05 03:01:26 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_STRUCTS_H
-# define MINISHELL_STRUCTS_H
+#include "minishell.h"
 
-typedef struct s_shell
+char	*grap(char *str, char **envp)
 {
-	char	*user;
-	char	*pwd;
-	char	**argv;
-	int		argc;
-	char	**envp;
-	char	**history;
-	char	*line;
-	// history
-}	t_shell;
+	int	i;
+	int	j;
 
-#endif
+	if (!str || !envp)
+		return (NULL);
+	i = 0;
+	while (envp[i])
+	{
+		j = 0;
+		while (envp[i][j] == str[j])
+			j++;
+		if (!str[j])
+			return (envp[i]);
+		i++;
+	}
+	return (NULL);
+}
