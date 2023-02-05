@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/05 03:06:04 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/05 04:48:09 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 
 # include "minishell_structs.h"
 
-void	prompt_line(t_shell *shell);
-void	print_env(char **envp);
+// string manipulation
 char	*grap(char *key, char **envp);
-char 	*last_word(char *str);
+char	*last_word(char *str);
 
+// minishell functions
+void	print_env(char **envp);
+void	prompt_line(t_shell *shell);
+
+// pipe functions
 #endif
