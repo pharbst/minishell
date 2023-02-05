@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 19:24:41 by sschanga          #+#    #+#             */
-/*   Updated: 2023/02/02 05:51:49 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/05 03:21:43 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static char	*find_path(char **path)
 		if (ft_strncmp("PATH=", path[i], 5) == 0)
 		{
 			get_path = ft_strdup(path[i] + 5);
-			free(get_path);
 			return (get_path);
 		}
 		i++;
@@ -57,6 +56,7 @@ void	parse_argv(t_path *pipex, char **argv, char **envp)
 	if (!set_path)
 		perror_msg();
 	pipex->path = ft_split(set_path, ':');
+	free(set_path);
 	if (!pipex->path)
 		perror_msg();
 }
