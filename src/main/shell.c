@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/05 03:14:25 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/07 02:18:31 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdio.h>
 
-void	print_env(char **envp)
+void	ft_shell(t_shell *shell)
 {
-	int	i;
-
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_shell	shell;
-
-	shell.argv = argv;
-	shell.argc = argc;
-	shell.envp = envp;
-	prompt_line(&shell);
-	shell.line = get_next_line(0);
-	printf("line: %s\n", shell.line);
-	return (0);
+	prompt_line(shell);
+	shell->line = readline(NULL);
+	shell_split(shell->line);
 }

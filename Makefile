@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/05 03:06:14 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/07 02:07:07 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ TICK			=	$(shell echo "\xE2\x9C\x94")
 # **************************************************************************** #
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS		+=	-L/usr/local/lib -I/usr/local/include -lreadline
 CFLAGS		+=	-g
 # CFLAGS		+=	-fsanitize=address
 
@@ -68,13 +69,15 @@ SRC_FILES	=	main.c \
 				prompt_line.c \
 				grap.c \
 				last_word.c \
+				shell.c \
+				split.c \
 
 
 # **************************************************************************** #
 # directories
 # **************************************************************************** #
 INC_DIR		=	./includes
-SRC_DIR		=	./src
+SRC_DIR		=	./src/*
 OBJ_DIR		=	./obj
 LIBFTIO_DIR	=	./libftio
 PIPEX_DIR	=	./pipex
@@ -115,7 +118,7 @@ hard_re:
 	@./spinner.sh make proname_header hard_clean $(NAME)
 
 $(NAME):	proname_header libftio_header $(LIBFTIO) pipex_header $(PIPEX) obj_header $(OBJ) linking_header
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFTIO) $(PIPEX) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) $(PIPEX) -o $(NAME)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
