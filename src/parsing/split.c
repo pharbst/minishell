@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:59:47 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/07 02:22:27 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/08 22:02:29 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	get_redir(char *line, int j, t_pipex *pipex)
 		printf("file_in: %s\n", pipex->file_in);
 	}
 	j = j + i;
+	i = 0;
+	k = 0;
 	if (line[j] == '>')
 	{
 		j++;
@@ -56,6 +58,8 @@ static void	get_redir(char *line, int j, t_pipex *pipex)
 		printf("file_out: %s\n", pipex->file_out);
 	}
 	j = j + i;
+	i = 0;
+	k = 0;
 	if (line[j] == '<')
 	{
 		j++;
