@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:51:16 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/06 19:53:47 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/11 07:37:16 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libftio.h"
+# include "minishell_enums.h"
 # include "minishell_structs.h"
 # include "minishell_functions.h"
-// # include "minishell_enums.h"
 // # include "minishell_macros.h"
 // # include "minishell_errors.h"
 
