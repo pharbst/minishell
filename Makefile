@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/08 22:00:13 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/11 12:43:20 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,17 +67,20 @@ NAME		=	minishell
 # **************************************************************************** #
 SRC_FILES	=	main.c \
 				prompt_line.c \
+				shell.c \
+				open_quote.c \
+				token_helper_tokencheck_quote.c \
+				token_helper_tokencheck.c \
+				new_split.c \
 				grap.c \
 				last_word.c \
-				shell.c \
-				split.c \
 
 
 # **************************************************************************** #
 # directories
 # **************************************************************************** #
 INC_DIR		=	./includes
-SRC_DIR		=	./src/*
+SRC_DIR		=	./src/*/
 OBJ_DIR		=	./obj
 LIBFTIO_DIR	=	./libftio
 PIPEX_DIR	=	./pipex

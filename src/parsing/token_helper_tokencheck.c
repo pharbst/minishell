@@ -6,78 +6,82 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:31:46 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/11 09:39:48 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/11 13:00:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	token_space(t_token *token, char **line, unsigned int *i)
+void	token_space(t_token *token, char *line, unsigned int *i, int *index)
 {
-	if (ft_isspace(**line))
+	if (ft_isspace(*line))
 	{
 		token[*i].type = SPACE;
-		token[*i].location = *line;
-		*i++;
-		while (ft_isspace(**line))
-			*line++;
+		token[*i].location = line;
+		*i = *i + 1;
+		while (ft_isspace(line[*index]))
+			*index = *index + 1;
 	}
 }
 
-void	token_pipe(t_token *token, char **line, unsigned int *i)
+void	token_pipe(t_token *token, char *line, unsigned int *i)
 {
-	if (**line == '|')
+	if (*line == '|')
 	{
 		token[*i].type = PIPE;
-		token[*i].location = *line;
-		*i++;
-		*line++;
+		token[*i].location = line;
+		*i = *i + 1;
 	}
 }
 
-void	token_redirect(t_token *token, char **line, unsigned int *i)
+void	token_redirect(t_token *token, char *line, unsigned int *i)
 {
-	if (**line == '>')
+	if (*line == '>')
 	{
 		token[*i].type = REDIRECT;
-		token[*i].location = *line;
-		*i++;
-		*line++;
+		token[*i].location = line;
+		*i = *i + 1;
 	}
-	else if (**line == '<')
+	else if (*line == '<')
 	{
 		token[*i].type = REDIRECT;
-		token[*i].location = *line;
-		*i++;
-		*line++;
+		token[*i].location = line;
+		*i = *i + 1;
 	}
 }
 
-void	token_dollar(t_token *token, char **line, unsigned int *i)
+void	token_dollar(t_token *token, char *line, unsigned int *i)
 {
-	if (**line == '$')
+	if (*line == '$')
 	{
 		token[*i].type = DOLLAR;
-		token[*i].location = *line;
-		*i++;
-		*line++;
+		token[*i].location = line;
+		*i = *i + 1;
 	}
 }
 
-void	token_braket(t_token *token, char **line, unsigned int *i)
+void	token_braket(t_token *token, char *line, unsigned int *i)
 {
-	if (**line == '[')
+	if (*line == '[')
 	{
 		token[*i].type = BRAKET_OPEN;
-		token[*i].location = *line;
-		*i++;
-		*line++;
+		token[*i].location = line;
+		*i = *i + 1;
 	}
-	else if (**line == ']')
+	else if (*line == ']')
 	{
 		token[*i].type = BRAKET_CLOSE;
-		token[*i].location = *line;
-		*i++;
-		*line++;
+		token[*i].location = line;
+		*i = *i + 1;
+	}
+}
+
+void	token_escape(t_token *token, char *line, unsigned int *i)
+{
+	if (*line == '\\')
+	{
+		token[*i].type = ESCAPE;
+		token[*i].location = line;
+		*i = *i + 1;
 	}
 }
