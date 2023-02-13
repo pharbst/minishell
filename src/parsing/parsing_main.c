@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/13 11:27:29 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 14:10:05 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,46 @@ int	token_main(char *line, t_token *token)
 	return (i);
 }
 
+t_pipex	*parsing_condition(t_parsing *parameter)
+{
+	bool	cmd;
+
+	cmd = false;
+	parameter->pipex = ft_calloc(1, sizeof(t_pipex));
+	if (!parameter->pipex)
+		return (NULL);
+	while (parameter->token[*parameter->token_index].type != PIPE && *parameter->token_index <= parameter->token_count)
+	{
+		if (parameter->token[*parameter->token_index].type == STRING_OPEN)
+			string_condition(parameter, &cmd);
+		if (parameter->token[*parameter->token_index].type == REDIRECT)
+			redirect_condition(parameter);
+		if (parameter->token[*parameter->token_index].type == DOLLAR)
+			dollar_condition(parameter);
+		if (parameter->token[*parameter->token_index].type == DQUOTE_OPEN)
+			dquote_condition(parameter);
+		if (parameter->token[*parameter->token_index].type == SQUOTE_OPEN)
+			squote_condition(parameter);
+		if (parameter->token[*parameter->token_index].type == PIPE)
+			break ;
+		if (parameter->token[*parameter->token_index].type == SPACE)
+			(*parameter->token_index)++;
+	}
+}
+
 t_pipex	*parsing(char *line, t_token *token, int token_count)
 {
-	t_pipex	*pipex;
-	static int	i;
+	t_parsing	parameter;
+	static int	token_index;
 
-	if (i >= token_count)
+	if (token_index >= token_count)
 		return (NULL);
-	pipex = parsing_condition(token, token_count, &i, line);
-	return (pipex->next = parsing(line, token, token_count), pipex);
+	parameter.token = token;
+	parameter.token_count = token_count;
+	parameter.token_index = &token_index;
+	parameter.line = line;
+	parameter.pipex = parsing_condition(&parameter);
+	return (parameter.pipex->next = parsing(line, token, token_count), parameter.pipex);
 }
 
 t_pipex	*shell_parsing_main(char *line)

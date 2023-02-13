@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:31:46 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/13 11:22:14 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 13:39:53 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	token_string(t_token *token, char *line, int *i)
 			token[*i].location = line;
 			*i = *i + 1;
 		}
-		if (open_string(token, *i) && (ft_isspace(*(line + 1)) || *(line + 1) == '\'' || *(line + 1) == '"'))
+		if (open_string(token, *i) && (ft_isspace(*(line + 1)) || ft_strchr("<>|\"'$", *(line + 1)) || *(line + 1) == '\0'))
 		{
 			token[*i].type = STRING_CLOSE;
 			token[*i].location = line;
