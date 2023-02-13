@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:31:46 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/11 13:00:22 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 06:43:45 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,24 @@ void	token_escape(t_token *token, char *line, unsigned int *i)
 		token[*i].type = ESCAPE;
 		token[*i].location = line;
 		*i = *i + 1;
+	}
+}
+
+void	token_string(t_token *token, char *line, unsigned int *i)
+{
+	if (ft_isprint(*line) && !ft_isspace(*line))
+	{
+		if (!open_string(token, i))
+		{
+			token[*i].type = STRING_OPEN;
+			token[*i].location = line;
+			*i = *i + 1;
+		}
+		if (open_string(token, i) && ft_isspace(*(line + 1)))
+		{
+			token[*i].type = STRING_CLOSE;
+			token[*i].location = line;
+			*i = *i + 1;
+		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 12:14:56 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/11 12:30:09 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 06:37:57 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,13 @@ bool	open_quote(t_token *token, unsigned int i)
 	while (j <= i)
 	{
 		if (token[j].type == DQUOTE_OPEN)
-		{
 			while (token[j].type != DQUOTE_CLOSE)
 				if (j++ == i)
 					return (true);
-		}
 		if (token[j].type == SQUOTE_OPEN)
-		{
 			while (token[j].type != SQUOTE_CLOSE)
 				if (j++ == i)
 					return (true);
-		}
 		j++;	
 	}
 	return (false);
@@ -44,11 +40,9 @@ bool	open_squote(t_token *token, unsigned int i)
 	while (j <= i)
 	{
 		if (token[j].type == SQUOTE_OPEN)
-		{
 			while (token[j].type != SQUOTE_CLOSE)
 				if (j++ == i)
 					return (true);
-		}
 		j++;	
 	}
 	return (false);
@@ -62,11 +56,25 @@ bool	open_dquote(t_token *token, unsigned int i)
 	while (j <= i)
 	{
 		if (token[j].type == DQUOTE_OPEN)
-		{
 			while (token[j].type != DQUOTE_CLOSE)
 				if (j++ == i)
 					return (true);
-		}
+		j++;	
+	}
+	return (false);
+}
+
+bool	open_string(t_token *token, int i)
+{
+	int	j;
+
+	j = 0;
+	while (j <= i)
+	{
+		if (token[j].type == STRING_START)
+			while (token[j].type != STRING_END)
+				if (j++ == i)
+					return (true);
 		j++;	
 	}
 	return (false);

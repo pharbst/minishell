@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_split.c                                        :+:      :+:    :+:   */
+/*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/11 12:58:58 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 06:22:46 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned int	tokenize(char *line, t_token *token, unsigned int i)
+int	tokenize(char *line, t_token *token, int i)
 {
-	unsigned int	dquote;
-	unsigned int	squote;
 	static int		index;
 
-	dquote = 0;
-	squote = 0;
 	if (!line)
 		return (0);
-	while (line[index])
+	while (line[index] && i < MAX_TOKENS)
 	{
 		if (!open_squote(token, i))
-			token_dquote(token, &line[index], &i, &dquote);
+			token_dquote(token, &line[index], &i);
 		if (!open_dquote(token, i))
-			token_squote(token, &line[index], &i, &squote);
+			token_squote(token, &line[index], &i);
 		if (!open_quote(token, i))
 			token_space(token, &line[index], &i, &index);
 		token_escape(token, &line[index], &i);
@@ -35,33 +31,60 @@ unsigned int	tokenize(char *line, t_token *token, unsigned int i)
 		token_braket(token, &line[index], &i);
 		if (!open_quote(token, i))
 			token_redirect(token, &line[index], &i);
-		line++;
+		if (!open_quote(token, i))
+			token_pipe(token, &line[index], &i);
+		if (!open_quote(token, i))
+			token_string(token, &line[index], &i);
+		index++;
+	}
+	if (i >= MAX_TOKENS)
+		return (free(token), -1);
+	return (i);
+}
+
+int	token_main(char *line, t_token *token)
+{
+	int	i;
+
+	i = tokenize(line, token, i);
+	if (i == -1)
+		return (-1);
+	while (open_quote(token, i) && i != -1)
+	{
+		line = ft_strjoinfree(ft_strjoinchar(line, '\n'), readline("> "));
+		if (ft_strlen(line) > 4095)
+			return (-1);
+		i = tokenize(line, token, i);
 	}
 	return (i);
 }
 
+t_pipex	*parsing(char *line, t_token *token, int token_count)
+{
+	t_pipex	*pipex;
+	int		i;
+
+	i = 0;
+	pipex = ft_calloc(1, sizeof(t_pipex));
+	if (!pipex)
+		return (NULL);
+	
+}
+
 t_pipex	*shell_parsing_main(char *line)
 {
-	t_pipex			*pipex;
 	t_token			*token;
-	unsigned int	i;
+	unsigned int	token_count;
 
-	pipex = NULL;
 	if (ft_strlen(line) > 4095)
 		return (NULL);
-	i = 0;
+	token_count = 0;
 	line = ft_strftrim(line, &ft_isspace);
 	if (!line)
 		return (NULL);
 	token = ft_calloc(2048, sizeof(t_token));
-	i = tokenize(line, token, i);
-	while (open_quote(token, i))
-	{
-		line = ft_strjoinfree(ft_strjoinchar(line, '\n'), readline("> "));
-		if (ft_strlen(line) > 4095)
-			return (NULL);
-		i = tokenize(line, token, i);
-	}
-	
-	return (pipex);
+	token_count = token_main(line, token);
+	if (token_count == -1)
+		return (NULL);
+	return (parsing(line, token, token_count));
 }

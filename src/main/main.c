@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/11 12:58:34 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 04:55:52 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	main(int argc, char **argv, char **envp)
 	shell.argv = argv;
 	shell.argc = argc;
 	shell.envp = envp;
-	while (1)
-		ft_shell(&shell);
+	ft_shell(&shell);
 	return (0);
 }

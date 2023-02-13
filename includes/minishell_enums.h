@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 07:32:39 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/11 09:09:15 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 06:41:41 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 # define SQUOTE_CLOSE -4
 # define PIPE -5
 # define SPACE -6
-# define STRING -7
+# define STRING_OPEN -7
 # define REDIRECT -8
 # define DOLLAR -9
 # define BRAKET_OPEN -10
 # define BRAKET_CLOSE -11
 # define ESCAPE -12
+# define STRING_CLOSE -13
+# define MAX_TOKENS 2048
 
 #endif

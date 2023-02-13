@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/11 12:35:04 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 05:48:11 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@
 
 void	ft_shell(t_shell *shell)
 {
-	prompt_line(shell);
-	// shell->line = ft_strdup("Hallo < tmp > tmp1 | World < tmp2 > tmp3 | Bye");
-	shell->line = readline(NULL);
-	shell->p_head = shell_parsing_main(shell->line);
+	while (1)
+	{
+		prompt_line(shell);
+		shell->line = readline(NULL);
+		shell->p_head = shell_parsing_main(shell->line);
+		// if (!shell->p_head)
+			//line too long o other error
+		//add history
+		//execute cmd
+		//prepare for next cmd
+	}
 }
