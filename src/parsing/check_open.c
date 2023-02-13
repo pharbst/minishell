@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_quote.c                                       :+:      :+:    :+:   */
+/*   check_open.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 12:14:56 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/13 06:37:57 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:19:43 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	open_quote(t_token *token, unsigned int i)
+bool	open_quote(t_token *token, int i)
 {
-	unsigned int	j;
+	int	j;
 
 	j = 0;
 	while (j <= i)
@@ -32,9 +32,9 @@ bool	open_quote(t_token *token, unsigned int i)
 	return (false);
 }
 
-bool	open_squote(t_token *token, unsigned int i)
+bool	open_squote(t_token *token, int i)
 {
-	unsigned int	j;
+	int	j;
 
 	j = 0;
 	while (j <= i)
@@ -48,9 +48,9 @@ bool	open_squote(t_token *token, unsigned int i)
 	return (false);
 }
 
-bool	open_dquote(t_token *token, unsigned int i)
+bool	open_dquote(t_token *token, int i)
 {
-	unsigned int	j;
+	int	j;
 
 	j = 0;
 	while (j <= i)
@@ -71,8 +71,8 @@ bool	open_string(t_token *token, int i)
 	j = 0;
 	while (j <= i)
 	{
-		if (token[j].type == STRING_START)
-			while (token[j].type != STRING_END)
+		if (token[j].type == STRING_OPEN)
+			while (token[j].type != STRING_CLOSE)
 				if (j++ == i)
 					return (true);
 		j++;	

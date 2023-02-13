@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/11 12:43:20 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/13 11:23:22 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,10 +68,10 @@ NAME		=	minishell
 SRC_FILES	=	main.c \
 				prompt_line.c \
 				shell.c \
-				open_quote.c \
+				check_open.c \
 				token_helper_tokencheck_quote.c \
 				token_helper_tokencheck.c \
-				new_split.c \
+				parsing_main.c \
 				grap.c \
 				last_word.c \
 
@@ -124,7 +124,7 @@ $(NAME):	proname_header libftio_header $(LIBFTIO) pipex_header $(PIPEX) obj_head
 	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) $(PIPEX) -o $(NAME)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
-$(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c
+$(OBJ_DIR)/%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(INC) $(INC_LIBFTIO) $(INC_PIPEX) -c $< -o $@
 

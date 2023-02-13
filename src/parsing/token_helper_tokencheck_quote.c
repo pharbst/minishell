@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:19:14 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/13 05:44:54 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/13 11:20:30 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	token_dquote(t_token *token, char *line, int *i)
 {
-	if (*line == '"')
+	if (*line == '"' && !open_squote(token, *i))
 	{
-		if (!open_dquote(token, i))
+		if (!open_dquote(token, *i))
 		{
 			token[*i].type = DQUOTE_OPEN;
 			token[*i].location = line;
@@ -31,11 +31,11 @@ void	token_dquote(t_token *token, char *line, int *i)
 	}
 }
 
-void	token_squote(t_token *token, char *line, unsigned int *i, unsigned int *squote)
+void	token_squote(t_token *token, char *line, int *i)
 {
-	if (*line == '\'')
+	if (*line == '\'' && !open_dquote(token, *i))
 	{
-		if (*squote % 2 == 0)
+		if (!open_squote(token, *i))
 		{
 			token[*i].type = SQUOTE_OPEN;
 			token[*i].location = line;
@@ -47,6 +47,5 @@ void	token_squote(t_token *token, char *line, unsigned int *i, unsigned int *squ
 			token[*i].location = line;
 			*i = *i + 1;
 		}
-		*squote = *squote + 1;
 	}
 }
