@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:08:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/13 14:38:13 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/14 22:08:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,5 @@ void	string_condition(t_parsing *parameter, bool *cmd)
 		
 	}
 }
+
+//before > only filediscriptors without space are allowed everything else is an argument

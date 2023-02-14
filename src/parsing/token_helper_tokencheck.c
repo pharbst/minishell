@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:31:46 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/13 13:39:53 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/14 17:22:44 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,9 @@ void	token_braket(t_token *token, char *line, int *i)
 	}
 }
 
-void	token_escape(t_token *token, char *line, int *i)
-{
-	if (*line == '\\')
-	{
-		token[*i].type = ESCAPE;
-		token[*i].location = line;
-		*i = *i + 1;
-	}
-}
-
 void	token_string(t_token *token, char *line, int *i)
 {
-	if (!open_quote(token, *i) && ft_isprint(*line) && !ft_isspace(*line) && !ft_strchr("<>|$\\\"'", *line))
+	if (!open_quote(token, *i) && ft_isprint(*line) && !ft_isspace(*line) && !ft_strchr("<>|$\"'", *line))
 	{
 		if (!open_string(token, *i))
 		{

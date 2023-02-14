@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/13 14:10:05 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/14 22:10:25 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,7 @@ int	tokenize(char *line, t_token *token, int i)
 		token_dquote(token, &line[index], &i);
 		token_squote(token, &line[index], &i);
 		token_space(token, &line[index], &i, &index);
-		token_escape(token, &line[index], &i);
 		token_dollar(token, &line[index], &i);
-		token_braket(token, &line[index], &i);
 		token_redirect(token, &line[index], &i);
 		token_pipe(token, &line[index], &i);
 		token_string(token, &line[index], &i);
