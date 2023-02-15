@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/13 12:11:21 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/15 16:29:51 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ typedef struct s_token
 
 typedef struct s_redir_in
 {
-	char				*file;
+	char				*src_file;
+	char				*dest_file;
 	struct s_redir_in	*next;
 }	t_redir_in;
 
