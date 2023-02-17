@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/14 22:10:25 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 11:47:53 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ t_pipex	*parsing_condition(t_parsing *parameter)
 		if (parameter->token[*parameter->token_index].type == DOLLAR)
 			dollar_condition(parameter);
 		if (parameter->token[*parameter->token_index].type == DQUOTE_OPEN)
-			dquote_condition(parameter);
+			string_condition(parameter);
 		if (parameter->token[*parameter->token_index].type == SQUOTE_OPEN)
-			squote_condition(parameter);
+			string_condition(parameter);
 		if (parameter->token[*parameter->token_index].type == PIPE)
 			break ;
 		if (parameter->token[*parameter->token_index].type == SPACE)
