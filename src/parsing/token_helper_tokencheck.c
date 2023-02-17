@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:31:46 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/14 17:22:44 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 13:08:41 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ void	token_redirect(t_token *token, char *line, int *i)
 {
 	if (*line == '>' && !open_quote(token, *i))
 	{
-		token[*i].type = REDIRECT;
+		token[*i].type = REDIRECT_OUT;
 		token[*i].location = line;
 		*i = *i + 1;
 	}
 	else if (*line == '<' && !open_quote(token, *i))
 	{
-		token[*i].type = REDIRECT;
+		token[*i].type = REDIRECT_IN;
 		token[*i].location = line;
 		*i = *i + 1;
 	}

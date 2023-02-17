@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 12:14:56 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/13 11:19:43 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 14:24:08 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	open_quote(t_token *token, int i)
 			while (token[j].type != SQUOTE_CLOSE)
 				if (j++ == i)
 					return (true);
-		j++;	
+		j++;
 	}
 	return (false);
 }
@@ -43,7 +43,7 @@ bool	open_squote(t_token *token, int i)
 			while (token[j].type != SQUOTE_CLOSE)
 				if (j++ == i)
 					return (true);
-		j++;	
+		j++;
 	}
 	return (false);
 }
@@ -59,7 +59,7 @@ bool	open_dquote(t_token *token, int i)
 			while (token[j].type != DQUOTE_CLOSE)
 				if (j++ == i)
 					return (true);
-		j++;	
+		j++;
 	}
 	return (false);
 }
@@ -75,7 +75,7 @@ bool	open_string(t_token *token, int i)
 			while (token[j].type != STRING_CLOSE)
 				if (j++ == i)
 					return (true);
-		j++;	
+		j++;
 	}
 	return (false);
 }

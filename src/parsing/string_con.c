@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:08:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 13:00:58 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 13:34:16 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*str_cat(t_parsing *a)
 		else if (a->token[*a->token_index].type == DOLLAR)
 			tmp = strjoinfree(tmp, dollar_expand(a));
 		if (!tmp)
-			return (printf("ERROR: malloc failed in str_cat"), NULL);
+			return (printf("ERROR: malloc failed in str_cat\n"), NULL);
 	}
 	return (tmp);
 }
@@ -55,7 +55,7 @@ void	string_condition(t_parsing *a, bool *cmd)
 		printf("redirect file\n");
 	else if (*cmd == false)
 	{
-		a->pipex->cmd == tmp;
+		a->pipex->cmd = tmp;
 		*cmd = true;
 	}
 	else

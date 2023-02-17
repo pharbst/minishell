@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/15 16:29:51 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 15:05:31 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ typedef struct s_parsing
 {
 	int					token_count;
 	int					*token_index;
-	char 				*line;
+	char				*line;
 	t_token				*token;
 	t_pipex				*pipex;
+	char				**envp;
 }	t_parsing;
 
 #endif
