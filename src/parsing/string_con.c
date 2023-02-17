@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:08:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 13:34:16 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 18:54:37 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,37 +29,52 @@ char	*str_cat(t_parsing *a)
 			*a->token_index += 2;
 		}
 		else if (a->token[*a->token_index].type == DQUOTE_OPEN)
-			tmp = strjoinfree(tmp, dquote_expand(a));
+			tmp = strjoinfree(tmp, quote_expand(a));
 		else if (a->token[*a->token_index].type == SQUOTE_OPEN)
-			tmp = strjonfree(tmp, squote_expand(a));
+			tmp = strjoinfree(tmp, quote_expand(a));
 		else if (a->token[*a->token_index].type == DOLLAR)
-			tmp = strjoinfree(tmp, dollar_expand(a));
+			tmp = strjoinfree(tmp, get_var(ft_substr(a->token[*a->token_index]
+							.location, 1, (a->token[*a->token_index + 1]
+								.location - a->token[*a->token_index]
+								.location) - 1), a->envp));
 		if (!tmp)
 			return (printf("ERROR: malloc failed in str_cat\n"), NULL);
 	}
 	return (tmp);
 }
 
-void	string_condition(t_parsing *a, bool *cmd)
+void	string_condition_helper1(t_parsing *a, bool *cmd, t_pipex *pipex,
+		char *tmp)
+{
+	if (*a->token_index < a->token_count && a->token[*a->token_index].type
+		== REDIRECT_OUT && validate_fd(tmp))
+		redirect_out_condition(a, pipex, tmp);
+	else
+	{
+		pipex->cmd = tmp;
+		*cmd = true;
+	}
+}
+
+void	string_condition_helper2(t_parsing *a, t_pipex *pipex, char *tmp)
+{
+	if (*a->token_index < a->token_count && a->token[*a->token_index].type
+		== REDIRECT_OUT && validate_fd(tmp))
+		redirect_out_condition(a, pipex, tmp);
+	else
+		pipex->args = join_arg(pipex, tmp);
+}
+
+void	string_condition(t_parsing *a, bool *cmd, t_pipex *pipex)
 {
 	char	*tmp;
 
 	tmp = str_cat(a);
 	if (!tmp)
-		return (printf("Error from str_cat tmp = NULL\n"));
-	else if (*a->token_index < a->token_count && validate_fd(tmp)
-		&& a->token[*a->token_index].type == REDIRECT_OUT)
-		printf("redirect filediscriptor\n");
-	else if (*a->token_index < a->token_count && *cmd == true
-		&& a->token[*a->token_index + 1].type == REDIRECT_OUT)
-		printf("redirect file\n");
-	else if (*cmd == false)
-	{
-		a->pipex->cmd = tmp;
-		*cmd = true;
-	}
-	else
-		a->pipex->args = join_arg(a, tmp);
-}
+		return ;
 
-//before cmd was found only fd without space are allowed before >
+	if (*cmd == false)
+		string_condition_helper1(a, cmd, pipex, tmp);
+	else
+		string_condition_helper2(a, pipex, tmp);
+}

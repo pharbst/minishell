@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_var.c                                          :+:      :+:    :+:   */
+/*   redirect_condition.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 14:25:11 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 17:11:28 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/17 19:00:09 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_var(char *var, char **envp)
+void	redirect_in_condition(t_parsing *a, t_pipex *pipex)
 {
-	char	*tmp;
-	int		i;
+	if (!a)
+		return ;
+	if (!pipex)
+		return ;
+	printf("redirect_in_condition\n");
+}
 
-	tmp = grap(var, envp);
-	if (!tmp)
-		return (NULL);
-	i = 0;
-	while (tmp[i] != '=')
-		i++;
-	return (ft_substr(tmp, i + 1, ft_strlen(tmp) - i));
+void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
+{
+	if (!a)
+		return ;
+	if (!file1)
+		return ;
+	if (!pipex)
+		return ;
+	printf("redirect_out_condition\n");
 }

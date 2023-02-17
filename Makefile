@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/13 11:23:22 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/17 18:58:40 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,15 +66,24 @@ NAME		=	minishell
 # srcs
 # **************************************************************************** #
 SRC_FILES	=	main.c \
-				prompt_line.c \
 				shell.c \
-				check_open.c \
+
+SRC_FILES	+=	check_open.c \
 				token_helper_tokencheck_quote.c \
 				token_helper_tokencheck.c \
-				parsing_main.c \
-				grap.c \
-				last_word.c \
 
+SRC_FILES	+=	parsing_main.c \
+				quote_expand.c \
+				get_var.c \
+				string_con.c \
+				join_arg.c \
+				validate_fd.c \
+				redirect_condition.c \
+
+SRC_FILES	+=	grap.c \
+				last_word.c \
+				strjoinfree.c \
+				prompt_line.c \
 
 # **************************************************************************** #
 # directories

@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_var.c                                          :+:      :+:    :+:   */
+/*   validate_fd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 14:25:11 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 17:11:28 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/17 17:12:50 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/17 17:13:26 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_var(char *var, char **envp)
+bool	validate_fd(char *str)
 {
-	char	*tmp;
-	int		i;
+	int	i;
 
-	tmp = grap(var, envp);
-	if (!tmp)
-		return (NULL);
 	i = 0;
-	while (tmp[i] != '=')
+	if (!str)
+		return (false);
+	while (str[i] != '\0')
+	{
+		if (!ft_isdigit(str[i]))
+			return (false);
 		i++;
-	return (ft_substr(tmp, i + 1, ft_strlen(tmp) - i));
+	}
+	return (true);
 }

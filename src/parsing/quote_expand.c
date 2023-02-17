@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:53:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 15:34:22 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 15:49:35 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,17 @@
 static char	*expand_dollar_var(t_parsing *a)
 {
 	char	*tmp;
-	char	*ret;
+	// char	*ret;
 
 	tmp = a->token[*a->token_index].location;
-	while (!ft_isspace(*tmp) && *tmp < a->token[*a->token_index + 1].location)
+	while (!ft_isspace(*tmp) && tmp < a->token[*a->token_index + 1].location)
 		tmp++;
-	ret = get_var(ft_substr(a->token[*a->token_index].location, 1,
-				(tmp - a->token[*a->token_index].location) - 1), a->envp);
+	// ret = get_var(ft_substr(a->token[*a->token_index].location, 1,
+				// (tmp - a->token[*a->token_index].location) - 1), a->envp);
+	printf("get_var not implemented yet\n");
 	a->token[*a->token_index].location = tmp;
-	return (ret);
+	// return (ret);
+	return (printf("return value not implemented yet\n"), NULL);
 }
 
 char	*quote_expand(t_parsing *a)

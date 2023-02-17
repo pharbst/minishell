@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 15:06:34 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 18:58:15 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,24 @@ t_pipex	*parsing_condition(t_parsing *a)
 		return (NULL);
 	pipex = ft_calloc(1, sizeof(t_pipex));
 	if (!pipex)
-		return (print("Error: malloc failed in parsing condition\n"), NULL);
+		return (printf("Error: malloc failed in parsing condition\n"), NULL);
 	while (a->token[*a->token_index].type != PIPE && *a->token_index
 		< a->token_count)
 	{
 		if (a->token[*a->token_index].type == STRING_OPEN)
-			string_condition(a, &cmd);
+			string_condition(a, &cmd, pipex);
 		if (a->token[*a->token_index].type == REDIRECT_IN)
-			redirect_in_condition(a, NULL);
+			redirect_in_condition(a, pipex);
+			// printf("Error: redirect in not implemented yet\n");
 		if (a->token[*a->token_index].type == REDIRECT_OUT)
-			redirect_out_condition(a, NULL);
+			redirect_out_condition(a, pipex, NULL);
+			// printf("Error: redirect out not implemented yet\n");
 		if (a->token[*a->token_index].type == DOLLAR)
-			string_condition(a, &cmd);
+			string_condition(a, &cmd, pipex);
 		if (a->token[*a->token_index].type == DQUOTE_OPEN)
-			string_condition(a, &cmd);
+			string_condition(a, &cmd, pipex);
 		if (a->token[*a->token_index].type == SQUOTE_OPEN)
-			string_condition(a, &cmd);
+			string_condition(a, &cmd, pipex);
 		if (a->token[*a->token_index].type == SPACE)
 			(*a->token_index)++;
 	}
