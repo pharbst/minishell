@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:53:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 15:15:39 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 15:34:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ char	*quote_expand(t_parsing *a)
 				(a->token[*a->token_index - 1].location
 					- a->token[*a->token_index - 2].location) - 1));
 	}
-	tmp = ft_substr(a->token[*a->token_index].location, 1,
-			(a->token[*a->token_index + 1].location
-				- a->token[*a->token_index].location) - 1);
-	*a->token_index += 1;
 	while (a->token[*a->token_index].type != DQUOTE_CLOSE
 		|| a->token[*a->token_index].type != SQUOTE_CLOSE)
 	{
+		tmp = ft_substr(a->token[*a->token_index].location, 1,
+				(a->token[*a->token_index + 1].location
+					- a->token[*a->token_index].location) - 1);
+		*a->token_index += 1;
 		if (a->token[*a->token_index].type == DOLLAR)
 			tmp = strjoinfree(tmp, expand_dollar_var(a));
-		*a->token_index += 1;
 	}
+	return (tmp);
 }
