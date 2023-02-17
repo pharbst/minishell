@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 18:57:59 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 19:26:07 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ char			*grap(char *str, char **envp);
 char			*last_word(char *str);
 void			prompt_line(t_shell *shell);
 char			*strjoinfree(char *s1, char *s2);
+void			visual_token(t_token *token, int token_count, char *line);
+void			print_token_type(t_token token);
 
 // pipe functions
 #endif

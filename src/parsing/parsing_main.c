@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 18:58:15 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 19:22:26 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_pipex	*parsing_condition(t_parsing *a)
 	bool	cmd;
 	t_pipex	*pipex;
 
+	printf("enter parsing_condition\n");
 	cmd = false;
 	if (*a->token_index >= a->token_count)
 		return (NULL);
@@ -92,6 +93,7 @@ t_pipex	*parsing(char *line, t_token *token, int token_count, char **envp)
 	t_parsing	parameter;
 	static int	token_index;
 
+	printf("enter parsing\n");
 	if (token_index >= token_count)
 		return (NULL);
 	parameter.token = token;
@@ -118,5 +120,6 @@ t_pipex	*shell_parsing_main(char *line, char **envp)
 	token_count = token_main(line, token);
 	if (token_count == -1 || token_count == 0)
 		return (free(token), NULL);
+	// visual_token(token, token_count, line);
 	return (parsing(line, token, token_count, envp));
 }

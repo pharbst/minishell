@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:08:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 18:54:37 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/17 19:27:58 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	*str_cat(t_parsing *a)
 {
 	char	*tmp;
 
+	printf("enter str_cat\n");
 	tmp = NULL;
 	while (*a->token_index < a->token_count && a->token[*a->token_index].type
 		!= REDIRECT_OUT && a->token[*a->token_index].type != PIPE
@@ -46,6 +47,7 @@ char	*str_cat(t_parsing *a)
 void	string_condition_helper1(t_parsing *a, bool *cmd, t_pipex *pipex,
 		char *tmp)
 {
+	printf("enter string_condition_helper1\n");
 	if (*a->token_index < a->token_count && a->token[*a->token_index].type
 		== REDIRECT_OUT && validate_fd(tmp))
 		redirect_out_condition(a, pipex, tmp);
@@ -58,8 +60,9 @@ void	string_condition_helper1(t_parsing *a, bool *cmd, t_pipex *pipex,
 
 void	string_condition_helper2(t_parsing *a, t_pipex *pipex, char *tmp)
 {
+	printf("enter string_condition_helper2\n");
 	if (*a->token_index < a->token_count && a->token[*a->token_index].type
-		== REDIRECT_OUT && validate_fd(tmp))
+		== REDIRECT_OUT)
 		redirect_out_condition(a, pipex, tmp);
 	else
 		pipex->args = join_arg(pipex, tmp);
@@ -69,6 +72,7 @@ void	string_condition(t_parsing *a, bool *cmd, t_pipex *pipex)
 {
 	char	*tmp;
 
+	printf("enter string_condition\n");
 	tmp = str_cat(a);
 	if (!tmp)
 		return ;

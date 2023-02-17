@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/17 18:58:40 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/17 19:16:12 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,7 @@ SRC_FILES	+=	grap.c \
 				last_word.c \
 				strjoinfree.c \
 				prompt_line.c \
+				visual_token.c \
 
 # **************************************************************************** #
 # directories
