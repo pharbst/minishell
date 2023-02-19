@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 19:33:17 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/19 14:44:08 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ bool			open_string(t_token *token, int i);
 void			token_dquote(t_token *token, char *line, int *i);
 void			token_squote(t_token *token, char *line, int *i);
 void			token_space(t_token *token, char *line, int *i, int *index);
-void			token_escape(t_token *token, char *line, int *i);
+// void			token_escape(t_token *token, char *line, int *i);
 void			token_dollar(t_token *token, char *line, int *i);
-void			token_braket(t_token *token, char *line, int *i);
+// void			token_braket(t_token *token, char *line, int *i);
 void			token_redirect(t_token *token, char *line, int *i);
 void			token_pipe(t_token *token, char *line, int *i);
 void			token_string(t_token *token, char *line, int *i);
@@ -42,6 +42,7 @@ char			**join_arg(t_pipex *pipex, char *tmp);
 void			redirect_out_condition(t_parsing *a, t_pipex *pipex,
 					char *file1);
 void			redirect_in_condition(t_parsing *a, t_pipex *pipex);
+char			*str_cat(t_parsing *a);
 //tools
 char			*grap(char *str, char **envp);
 char			*last_word(char *str);
@@ -49,6 +50,7 @@ void			prompt_line(t_shell *shell);
 char			*strjoinfree(char *s1, char *s2);
 void			visual_token(t_token *token, int token_count, char *line);
 void			print_token_type(t_token token);
+void			print_pipex(t_pipex *p_head);
 
 // pipe functions
 #endif

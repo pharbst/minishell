@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:12:50 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 19:29:47 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/19 14:26:32 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,11 @@
 
 bool	validate_fd(char *str)
 {
-	printf("enter validate_fd\n");
-	int	i;
+	int	fd;
 
-	i = 0;
-	if (!str)
-		return (false);
-	while (str[i] != '\0')
-	{
-		if (!ft_isdigit(str[i]))
-			return (false);
-		i++;
-	}
-	return (true);
+	printf("enter validate_fd\n");
+	fd = ft_atoi(str);
+	if (fd <= 2 && fd >= 0)
+		return (true);
+	return (false);
 }

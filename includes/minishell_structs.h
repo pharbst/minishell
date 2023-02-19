@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 15:05:31 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/19 14:11:35 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,10 @@ typedef struct s_token
 	char				*location;
 }	t_token;
 
-typedef struct s_redir_in
-{
-	char				*src_file;
-	char				*dest_file;
-	struct s_redir_in	*next;
-}	t_redir_in;
-
 typedef struct s_redir_out
 {
-	char				*file;
+	int					fd_left;
+	char				*file_right;
 	struct s_redir_out	*next;
 }	t_redir_out;
 
@@ -36,7 +30,7 @@ typedef struct s_pipex
 {
 	char				*cmd;
 	char				**args;
-	struct s_redir_in	*in;
+	char				*in;
 	struct s_redir_out	*out;
 	struct s_pipex		*next;
 }	t_pipex;

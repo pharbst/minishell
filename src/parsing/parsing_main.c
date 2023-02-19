@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 19:22:26 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/19 14:52:31 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_pipex	*parsing_condition(t_parsing *a)
 	bool	cmd;
 	t_pipex	*pipex;
 
-	printf("enter parsing_condition\n");
 	cmd = false;
 	if (*a->token_index >= a->token_count)
 		return (NULL);
@@ -71,10 +70,8 @@ t_pipex	*parsing_condition(t_parsing *a)
 			string_condition(a, &cmd, pipex);
 		if (a->token[*a->token_index].type == REDIRECT_IN)
 			redirect_in_condition(a, pipex);
-			// printf("Error: redirect in not implemented yet\n");
 		if (a->token[*a->token_index].type == REDIRECT_OUT)
 			redirect_out_condition(a, pipex, NULL);
-			// printf("Error: redirect out not implemented yet\n");
 		if (a->token[*a->token_index].type == DOLLAR)
 			string_condition(a, &cmd, pipex);
 		if (a->token[*a->token_index].type == DQUOTE_OPEN)
@@ -93,7 +90,6 @@ t_pipex	*parsing(char *line, t_token *token, int token_count, char **envp)
 	t_parsing	parameter;
 	static int	token_index;
 
-	printf("enter parsing\n");
 	if (token_index >= token_count)
 		return (NULL);
 	parameter.token = token;

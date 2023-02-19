@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:31:46 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 13:08:41 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/19 14:37:55 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,22 +55,6 @@ void	token_dollar(t_token *token, char *line, int *i)
 	if (*line == '$')
 	{
 		token[*i].type = DOLLAR;
-		token[*i].location = line;
-		*i = *i + 1;
-	}
-}
-
-void	token_braket(t_token *token, char *line, int *i)
-{
-	if (*line == '[')
-	{
-		token[*i].type = BRAKET_OPEN;
-		token[*i].location = line;
-		*i = *i + 1;
-	}
-	else if (*line == ']')
-	{
-		token[*i].type = BRAKET_CLOSE;
 		token[*i].location = line;
 		*i = *i + 1;
 	}

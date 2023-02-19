@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/17 19:16:12 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/19 14:44:17 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,12 +79,14 @@ SRC_FILES	+=	parsing_main.c \
 				join_arg.c \
 				validate_fd.c \
 				redirect_condition.c \
+				str_cat.c \
 
 SRC_FILES	+=	grap.c \
 				last_word.c \
 				strjoinfree.c \
 				prompt_line.c \
 				visual_token.c \
+				print_pipex.c \
 
 # **************************************************************************** #
 # directories

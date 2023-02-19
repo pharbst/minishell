@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:14:10 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 19:29:09 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/19 14:53:01 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ char	**join_arg(t_pipex *pipex, char *tmp)
 	char	**new;
 	int		i;
 
-	printf("enter join_arg\n");
 	if (!tmp)
 		return (pipex->args);
 	if (!pipex->args)

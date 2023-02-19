@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:03:36 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/17 19:25:33 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/18 13:59:27 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	visual_token(t_token *token, int token_count, char *line)
 		for (int tmp = token[i].location - line; tmp > 0; tmp--)
 			printf(" ");
 		print_token_type(token[i]);
+		printf("\n\n\n");
 		i++;
 	}
 }	
