@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/19 14:44:17 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/20 15:47:26 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,14 +95,14 @@ INC_DIR		=	./includes
 SRC_DIR		=	./src/*/
 OBJ_DIR		=	./obj
 LIBFTIO_DIR	=	./libftio
-PIPEX_DIR	=	./pipex
+# PIPEX_DIR	=	./pipex
 
 
 # **************************************************************************** #
 # libraries
 # **************************************************************************** #
 LIBFTIO		=	$(LIBFTIO_DIR)/libftio.a
-PIPEX		=	$(PIPEX_DIR)/pipex.a
+# PIPEX		=	$(PIPEX_DIR)/pipex.a
 
 
 # **************************************************************************** #
@@ -110,7 +110,7 @@ PIPEX		=	$(PIPEX_DIR)/pipex.a
 # **************************************************************************** #
 INC			=	-I $(INC_DIR)
 INC_LIBFTIO	=	-I $(LIBFTIO_DIR)/includes
-INC_PIPEX	=	-I $(PIPEX_DIR)/includes
+# INC_PIPEX	=	-I $(PIPEX_DIR)/includes
 
 
 # **************************************************************************** #
@@ -127,24 +127,24 @@ all:
 	@./spinner.sh make -s $(NAME)
 
 re:
-	@./spinner.sh make proname_header fclean $(NAME)
+	@./spinner.sh make -s proname_header fclean $(NAME)
 
 hard_re:
-	@./spinner.sh make proname_header hard_clean $(NAME)
+	@./spinner.sh make -s proname_header hard_clean $(NAME)
 
-$(NAME):	proname_header libftio_header $(LIBFTIO) pipex_header $(PIPEX) obj_header $(OBJ) linking_header
-	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) $(PIPEX) -o $(NAME)
+$(NAME):	proname_header libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
+	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) -o $(NAME)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(INC) $(INC_LIBFTIO) $(INC_PIPEX) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) $(INC_LIBFTIO) -c $< -o $@
 
 $(LIBFTIO):
 	@make -C $(LIBFTIO_DIR) > /dev/null
 
-$(PIPEX):
-	@make -C $(PIPEX_DIR) > /dev/null
+# $(PIPEX):
+# 	@make -C $(PIPEX_DIR) > /dev/null
 
 
 # **************************************************************************** #
@@ -175,7 +175,7 @@ hard_cleanall:
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(NAME)
 	@make -C $(LIBFTIO_DIR) fclean > /dev/null
-	@make -C $(PIPEX_DIR) fclean > /dev/null
+#	@make -C $(PIPEX_DIR) fclean > /dev/null
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 # **************************************************************************** #
@@ -199,8 +199,8 @@ update:
 libftio_header:
 	@printf "$(FBlue)Compiling Libftio$(Reset)										     "
 
-pipex_header:
-	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling Pipex$(Reset)											     "
+# pipex_header:
+# 	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling Pipex$(Reset)											     "
 
 obj_header:
 	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling .o files$(RESET)										     "

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/19 15:28:25 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:29:52 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	redirect_in_condition(t_parsing *a, t_pipex *pipex)
 {
-	*a->token_index += 1;
-	if (a->token[*a->token_index].type == SPACE)
-		*a->token_index += 1;
+	a->token_index += 1;
+	if (a->token[a->token_index].type == SPACE_START)
+		a->token_index += 1;
 	pipex->in = str_cat(a);
 }
 
@@ -44,8 +44,8 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 	new->fd_left = 1;
 	if (file1)
 		new->fd_left = ft_atoi(file1);
-	*a->token_index += 1;
-	if (*a->token[*a->token_index].location == '&')
+	a->token_index += 1;
+	if (*a->token[a->token_index].location == '&')
 	{
 		tmp = ft_substr(str_cat(a), 1, ft_strlen(str_cat(a)) - 1);
 		if (validate_fd(tmp))
@@ -55,8 +55,8 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 	}
 	else
 	{
-		if (a->token[*a->token_index].type == SPACE)
-			*a->token_index += 1;
+		if (a->token[a->token_index].type == SPACE_START)
+			a->token_index += 1;
 		new->file_right = str_cat(a);
 	}
 	add_redir_out(pipex, new);

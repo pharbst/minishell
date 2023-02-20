@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 07:32:39 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/18 15:10:13 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:29:07 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # define SQUOTE_OPEN -3
 # define SQUOTE_CLOSE -4
 # define PIPE -5
-# define SPACE -6
+# define SPACE_START -6
 # define STRING_OPEN -7
 # define REDIRECT_OUT -8
 # define DOLLAR -9

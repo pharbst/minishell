@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/19 14:44:08 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/20 15:14:51 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void			ft_exit(t_shell *shell);
 void			ft_shell(t_shell *shell);
 //tokenize
-int				tokenize(char *line, t_token *token, int i);
+int				tokenize(char *line, t_token *token, int i, int index);
 bool			open_quote(t_token *token, int i);
 bool			open_squote(t_token *token, int i);
 bool			open_dquote(t_token *token, int i);
@@ -46,7 +46,7 @@ char			*str_cat(t_parsing *a);
 //tools
 char			*grap(char *str, char **envp);
 char			*last_word(char *str);
-void			prompt_line(t_shell *shell);
+char			*get_prompt_line(t_shell *shell);
 char			*strjoinfree(char *s1, char *s2);
 void			visual_token(t_token *token, int token_count, char *line);
 void			print_token_type(t_token token);
