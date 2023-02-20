@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:31:46 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 15:29:52 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/20 20:37:30 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	token_space(t_token *token, char *line, int *i, int *index)
 		token[*i].type = SPACE_START;
 		token[*i].location = line;
 		*i = *i + 1;
-		while (ft_isspace(line[*index]))
-			*index = *index + 1;
+		while (ft_isspace(*line++))
+			*index += 1;
+		*index -= 1;
 	}
 }
 

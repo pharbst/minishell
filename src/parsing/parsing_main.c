@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 15:43:48 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/20 20:29:45 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	tokenize(char *line, t_token *token, int i, int index)
 		return (0);
 	while (line[index] && i < MAX_TOKENS)
 	{
+		printf("for: %c\n", line[index]);
 		token_dquote(token, &line[index], &i);
 		token_squote(token, &line[index], &i);
 		token_space(token, &line[index], &i, &index);
@@ -63,27 +64,25 @@ t_pipex	*parsing_condition(t_parsing *a)
 	pipex = ft_calloc(1, sizeof(t_pipex));
 	if (!pipex)
 		return (printf("Error: malloc failed in parsing condition\n"),free(pipex), NULL);
-	while (a->token[a->token_index].type != PIPE && a->token_index
-		< a->token_count)
+	while (a->token_index < a->token_count && a->token[a->token_index].type
+		!= PIPE)
 	{
 		if (a->token[a->token_index].type == STRING_OPEN)
 			string_condition(a, &cmd, pipex);
-		if (a->token[a->token_index].type == REDIRECT_IN)
+		else if (a->token[a->token_index].type == REDIRECT_IN)
 			redirect_in_condition(a, pipex);
-		if (a->token[a->token_index].type == REDIRECT_OUT)
+		else if (a->token[a->token_index].type == REDIRECT_OUT)
 			redirect_out_condition(a, pipex, NULL);
-		if (a->token[a->token_index].type == DOLLAR)
+		else if (a->token[a->token_index].type == DOLLAR)
 			string_condition(a, &cmd, pipex);
-		if (a->token[a->token_index].type == DQUOTE_OPEN)
+		else if (a->token[a->token_index].type == DQUOTE_OPEN)
 			string_condition(a, &cmd, pipex);
-		if (a->token[a->token_index].type == SQUOTE_OPEN)
+		else if (a->token[a->token_index].type == SQUOTE_OPEN)
 			string_condition(a, &cmd, pipex);
-		if (a->token[a->token_index].type == SPACE_START)
+		else if (a->token[a->token_index].type == SPACE_START)
 			(a->token_index)++;
 	}
 	a->token_index += 1;
-	if (a->token_index >= a->token_count)
-		return (free(pipex), NULL);
 	return (pipex->next = parsing_condition(a), pipex);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:53:49 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 15:29:52 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/20 20:52:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ char	*str_cat(t_parsing *a)
 	char	*tmp;
 
 	tmp = NULL;
-	while (a->token_index < a->token_count && a->token[a->token_index].type
-		!= REDIRECT_OUT && a->token[a->token_index].type != PIPE
-		&& a->token[a->token_index].type != SPACE_START && a->token[a->token_index]
-		.type != REDIRECT_IN)
+	while (a->token_index < a->token_count
+		&& a->token[a->token_index].type != REDIRECT_OUT
+		&& a->token[a->token_index].type != PIPE
+		&& a->token[a->token_index].type != SPACE_START
+		&& a->token[a->token_index].type != REDIRECT_IN)
 	{
 		tmp = str_cat_helper(a, tmp);
 		if (!tmp)

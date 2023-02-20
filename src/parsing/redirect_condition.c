@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 15:29:52 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/20 20:48:38 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	add_redir_out(t_pipex *pipex, t_redir_out *new)
 void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 {
 	char		*tmp;
+	char		*tmp1;
 	t_redir_out	*new;
 
 	new = ft_calloc(1, sizeof(t_redir_out));
@@ -47,9 +48,11 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 	a->token_index += 1;
 	if (*a->token[a->token_index].location == '&')
 	{
-		tmp = ft_substr(str_cat(a), 1, ft_strlen(str_cat(a)) - 1);
-		if (validate_fd(tmp))
-			new->file_right = tmp;
+		tmp = str_cat(a);
+		tmp1 = ft_substr(tmp, 1, ft_strlen(tmp) - 1);
+		free(tmp);
+		if (validate_fd(tmp1))
+			new->file_right = tmp1;
 		else
 			printf("error: invalid fd\n");
 	}
