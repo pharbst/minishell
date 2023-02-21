@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 15:14:51 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/21 15:47:06 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 # include "minishell.h"
 
+//main
 void			ft_exit(t_shell *shell);
 void			ft_shell(t_shell *shell);
+void			free_pipex(t_pipex *p_head);
+void			free_red_out(t_redir_out *r_head);
 //tokenize
 int				tokenize(char *line, t_token *token, int i, int index);
 bool			open_quote(t_token *token, int i);

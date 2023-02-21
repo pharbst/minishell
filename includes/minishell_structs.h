@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 12:49:58 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/21 15:09:01 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ typedef struct s_shell
 {
 	char				*user;
 	char				*pwd;
+
 	char				**argv;
 	int					argc;
 	char				**envp;
-	char				**history;
+
+	// char				**history;
 	char				*line;
 	struct s_pipex		*p_head;
-	struct s_history	*h_head;
+	// struct s_history	*h_head;
 }	t_shell;
 
 typedef struct s_parsing

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 20:29:45 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/21 16:04:48 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_pipex	*shell_parsing_main(char *line, char **envp)
 	if (ft_strlen(line) > 4095)
 		return (NULL);
 	token_count = 0;
-	line = ft_strftrim(line, &ft_isspace);
+	// line = ft_strftrim(line, &ft_isspace);
 	if (!line)
 		return (NULL);
 	token = ft_calloc(2048, sizeof(t_token));
