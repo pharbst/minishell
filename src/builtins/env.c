@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/22 17:56:38 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/22 16:35:48 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/22 16:43:32 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	print_env(char **env)
 {
-	t_shell	shell;
+	size_t	i;
 
-	shell.argv = argv;
-	shell.argc = argc;
-	shell.envp = malloc_envp(envp);
-	shell.user = NULL;
-	shell.pwd = NULL;
-	get_shell(WRITE, &shell);
-	ft_shell(&shell);
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
 	return (0);
 }

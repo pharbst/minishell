@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/20 15:47:26 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/22 18:32:42 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,10 +68,7 @@ NAME		=	minishell
 SRC_FILES	=	main.c \
 				shell.c \
 
-SRC_FILES	+=	check_open.c \
-				token_helper_tokencheck_quote.c \
-				token_helper_tokencheck.c \
-
+# parsing
 SRC_FILES	+=	parsing_main.c \
 				quote_expand.c \
 				get_var.c \
@@ -80,13 +77,32 @@ SRC_FILES	+=	parsing_main.c \
 				validate_fd.c \
 				redirect_condition.c \
 				str_cat.c \
+				check_open.c \
+				token_helper_tokencheck_quote.c \
+				token_helper_tokencheck.c \
 
+# execution
+SRC_FILES	+=	
+
+# Buildins
+SRC_FILES	+=	cd.c \
+				echo.c \
+				env.c \
+				export.c \
+				exit.c \
+				pwd.c \
+				unset.c \
+
+# tools
 SRC_FILES	+=	grap.c \
 				last_word.c \
 				strjoinfree.c \
 				prompt_line.c \
 				visual_token.c \
 				print_pipex.c \
+				shell_g.c \
+				find_var.c \
+				arraysize.c \
 
 # **************************************************************************** #
 # directories

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/21 15:47:06 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/22 18:37:53 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 # include "minishell.h"
 
 //main
-void			ft_exit(t_shell *shell);
 void			ft_shell(t_shell *shell);
-void			free_pipex(t_pipex *p_head);
-void			free_red_out(t_redir_out *r_head);
+
 //tokenize
 int				tokenize(char *line, t_token *token, int i, int index);
 bool			open_quote(t_token *token, int i);
@@ -35,6 +33,7 @@ void			token_dollar(t_token *token, char *line, int *i);
 void			token_redirect(t_token *token, char *line, int *i);
 void			token_pipe(t_token *token, char *line, int *i);
 void			token_string(t_token *token, char *line, int *i);
+
 //parsing
 t_pipex			*shell_parsing_main(char *line, char **envp);
 void			string_condition(t_parsing *a, bool *cmd, t_pipex *pipex);
@@ -46,6 +45,19 @@ void			redirect_out_condition(t_parsing *a, t_pipex *pipex,
 					char *file1);
 void			redirect_in_condition(t_parsing *a, t_pipex *pipex);
 char			*str_cat(t_parsing *a);
+
+//buildins
+int				echo(int argc, char **argv);
+int				print_env(char **env);
+char			**export(char **envp, char *var_name, char *var_value);
+int				pwd(t_shell *shell);
+void			unset(char *var_name, t_shell *shell);
+// exit
+void			ft_exit(t_shell *shell);
+void			free_pipex(t_pipex *p_head);
+void			free_red_out(t_redir_out *r_head);
+void			free_envp(char **envp);
+
 //tools
 char			*grap(char *str, char **envp);
 char			*last_word(char *str);
@@ -54,6 +66,9 @@ char			*strjoinfree(char *s1, char *s2);
 void			visual_token(t_token *token, int token_count, char *line);
 void			print_token_type(t_token token);
 void			print_pipex(t_pipex *p_head);
+t_shell			*get_shell(bool read, t_shell *shell);
+size_t			get_arraysize(char **array);
+size_t			find_var(char *envp_var, char *var_name);
 
 // pipe functions
 #endif

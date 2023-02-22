@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   find_var.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/22 17:56:38 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/22 16:31:08 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/22 16:34:38 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+size_t	find_var(char *envp_var, char *var_name)
 {
-	t_shell	shell;
+	size_t	i;
 
-	shell.argv = argv;
-	shell.argc = argc;
-	shell.envp = malloc_envp(envp);
-	shell.user = NULL;
-	shell.pwd = NULL;
-	get_shell(WRITE, &shell);
-	ft_shell(&shell);
-	return (0);
+	i = 0;
+	while (envp_var[i] && !ft_strcmp(envp_var[i], var_name))
+		i++;
+	if (!envp_var[i])
+		return (0);
+	return (i);
 }

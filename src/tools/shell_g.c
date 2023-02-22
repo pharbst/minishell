@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   shell_g.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/22 17:56:38 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/22 16:37:17 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/22 16:38:58 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+t_shell	*get_shell(bool read, t_shell *shell)
 {
-	t_shell	shell;
+	static t_shell	*shell_g;
 
-	shell.argv = argv;
-	shell.argc = argc;
-	shell.envp = malloc_envp(envp);
-	shell.user = NULL;
-	shell.pwd = NULL;
-	get_shell(WRITE, &shell);
-	ft_shell(&shell);
-	return (0);
+	if (read)
+		return (shell_g);
+	shell_g = shell;
+	return (NULL);
 }

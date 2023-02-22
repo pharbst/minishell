@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 07:32:39 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 15:29:07 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/22 17:37:56 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,8 @@
 # define STRING_CLOSE -13
 # define REDIRECT_IN -14
 # define MAX_TOKENS 2048
+
+# define READ true
+# define WRITE false
 
 #endif
