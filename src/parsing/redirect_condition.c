@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 20:48:38 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/23 19:52:09 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 	new->fd_left = 1;
 	if (file1)
 		new->fd_left = ft_atoi(file1);
+	if (file1)
+		free(file1);
 	a->token_index += 1;
-	if (*a->token[a->token_index].location == '&')
+	if (a->token[a->token_index].location && *a->token[a->token_index].location == '&')
 	{
 		tmp = str_cat(a);
 		tmp1 = ft_substr(tmp, 1, ft_strlen(tmp) - 1);
@@ -60,7 +62,11 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 	{
 		if (a->token[a->token_index].type == SPACE_START)
 			a->token_index += 1;
-		new->file_right = str_cat(a);
+		tmp = str_cat(a);
+		if (*tmp == '&')
+			printf("minishell: syntax error near unexpected token `&'\n");
+		else
+			new->file_right = tmp;
 	}
 	add_redir_out(pipex, new);
 }

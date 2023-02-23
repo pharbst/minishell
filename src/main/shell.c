@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 17:31:43 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/23 20:09:09 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	ft_shell(t_shell *shell)
 			//line too long o other error
 		if (!ft_strcmp(shell->p_head->cmd, "exit"))
 			break ;
+		if (!ft_strcmp(shell->p_head->cmd, "clear"))
+			printf("\e[1;1H\e[2J");
 		//execute cmd
 		free_pipex(shell->p_head);
 		// free(shell->line);
