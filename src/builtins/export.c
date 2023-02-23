@@ -6,17 +6,17 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/22 16:02:36 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/22 20:07:21 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**export(char **envp, char *var_name, char *var_value)
+char	**var_export(char **envp, char *var_name, char *var_value)
 {
 	char	**new_envp;
-	size_t	arraysize;
-	size_t	index;
+	int		arraysize;
+	int		index;
 
 	arraysize = get_arraysize(envp);
 	new_envp = ft_calloc(arraysize + 2, sizeof(char *));

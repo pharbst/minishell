@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/21 16:03:07 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/23 17:31:43 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_shell(t_shell *shell)
 		print_pipex(shell->p_head);
 		// if (!shell->p_head)
 			//line too long o other error
-		if (!strcmp(shell->p_head->cmd, "exit"))
+		if (!ft_strcmp(shell->p_head->cmd, "exit"))
 			break ;
 		//execute cmd
 		free_pipex(shell->p_head);

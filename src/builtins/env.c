@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:35:48 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/22 16:43:32 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/22 20:07:36 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	print_env(char **env)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (env[i])

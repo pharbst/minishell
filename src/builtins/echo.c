@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:16:04 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/22 15:43:05 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:50:23 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	print_args(int argc, char **argv, int i)
 	}
 }
 
-int	echo(int argc, char **argv)
+int	bi_echo(int argc, char **argv)
 {
 	int		i;
 	bool	flag;

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/22 18:37:53 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/23 16:53:53 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ bool			open_string(t_token *token, int i);
 void			token_dquote(t_token *token, char *line, int *i);
 void			token_squote(t_token *token, char *line, int *i);
 void			token_space(t_token *token, char *line, int *i, int *index);
-// void			token_escape(t_token *token, char *line, int *i);
 void			token_dollar(t_token *token, char *line, int *i);
-// void			token_braket(t_token *token, char *line, int *i);
 void			token_redirect(t_token *token, char *line, int *i);
 void			token_pipe(t_token *token, char *line, int *i);
 void			token_string(t_token *token, char *line, int *i);
@@ -46,11 +44,14 @@ void			redirect_out_condition(t_parsing *a, t_pipex *pipex,
 void			redirect_in_condition(t_parsing *a, t_pipex *pipex);
 char			*str_cat(t_parsing *a);
 
+// pipe functions
+
+
 //buildins
-int				echo(int argc, char **argv);
+int				bi_echo(int argc, char **argv);
 int				print_env(char **env);
-char			**export(char **envp, char *var_name, char *var_value);
-int				pwd(t_shell *shell);
+char			**var_export(char **envp, char *var_name, char *var_value);
+int				pwd(void);
 void			unset(char *var_name, t_shell *shell);
 // exit
 void			ft_exit(t_shell *shell);
@@ -67,8 +68,8 @@ void			visual_token(t_token *token, int token_count, char *line);
 void			print_token_type(t_token token);
 void			print_pipex(t_pipex *p_head);
 t_shell			*get_shell(bool read, t_shell *shell);
-size_t			get_arraysize(char **array);
-size_t			find_var(char *envp_var, char *var_name);
+int				get_arraysize(char **array);
+int				find_var(char **envp_var, char *var_name);
+char			*get_var_content(char **envp_var, char *var_name);
 
-// pipe functions
 #endif
