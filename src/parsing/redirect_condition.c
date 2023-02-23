@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 19:52:09 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/23 22:19:31 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,39 @@ static void	add_redir_out(t_pipex *pipex, t_redir_out *new)
 	}
 }
 
+static bool	red_helper(t_parsing *a, t_redir_out *new)
+{
+	char	*tmp;
+
+	if (a->token[a->token_index].type == SPACE_START)
+		a->token_index += 1;
+	tmp = str_cat(a);
+	if (*tmp == '&')
+		return (printf("minishell: syntax error near unexpected token `&'\n")
+			, true);
+	else
+		new->file_right = tmp;
+	return (false);
+}
+
+static bool	red_helper2(t_parsing *a, t_redir_out *new)
+{
+	char	*tmp;
+	char	*tmp1;
+
+	tmp = str_cat(a);
+	tmp1 = ft_substr(tmp, 1, ft_strlen(tmp) - 1);
+	free(tmp);
+	if (validate_fd(tmp1))
+		new->file_right = tmp1;
+	else
+		return (printf("minishell: %d: Bad file descriptor\n"
+				, ft_atoi(tmp1)), true);
+	return (false);
+}
+
 void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 {
-	char		*tmp;
-	char		*tmp1;
 	t_redir_out	*new;
 
 	new = ft_calloc(1, sizeof(t_redir_out));
@@ -48,25 +77,13 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 	if (file1)
 		free(file1);
 	a->token_index += 1;
-	if (a->token[a->token_index].location && *a->token[a->token_index].location == '&')
+	if (a->token[a->token_index].location
+		&& *a->token[a->token_index].location == '&')
 	{
-		tmp = str_cat(a);
-		tmp1 = ft_substr(tmp, 1, ft_strlen(tmp) - 1);
-		free(tmp);
-		if (validate_fd(tmp1))
-			new->file_right = tmp1;
-		else
-			printf("error: invalid fd\n");
+		if (red_helper2(a, new))
+			return ;
 	}
-	else
-	{
-		if (a->token[a->token_index].type == SPACE_START)
-			a->token_index += 1;
-		tmp = str_cat(a);
-		if (*tmp == '&')
-			printf("minishell: syntax error near unexpected token `&'\n");
-		else
-			new->file_right = tmp;
-	}
+	else if (red_helper(a, new))
+		return ;
 	add_redir_out(pipex, new);
 }

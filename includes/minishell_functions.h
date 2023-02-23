@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 16:53:53 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/23 22:24:49 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ t_shell			*get_shell(bool read, t_shell *shell);
 int				get_arraysize(char **array);
 int				find_var(char **envp_var, char *var_name);
 char			*get_var_content(char **envp_var, char *var_name);
+int				error_code(int error_code, bool read);
 
 #endif

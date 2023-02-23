@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/22 18:32:42 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/23 22:25:07 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,7 @@ SRC_FILES	+=	grap.c \
 				shell_g.c \
 				find_var.c \
 				arraysize.c \
+				error_code.c \
 
 # **************************************************************************** #
 # directories
