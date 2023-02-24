@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 22:24:49 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/24 18:43:07 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void			redirect_out_condition(t_parsing *a, t_pipex *pipex,
 					char *file1);
 void			redirect_in_condition(t_parsing *a, t_pipex *pipex);
 char			*str_cat(t_parsing *a);
+void			hdc(t_parsing *a, t_pipex *pipex);
 
 // pipe functions
 

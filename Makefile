@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/23 22:25:07 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/24 18:43:29 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRC_FILES	+=	parsing_main.c \
 				check_open.c \
 				token_helper_tokencheck_quote.c \
 				token_helper_tokencheck.c \
+				here_doc_condition.c \
 
 # execution
 SRC_FILES	+=	

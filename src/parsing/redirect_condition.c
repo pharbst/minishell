@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 22:19:31 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/24 18:39:14 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,16 @@
 void	redirect_in_condition(t_parsing *a, t_pipex *pipex)
 {
 	a->token_index += 1;
-	if (a->token[a->token_index].type == SPACE_START)
-		a->token_index += 1;
-	pipex->in = str_cat(a);
+	if (a->token[a->token_index].type == REDIRECT_IN)
+		hdc(a, pipex);
+	else
+	{
+		if (a->token[a->token_index].type == SPACE_START)
+			a->token_index += 1;
+		pipex->in = str_cat(a);
+		if (pipex->fd_in)
+			close(pipex->fd_in);
+	}
 }
 
 static void	add_redir_out(t_pipex *pipex, t_redir_out *new)

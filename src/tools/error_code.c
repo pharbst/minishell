@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 22:20:44 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 22:22:22 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/24 17:38:43 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ int	error_code(int error_code, bool read)
 	if (read)
 		return (code);
 	code = error_code;
-	rerurn (0);
+	return (0);
 }

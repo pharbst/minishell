@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:39:27 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/19 14:58:57 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/24 18:52:12 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ void	print_pipex(t_pipex *p_head)
 		while (p_head)
 		{
 			printf("cmd: %s\n", p_head->cmd);
-			printf("in: %s\n", p_head->in);
+			if (p_head->fd_in)
+				printf("in_fd: %d\n", p_head->fd_in);
+			else
+				printf("in: %s\n", p_head->in);
 			print_redirection_out(p_head->out);
 			print_args(p_head->args);
 			printf("\n");

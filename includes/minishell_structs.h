@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/21 15:09:01 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/24 18:09:10 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_pipex
 	char				*cmd;
 	char				**args;
 	char				*in;
+	int					fd_in;
 	struct s_redir_out	*out;
 	struct s_pipex		*next;
 }	t_pipex;
