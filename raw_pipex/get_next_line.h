@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:41:41 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/23 17:18:26 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/24 14:46:34 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 size_t	ft_strlen(char *s);
 char	*ft_strchr(char *s, int c);
-char	*ft_strjoin(char *s1, char *s2);
+char	*ft_gnl_strjoin(char *s1, char *s2);
 char	*get_next_line(int fd);
 char	*ft_dup(char *str);
 char	*ft_read(int fd, char *progress);

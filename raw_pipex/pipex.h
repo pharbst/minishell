@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:05:30 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/23 18:16:38 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/24 16:52:07 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 typedef struct s_pipe
 {
     char **splitted_path;
-    pid_t pid1;
-    pid_t pid2;
+    pid_t pid;
     int infile;
     int outfile;
     int here_doc;
@@ -40,5 +39,6 @@ void 	piping(t_pipe *pipex, char **argv, char **envp);
 char	*ft_strjoin(char *s1, char *s2);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
+void close_pipe_ends(t_pipe *pipex);
 
 #endif

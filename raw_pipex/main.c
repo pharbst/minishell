@@ -6,12 +6,39 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:58:08 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/23 18:25:03 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/24 18:14:03 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "pipex.h"
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+	size_t	len1;
+	size_t	len2;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	j = 0;
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	str = (char *)malloc(sizeof(char) * (len1 + len2 + 1));
+	if (!str)
+		return (NULL);
+	while (i < len1)
+		str[j++] = s1[i++];
+	i = 0;
+	while (i < len2)
+		str[j++] = s2[i++];
+	str[j] = '\0';
+	return (str);
+}
+
 
 void	ft_bzero(void *s, size_t n)
 {
@@ -77,13 +104,15 @@ char **find_path(char **envp)
     res = NULL;
     while (envp[i])
     {
-        if (!ft_strncmp("PATH=", envp[i], 4))
+        if (!ft_strncmp("PATH", envp[i], 4))
 		{
             res = ft_split(&envp[i][5], ':');
-			// break ;
+			break ;
 		}
         i++;
     }
+	if (!envp[i])
+		return (NULL);
     return (res);
 }
 
@@ -99,56 +128,59 @@ void create_pipes(t_pipe *pipex)
 	}
 }
 
+void here_doc(char **argv)
+{
+	int fd_doc;
+	char *line;
+	char *tmp;
+	
+	fd_doc = open("heredoc_tmp", O_WRONLY | O_TRUNC | O_CREAT, 0644);
+	ft_putstr_fd(">", 1);
+	line = get_next_line(0);
+	tmp = ft_strjoin(argv[2], "\n");
+	while (line && ft_strcmp(line, tmp))
+	{
+		ft_putstr_fd(line, fd_doc);
+		free(line);
+		ft_putstr_fd(">", 1);
+		line = get_next_line(0);
+	}
+	free(line);
+	close(fd_doc);
+}
+
 void init_pip(t_pipe *pipex, int argc, char **argv, char **envp)
 {
 	int i;
-	//pipex->here_doc = ft_strncmp("here_doc", argv[1], 8); // 0 if there
-	pipex->cmd_num = argc - 3;
+	if (!ft_strncmp("here_doc", argv[1], 8))
+		pipex->here_doc = 1;
+	else
+		pipex->here_doc = 0;
+	pipex->cmd_num = argc - 3 - pipex->here_doc;
 	pipex->pipe_ends_num = 2 * (pipex->cmd_num - 1);
 	pipex->pipe_ends = (int *)ft_calloc(pipex->pipe_ends_num, sizeof(int));
     pipex->splitted_path = find_path(envp);
-	// if (!pipex->here_doc)
-	// {
-	// 	pipex->infile = open(argv[1], O_RDONLY);
-	// 	pipex->outfile = open(argv[argc - 1], O_CREAT, O_RDWR, O_APPEND, 644);
-	// }
-	// else
-	// {
+	if (pipex->here_doc)
+	{
+		here_doc(argv);
+		pipex->infile = open("heredoc_tmp", O_RDONLY);
+		pipex->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	}
+	else
+	{
 		pipex->infile = open(argv[1], O_RDONLY);
 		pipex->outfile = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	//}
+	}
 	i = 0;
 	while (i < pipex->cmd_num - 1)
 	{
-		pipe(pipex->pipe_ends + 2 * i);
+		if (pipe(pipex->pipe_ends + 2 * i) < 0)
+			printf("Pipe failed\n");
 		i++;
-		
 	}
 
 }
 
-// void here_doc(t_pipe *pipex, int argc, char **argv, char **envp)
-// {
-// 	int fd_doc;
-// 	char *line;
-	
-// 	pipex->infile = open(argv[1], O_RDONLY);
-// 	pipex->outfile = open(argv[argc - 1], O_CREAT, O_RDWR, O_APPEND, 644);
-// 	fd_doc = open(".heredoc_tmp", O_RDONLY, O_TRUNC, O_CREAT, 644);
-// 	ft_putstr_fd(">", 1);
-// 	line = get_next_line(fd_doc);
-// 	while (line && ft_strcmp(line, argv[2]))
-// 	{
-// 		write(fd_doc, line, ft_strlen(line));
-// 		free(line);
-// 	}
-// 	close(fd_doc);
-	// if (infile < 0)
-	// {
-	// 	unlink(".here_doc_tmp");
-	// 	return(NULL);
-	// }
-// }
 
  int main(int argc, char **argv, char **envp)
  {
@@ -157,26 +189,24 @@ void init_pip(t_pipe *pipex, int argc, char **argv, char **envp)
 	pipex = malloc(sizeof(t_pipe));
 	init_pip(pipex, argc, argv, envp);
 	pipex->num_process = 0;
+	pipex->pid = 0;
+	pipex->commands = NULL;
 	while (pipex->num_process < pipex->cmd_num)
 	{
 		piping(pipex, argv, envp);
 		pipex->num_process++;
 	}
-    // close_pipes();
-    // i = -1;
-    // while (++i < cmd_num)
-    //     waitpid(-1, 0, NULL);
-	// pipe_num = 2 * (cmd_num - 1);
-	// pipex.cmd_num = argc - 3 - here_doc;
-    // pipex.infile = open(argv[1], O_RDONLY);
-    // pipex.argv = argv;
-    //pipex.outfile = open(argv[argc - 1], O_CREAT, O_RDWR, O_TRUNC, 644); //truct если есть файл и в нем что-то напсано, он стирает и перезаписывает
-    // close(pipex.pipe_fd[0]);
-    // close(pipex.pipe_fd[1]);
-    // waitpid(-1, 0, NULL);
-    // waitpid(-1, 0, NULL);
-    // free_parent();
-    // close(pipex.infile);
-    // close(pipex.outfile);
+	close(pipex->infile);
+	close(pipex->outfile);
+	close_pipe_ends(pipex);
+	waitpid(-1, NULL, 0);
+	int i = 0;
+    while (i < pipex->cmd_num)
+	{
+        waitpid(-1, NULL, 0);
+		i++;
+	}
+	if (pipex->here_doc)
+		unlink("heredoc_tmp");
 	return (0);
  }

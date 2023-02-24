@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 15:01:31 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/23 17:18:21 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/24 14:46:52 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_read(int fd, char *progress)
 			return (NULL);
 		}
 		buf[res_read] = '\0';
-		progress = ft_strjoin(progress, buf);
+		progress = ft_gnl_strjoin(progress, buf);
 	}
 	free(buf);
 	return (progress);
