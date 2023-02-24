@@ -6,20 +6,19 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/14 22:10:25 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/21 16:04:48 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	tokenize(char *line, t_token *token, int i)
+int	tokenize(char *line, t_token *token, int i, int index)
 {
-	static int		index;
-
 	if (!line)
 		return (0);
 	while (line[index] && i < MAX_TOKENS)
 	{
+		printf("for: %c\n", line[index]);
 		token_dquote(token, &line[index], &i);
 		token_squote(token, &line[index], &i);
 		token_space(token, &line[index], &i, &index);
@@ -37,64 +36,70 @@ int	tokenize(char *line, t_token *token, int i)
 int	token_main(char *line, t_token *token)
 {
 	int	i;
+	int	index;
 
+	index = 0;
 	i = 0;
-	i = tokenize(line, token, i);
+	i = tokenize(line, token, i, index);
 	if (i == -1)
 		return (-1);
 	while (open_quote(token, i) && i != -1)
 	{
-		line = ft_strjoinfree(ft_strjoinchar(line, '\n'), readline("> "));
+		line = strjoinfree(ft_strjoinchar(line, '\n'), readline("> "));
 		if (ft_strlen(line) > 4095)
 			return (-1);
-		i = tokenize(line, token, i);
+		i = tokenize(line, token, i, index);
 	}
 	return (i);
 }
 
-t_pipex	*parsing_condition(t_parsing *parameter)
+t_pipex	*parsing_condition(t_parsing *a)
 {
 	bool	cmd;
+	t_pipex	*pipex;
 
 	cmd = false;
-	parameter->pipex = ft_calloc(1, sizeof(t_pipex));
-	if (!parameter->pipex)
+	if (a->token_index >= a->token_count)
 		return (NULL);
-	while (parameter->token[*parameter->token_index].type != PIPE && *parameter->token_index <= parameter->token_count)
+	pipex = ft_calloc(1, sizeof(t_pipex));
+	if (!pipex)
+		return (printf("Error: malloc failed in parsing condition\n"),free(pipex), NULL);
+	while (a->token_index < a->token_count && a->token[a->token_index].type
+		!= PIPE)
 	{
-		if (parameter->token[*parameter->token_index].type == STRING_OPEN)
-			string_condition(parameter, &cmd);
-		if (parameter->token[*parameter->token_index].type == REDIRECT)
-			redirect_condition(parameter);
-		if (parameter->token[*parameter->token_index].type == DOLLAR)
-			dollar_condition(parameter);
-		if (parameter->token[*parameter->token_index].type == DQUOTE_OPEN)
-			dquote_condition(parameter);
-		if (parameter->token[*parameter->token_index].type == SQUOTE_OPEN)
-			squote_condition(parameter);
-		if (parameter->token[*parameter->token_index].type == PIPE)
-			break ;
-		if (parameter->token[*parameter->token_index].type == SPACE)
-			(*parameter->token_index)++;
+		if (a->token[a->token_index].type == STRING_OPEN)
+			string_condition(a, &cmd, pipex);
+		else if (a->token[a->token_index].type == REDIRECT_IN)
+			redirect_in_condition(a, pipex);
+		else if (a->token[a->token_index].type == REDIRECT_OUT)
+			redirect_out_condition(a, pipex, NULL);
+		else if (a->token[a->token_index].type == DOLLAR)
+			string_condition(a, &cmd, pipex);
+		else if (a->token[a->token_index].type == DQUOTE_OPEN)
+			string_condition(a, &cmd, pipex);
+		else if (a->token[a->token_index].type == SQUOTE_OPEN)
+			string_condition(a, &cmd, pipex);
+		else if (a->token[a->token_index].type == SPACE_START)
+			(a->token_index)++;
 	}
+	a->token_index += 1;
+	return (pipex->next = parsing_condition(a), pipex);
 }
 
-t_pipex	*parsing(char *line, t_token *token, int token_count)
+t_pipex	*parsing(char *line, t_token *token, int token_count, char **envp)
 {
 	t_parsing	parameter;
-	static int	token_index;
 
-	if (token_index >= token_count)
-		return (NULL);
 	parameter.token = token;
 	parameter.token_count = token_count;
-	parameter.token_index = &token_index;
+	parameter.token_index = 0;
 	parameter.line = line;
+	parameter.envp = envp;
 	parameter.pipex = parsing_condition(&parameter);
-	return (parameter.pipex->next = parsing(line, token, token_count), parameter.pipex);
+	return (free(token), free(line), parameter.pipex);
 }
 
-t_pipex	*shell_parsing_main(char *line)
+t_pipex	*shell_parsing_main(char *line, char **envp)
 {
 	t_token	*token;
 	int		token_count;
@@ -102,12 +107,13 @@ t_pipex	*shell_parsing_main(char *line)
 	if (ft_strlen(line) > 4095)
 		return (NULL);
 	token_count = 0;
-	line = ft_strftrim(line, &ft_isspace);
+	// line = ft_strftrim(line, &ft_isspace);
 	if (!line)
 		return (NULL);
 	token = ft_calloc(2048, sizeof(t_token));
 	token_count = token_main(line, token);
 	if (token_count == -1 || token_count == 0)
 		return (free(token), NULL);
-	return (parsing(line, token, token_count));
+	// visual_token(token, token_count, line);
+	return (parsing(line, token, token_count, envp));
 }

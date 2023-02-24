@@ -1,0 +1,11 @@
+Makefile
+README.md
+includes
+libftio
+minishell
+obj
+planning
+spinner.sh
+src
+test.c
+tmp

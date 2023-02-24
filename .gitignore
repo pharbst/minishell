@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# own rules
+./obj
+minishell
+./tmp*
+test.c
+a.out

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_line.c                                      :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 01:48:44 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 17:14:57 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/22 16:35:48 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/22 20:07:36 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_prompt_line(t_shell *shell)
+int	print_env(char **env)
 {
-	char	*line;
-	char	*pwd;
-	char	*tmp;
-	char	*usr;
+	int	i;
 
-	tmp = getcwd(NULL, 0);
-	pwd = last_word(tmp);
-	usr = get_var_content(shell->envp, "USER");
-	line = ft_strjoinfree(usr, "@minishell ");
-	line = ft_strjoinfree(line, pwd);
-	line = ft_strjoinfree(line, "$ ");
-	free(tmp);
-	return (line);
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+	return (0);
 }
