@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/24 18:09:10 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/25 18:05:54 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_redir_out
 {
 	int					fd_left;
 	char				*file_right;
+	bool				append;
 	struct s_redir_out	*next;
 }	t_redir_out;
 
