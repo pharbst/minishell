@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/26 17:17:59 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/26 17:21:57 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char			*str_cat(t_parsing *a);
 void			hdc(t_parsing *a, t_pipex *pipex);
 
 // pipe functions
-void execute(t_pipex *p_head, char **envp);
+void			execute(t_pipex *p_head, char **envp);
 
 //buildins
 int				bi_echo(int argc, char **argv);

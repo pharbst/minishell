@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
+#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/26 16:38:24 by ccompote         ###   ########.fr        #
+#    Updated: 2023/02/26 17:21:35 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,7 +67,6 @@ NAME		=	minishell
 # **************************************************************************** #
 SRC_FILES	=	main.c \
 				shell.c \
-				execute.c \
 
 # parsing
 SRC_FILES	+=	parsing_main.c \
@@ -84,7 +83,7 @@ SRC_FILES	+=	parsing_main.c \
 				here_doc_condition.c \
 
 # execution
-SRC_FILES	+=	
+SRC_FILES	+=	execute.c \
 
 # Buildins
 SRC_FILES	+=	cd.c \
