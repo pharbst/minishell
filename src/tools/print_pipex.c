@@ -6,13 +6,13 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 14:39:27 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/24 18:52:12 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/25 18:14:09 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_args(char **args)
+void	print_arg(char **args)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ void	print_pipex(t_pipex *p_head)
 			else
 				printf("in: %s\n", p_head->in);
 			print_redirection_out(p_head->out);
-			print_args(p_head->args);
+			print_arg(p_head->args);
 			printf("\n");
 			p_head = p_head->next;
 		}

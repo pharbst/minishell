@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:53:49 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 20:52:22 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/25 16:36:45 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static char	*str_cat_helper(t_parsing *a, char *tmp)
 {
-	// print_token_type(a->token[a->token_index]);
 	if (a->token[a->token_index].type == STRING_OPEN)
 	{
 		tmp = strjoinfree(tmp, ft_substr(a->token[a->token_index].location,
