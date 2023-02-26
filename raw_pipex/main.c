@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 08:58:08 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/24 18:14:03 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/26 14:32:53 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char **find_path(char **envp)
     return (res);
 }
 
-void create_pipes(t_pipe *pipex)
+int *create_pipes()
 {
 	int i;
 
@@ -128,26 +128,26 @@ void create_pipes(t_pipe *pipex)
 	}
 }
 
-void here_doc(char **argv)
-{
-	int fd_doc;
-	char *line;
-	char *tmp;
+// void here_doc(char **argv)
+// {
+// 	int fd_doc;
+// 	char *line;
+// 	char *tmp;
 	
-	fd_doc = open("heredoc_tmp", O_WRONLY | O_TRUNC | O_CREAT, 0644);
-	ft_putstr_fd(">", 1);
-	line = get_next_line(0);
-	tmp = ft_strjoin(argv[2], "\n");
-	while (line && ft_strcmp(line, tmp))
-	{
-		ft_putstr_fd(line, fd_doc);
-		free(line);
-		ft_putstr_fd(">", 1);
-		line = get_next_line(0);
-	}
-	free(line);
-	close(fd_doc);
-}
+// 	fd_doc = open("heredoc_tmp", O_WRONLY | O_TRUNC | O_CREAT, 0644);
+// 	ft_putstr_fd(">", 1);
+// 	line = get_next_line(0);
+// 	tmp = ft_strjoin(argv[2], "\n");
+// 	while (line && ft_strcmp(line, tmp))
+// 	{
+// 		ft_putstr_fd(line, fd_doc);
+// 		free(line);
+// 		ft_putstr_fd(">", 1);
+// 		line = get_next_line(0);
+// 	}
+// 	free(line);
+// 	close(fd_doc);
+// }
 
 void init_pip(t_pipe *pipex, int argc, char **argv, char **envp)
 {
@@ -179,10 +179,10 @@ void init_pip(t_pipe *pipex, int argc, char **argv, char **envp)
 		i++;
 	}
 
-}
+// }
 
 
- int main(int argc, char **argv, char **envp)
+ int pipex(t_pipex *p_head, char **envp)
  {
     t_pipe *pipex;
 
@@ -208,5 +208,4 @@ void init_pip(t_pipe *pipex, int argc, char **argv, char **envp)
 	}
 	if (pipex->here_doc)
 		unlink("heredoc_tmp");
-	return (0);
  }

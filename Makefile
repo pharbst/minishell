@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/13 11:23:22 by pharbst          ###   ########.fr        #
+#    Updated: 2023/02/25 14:51:51 by ccompote         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,15 +66,45 @@ NAME		=	minishell
 # srcs
 # **************************************************************************** #
 SRC_FILES	=	main.c \
-				prompt_line.c \
 				shell.c \
+
+# parsing
+SRC_FILES	+=	parsing_main.c \
+				quote_expand.c \
+				get_var.c \
+				string_con.c \
+				join_arg.c \
+				validate_fd.c \
+				redirect_condition.c \
+				str_cat.c \
 				check_open.c \
 				token_helper_tokencheck_quote.c \
 				token_helper_tokencheck.c \
-				parsing_main.c \
-				grap.c \
-				last_word.c \
+				here_doc_condition.c \
 
+# execution
+SRC_FILES	+=	
+
+# Buildins
+SRC_FILES	+=	cd.c \
+				echo.c \
+				env.c \
+				export.c \
+				exit.c \
+				pwd.c \
+				unset.c \
+
+# tools
+SRC_FILES	+=	grap.c \
+				last_word.c \
+				strjoinfree.c \
+				prompt_line.c \
+				visual_token.c \
+				print_pipex.c \
+				shell_g.c \
+				find_var.c \
+				arraysize.c \
+				error_code.c \
 
 # **************************************************************************** #
 # directories
@@ -83,14 +113,14 @@ INC_DIR		=	./includes
 SRC_DIR		=	./src/*/
 OBJ_DIR		=	./obj
 LIBFTIO_DIR	=	./libftio
-PIPEX_DIR	=	./pipex
+# PIPEX_DIR	=	./pipex
 
 
 # **************************************************************************** #
 # libraries
 # **************************************************************************** #
 LIBFTIO		=	$(LIBFTIO_DIR)/libftio.a
-PIPEX		=	$(PIPEX_DIR)/pipex.a
+# PIPEX		=	$(PIPEX_DIR)/pipex.a
 
 
 # **************************************************************************** #
@@ -98,7 +128,7 @@ PIPEX		=	$(PIPEX_DIR)/pipex.a
 # **************************************************************************** #
 INC			=	-I $(INC_DIR)
 INC_LIBFTIO	=	-I $(LIBFTIO_DIR)/includes
-INC_PIPEX	=	-I $(PIPEX_DIR)/includes
+# INC_PIPEX	=	-I $(PIPEX_DIR)/includes
 
 
 # **************************************************************************** #
@@ -115,24 +145,24 @@ all:
 	@./spinner.sh make -s $(NAME)
 
 re:
-	@./spinner.sh make proname_header fclean $(NAME)
+	@./spinner.sh make -s proname_header fclean $(NAME)
 
 hard_re:
-	@./spinner.sh make proname_header hard_clean $(NAME)
+	@./spinner.sh make -s proname_header hard_clean $(NAME)
 
-$(NAME):	proname_header libftio_header $(LIBFTIO) pipex_header $(PIPEX) obj_header $(OBJ) linking_header
-	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) $(PIPEX) -o $(NAME)
+$(NAME):	proname_header libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
+	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) -o $(NAME)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(INC) $(INC_LIBFTIO) $(INC_PIPEX) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) $(INC_LIBFTIO) -c $< -o $@
 
 $(LIBFTIO):
 	@make -C $(LIBFTIO_DIR) > /dev/null
 
-$(PIPEX):
-	@make -C $(PIPEX_DIR) > /dev/null
+# $(PIPEX):
+# 	@make -C $(PIPEX_DIR) > /dev/null
 
 
 # **************************************************************************** #
@@ -163,7 +193,7 @@ hard_cleanall:
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(NAME)
 	@make -C $(LIBFTIO_DIR) fclean > /dev/null
-	@make -C $(PIPEX_DIR) fclean > /dev/null
+#	@make -C $(PIPEX_DIR) fclean > /dev/null
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 # **************************************************************************** #
@@ -187,8 +217,8 @@ update:
 libftio_header:
 	@printf "$(FBlue)Compiling Libftio$(Reset)										     "
 
-pipex_header:
-	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling Pipex$(Reset)											     "
+# pipex_header:
+# 	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling Pipex$(Reset)											     "
 
 obj_header:
 	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling .o files$(RESET)										     "

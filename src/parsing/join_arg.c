@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_line.c                                      :+:      :+:    :+:   */
+/*   join_arg.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 01:48:44 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 17:14:57 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/17 17:14:10 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/19 14:53:01 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_prompt_line(t_shell *shell)
+char	**join_arg(t_pipex *pipex, char *tmp)
 {
-	char	*line;
-	char	*pwd;
-	char	*tmp;
-	char	*usr;
+	char	**new;
+	int		i;
 
-	tmp = getcwd(NULL, 0);
-	pwd = last_word(tmp);
-	usr = get_var_content(shell->envp, "USER");
-	line = ft_strjoinfree(usr, "@minishell ");
-	line = ft_strjoinfree(line, pwd);
-	line = ft_strjoinfree(line, "$ ");
-	free(tmp);
-	return (line);
+	if (!tmp)
+		return (pipex->args);
+	if (!pipex->args)
+		return (pipex->args = ft_calloc(2, sizeof(char *)),
+			pipex->args[0] = tmp, pipex->args);
+	i = 0;
+	while (pipex->args[i])
+		i++;
+	new = ft_calloc(i + 2, sizeof(char *));
+	ft_memmove(new, pipex->args, i * sizeof(char *));
+	new[i] = tmp;
+	return (free(pipex->args), pipex->args = new, pipex->args);
 }

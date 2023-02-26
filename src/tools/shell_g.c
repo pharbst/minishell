@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_line.c                                      :+:      :+:    :+:   */
+/*   shell_g.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 01:48:44 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 17:14:57 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/22 16:37:17 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/22 16:38:58 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_prompt_line(t_shell *shell)
+t_shell	*get_shell(bool read, t_shell *shell)
 {
-	char	*line;
-	char	*pwd;
-	char	*tmp;
-	char	*usr;
+	static t_shell	*shell_g;
 
-	tmp = getcwd(NULL, 0);
-	pwd = last_word(tmp);
-	usr = get_var_content(shell->envp, "USER");
-	line = ft_strjoinfree(usr, "@minishell ");
-	line = ft_strjoinfree(line, pwd);
-	line = ft_strjoinfree(line, "$ ");
-	free(tmp);
-	return (line);
+	if (read)
+		return (shell_g);
+	shell_g = shell;
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:30:01 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/24 17:41:59 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/26 13:26:17 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ void close_pipe_ends(t_pipe *pipex)
 	}
 }
 
-void piping(t_pipe *pipex, char **argv, char **envp)
+void piping(t_pipex *p_head, int *fd_pipes, char **envp, int process, char **paths)
 {
 	char *command;
+	pid_t pid;
 
-	pipex->pid = fork();
-	if (pipex->pid == 0)
+	pid = fork();
+	int fd_infile;
+	if (pid == 0)
 	{
         if (pipex->num_process == 0)
 		{
@@ -83,5 +85,4 @@ void piping(t_pipe *pipex, char **argv, char **envp)
 		{
 			printf("Fail\n");
 		}
-    }
 }

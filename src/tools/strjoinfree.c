@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_line.c                                      :+:      :+:    :+:   */
+/*   strjoinfree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 01:48:44 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 17:14:57 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/17 13:25:51 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/17 15:20:31 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_prompt_line(t_shell *shell)
+char	*strjoinfree(char *s1, char *s2)
 {
-	char	*line;
-	char	*pwd;
-	char	*tmp;
-	char	*usr;
+	char	*str;
 
-	tmp = getcwd(NULL, 0);
-	pwd = last_word(tmp);
-	usr = get_var_content(shell->envp, "USER");
-	line = ft_strjoinfree(usr, "@minishell ");
-	line = ft_strjoinfree(line, pwd);
-	line = ft_strjoinfree(line, "$ ");
-	free(tmp);
-	return (line);
+	if (!s1)
+		return (s2);
+	if (!s2)
+		return (s1);
+	str = ft_strjoin(s1, s2);
+	return (free(s1), free(s2), str);
 }

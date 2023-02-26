@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string_con.c                                       :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/13 14:08:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 12:53:53 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/22 16:24:29 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/22 16:31:58 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	string_condition(t_parsing *a, bool *cmd, t_pipex *pipex)
+void	unset(char *var_name, t_shell *shell)
 {
-	char	*tmp;
+	size_t	index;
+	size_t	arraysize;
+	char	**new_envp;
 
-	tmp = str_cat(a);
-	if (!tmp)
+	arraysize = get_arraysize(shell->envp);
+	new_envp = ft_calloc(arraysize, sizeof(char *));
+	if (!new_envp)
 		return ;
-	if (a->token_index < a->token_count && a->token[a->token_index].type
-		== REDIRECT_OUT && validate_fd(tmp))
-		redirect_out_condition(a, pipex, tmp);
-	else if (*cmd == false)
-	{
-		pipex->cmd = tmp;
-		pipex->args = join_arg(pipex, tmp);
-		*cmd = true;
-	}
-	else
-		pipex->args = join_arg(pipex, tmp);
+	index = find_var(shell->envp, var_name);
+	ft_memcpy(new_envp, shell->envp, (index - 1) * sizeof(char *));
+	ft_memcpy(new_envp + index, shell->envp + index + 1, (arraysize - index)
+		* sizeof(char *));
+	shell->envp = new_envp;
+	return ;
 }

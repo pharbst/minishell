@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 09:05:30 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/24 16:52:07 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/25 14:40:33 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <fcntl.h>
 # include "get_next_line.h"
 # include <stdio.h>
+# include "../includes/minishell.h"
 
 typedef struct s_pipe
 {
@@ -35,7 +36,8 @@ typedef struct s_pipe
 } t_pipe;
 
 char	**ft_split(char *s, char c);
-void 	piping(t_pipe *pipex, char **argv, char **envp);
+// void 	piping(t_pipe *pipex, char **argv, char **envp);
+void piping(t_pipex *p_head, int *fd_pipes, char **envp, int process, char **paths);
 char	*ft_strjoin(char *s1, char *s2);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);

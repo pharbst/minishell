@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_line.c                                      :+:      :+:    :+:   */
+/*   arraysize.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/04 01:48:44 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 17:14:57 by pharbst          ###   ########.fr       */
+/*   Created: 2023/02/22 15:55:53 by pharbst           #+#    #+#             */
+/*   Updated: 2023/02/22 20:07:04 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_prompt_line(t_shell *shell)
+int	get_arraysize(char **array)
 {
-	char	*line;
-	char	*pwd;
-	char	*tmp;
-	char	*usr;
+	int	i;
 
-	tmp = getcwd(NULL, 0);
-	pwd = last_word(tmp);
-	usr = get_var_content(shell->envp, "USER");
-	line = ft_strjoinfree(usr, "@minishell ");
-	line = ft_strjoinfree(line, pwd);
-	line = ft_strjoinfree(line, "$ ");
-	free(tmp);
-	return (line);
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:51:16 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/11 07:37:16 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/25 14:52:22 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libftio.h"
+# include "minishell_error.h"
 # include "minishell_enums.h"
+// # include "minishell_macros.h"
 # include "minishell_structs.h"
 # include "minishell_functions.h"
-// # include "minishell_macros.h"
-// # include "minishell_errors.h"
 
 #endif
