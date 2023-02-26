@@ -6,7 +6,7 @@
 #    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/02/25 14:51:51 by ccompote         ###   ########.fr        #
+#    Updated: 2023/02/26 16:38:24 by ccompote         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ NAME		=	minishell
 # **************************************************************************** #
 SRC_FILES	=	main.c \
 				shell.c \
+				execute.c \
 
 # parsing
 SRC_FILES	+=	parsing_main.c \

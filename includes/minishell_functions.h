@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/25 14:58:31 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/26 16:38:41 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char			*str_cat(t_parsing *a);
 void			hdc(t_parsing *a, t_pipex *pipex);
 
 // pipe functions
-
+void execute(t_pipex *p_head, char **envp);
 
 //buildins
 int				bi_echo(int argc, char **argv);
