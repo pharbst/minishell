@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 20:09:09 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/26 16:33:32 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_shell(t_shell *shell)
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
 		printf("\n\n\n");
 		print_pipex(shell->p_head);
+		execute(shell->p_head, shell->envp);
+		// pipex(shell->p_head, shell->envp);
 		// if (!shell->p_head)
 			//line too long o other error
 		if (!ft_strcmp(shell->p_head->cmd, "exit"))

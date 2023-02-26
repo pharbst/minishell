@@ -6,9 +6,10 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/25 18:12:55 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/26 17:17:59 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef MINISHELL_FUNCTIONS_H
 # define MINISHELL_FUNCTIONS_H
@@ -46,7 +47,7 @@ char			*str_cat(t_parsing *a);
 void			hdc(t_parsing *a, t_pipex *pipex);
 
 // pipe functions
-
+void execute(t_pipex *p_head, char **envp);
 
 //buildins
 int				bi_echo(int argc, char **argv);
@@ -74,5 +75,6 @@ int				get_arraysize(char **array);
 int				find_var(char **envp_var, char *var_name);
 char			*get_var_content(char **envp_var, char *var_name);
 int				error_code(int error_code, bool read);
+
 
 #endif
