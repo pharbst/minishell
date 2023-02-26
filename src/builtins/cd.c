@@ -6,10 +6,13 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:35:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/22 16:36:01 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/25 18:13:40 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
+int	bi_cd(char **args)
+{
+	return (print_arg(args), 0);
+}

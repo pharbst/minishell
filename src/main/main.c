@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 16:49:19 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/25 18:17:01 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 
+	printf("debug\n");
 	shell.argv = argv;
 	shell.argc = argc;
 	shell.envp = malloc_envp(envp);
