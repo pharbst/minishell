@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/26 16:33:38 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/26 17:11:24 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,10 @@ void piping(t_pipex *p_head, char **paths, char **envp, int process, int **pipes
 			dup2(pipes[process - 1][0], STDIN_FILENO);
 			dup2(pipes[process][1], STDOUT_FILENO);
 		}
-		close_pipes(pipes, process, number_nodes);
+		if (number_nodes > 1)
+		{
+			close_pipes(pipes, process, number_nodes);
+		}
 		commands = malloc(sizeof(char *) * (i + 1));
 		commands[i] = NULL;
 		i--;
