@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_functions.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/26 17:21:57 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/28 17:17:49 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ char			*str_cat(t_parsing *a);
 void			hdc(t_parsing *a, t_pipex *pipex);
 
 // pipe functions
-void			execute(t_pipex *p_head, char **envp);
+int				execute(t_pipex *p_head, char **envp);
+int				get_info_for_pipex(t_pipex_common *pipex_info, t_pipex *p_head, char **envp);
+void			piping(t_pipex *p_head, t_pipex_common *pipex_info, int process);
+void			close_pipes(int **pipes, int cur, int number_nodes);
+
 
 //buildins
 int				bi_echo(int argc, char **argv);

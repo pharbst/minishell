@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/25 18:05:54 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/28 16:19:52 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ typedef struct s_pipex
 	struct s_redir_out	*out;
 	struct s_pipex		*next;
 }	t_pipex;
+
+typedef struct s_pipex_common
+{
+	char				**paths;
+	char				**envp;
+	int					**pipes;
+	int					number_nodes;
+}	t_pipex_common;
 
 typedef struct s_history
 {
