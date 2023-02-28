@@ -6,11 +6,26 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/28 17:15:10 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:27:34 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void free_executor(t_pipex_common *pipex_info)
+{
+	int	i;
+
+	i = 0;
+	ft_free_split(pipex_info->paths);;
+	while (pipex_info->pipes[i])
+	{
+		free(pipex_info->pipes[i]);
+		i++;
+	}
+	free(pipex_info->pipes);
+	free(pipex_info);
+}
 
 void	close_pipes(int **pipes, int cur, int number_nodes)
 {
@@ -56,7 +71,6 @@ void	finish_piping(t_pipex_common *pipex_info)
 		waitpid(-1, NULL, 0);
 		i++;
 	}
-	ft_free_split(pipex_info->paths);
 }
 
 int	execute(t_pipex *p_head, char **envp)
@@ -77,5 +91,6 @@ int	execute(t_pipex *p_head, char **envp)
 		i++;
 	}
 	finish_piping(pipex_info);
+	free_executor(pipex_info);
 	return (1);
 }
