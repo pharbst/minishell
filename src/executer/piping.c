@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/28 17:14:02 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/02 12:21:55 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ char	*get_cmd(t_pipex *p_head, char **paths)
 
 int	handle_outfile(t_pipex *p_head)
 {
-	p_head->out->fd_left = open(p_head->out->file_right,
+	if (p_head->out->append)
+		p_head->out->fd_left = open(p_head->out->file_right,
+			O_CREAT | O_WRONLY | O_APPEND, 0644);
+	else
+		p_head->out->fd_left = open(p_head->out->file_right,
 			O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (p_head->out->fd_left < 0)
 		return (0);
@@ -50,7 +54,13 @@ int	handle_outfile(t_pipex *p_head)
 
 int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {
-	if (p_head->in)
+	if (p_head->fd_in)
+	{
+		if (dup2(p_head->fd_in, STDIN_FILENO) < 0)
+			return (0);
+		close(p_head->fd_in);
+	}
+	else if (p_head->in)
 	{
 		p_head->fd_in = open(p_head->in, O_RDONLY);
 		if (p_head->fd_in < 0)
