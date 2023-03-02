@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/26 17:21:57 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/28 20:01:26 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include "minishell.h"
 
 //main
-void			ft_shell(t_shell *shell);
+void			shell_interactive(t_shell *shell);
+void			shell_alone(t_shell *shell);
 
 //tokenize
 int				tokenize(char *line, t_token *token, int i, int index);

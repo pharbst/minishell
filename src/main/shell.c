@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/26 16:33:32 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:41:51 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <readline/history.h>
 #include <stdio.h>
 
-void	ft_shell(t_shell *shell)
+void	shell_interactive(t_shell *shell)
 {
 	char	*line;
 
@@ -26,21 +26,28 @@ void	ft_shell(t_shell *shell)
 		free(line);
 		// shell->line = ft_strdup("ls >tmp | cat tmp >tmp1 2>&1");
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
-		printf("\n\n\n");
+		// printf("\n\n\n");
 		print_pipex(shell->p_head);
 		execute(shell->p_head, shell->envp);
-		// pipex(shell->p_head, shell->envp);
 		// if (!shell->p_head)
 			//line too long o other error
 		if (!ft_strcmp(shell->p_head->cmd, "exit"))
 			break ;
-		if (!ft_strcmp(shell->p_head->cmd, "clear"))
-			printf("\e[1;1H\e[2J");
-		//execute cmd
-		free_pipex(shell->p_head);
-		// free(shell->line);
 		//add history
-		//prepare for next cmd
+		free_pipex(shell->p_head);
 	}
+	ft_exit(shell);
+}
+
+void	shell_alone(t_shell *shell)
+{
+	int	i;
+
+	i = 1;
+	shell->line = ft_strjoin(shell->argv[i], " ");
+	while (shell->argv[++i])
+		shell->line = ft_strjoinfree(shell->line, shell->argv[i]);
+	shell->p_head = shell_parsing_main(shell->line, shell->envp);
+	execute(shell->p_head, shell->envp);
 	ft_exit(shell);
 }

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/25 18:17:01 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/02/28 21:26:45 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,28 @@ static char	**malloc_envp(char **envp)
 	return (new_envp);
 }
 
+static bool	check_interactive(int argc, char **argv)
+{
+	if (argc == 1)
+		return (true);
+	if (argc == 2 && !ft_strncmp(argv[1], "-c", 2))
+		return (false);
+	return (true);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell;
 
-	printf("debug\n");
 	shell.argv = argv;
 	shell.argc = argc;
 	shell.envp = malloc_envp(envp);
 	shell.user = NULL;
 	shell.pwd = NULL;
 	get_shell(WRITE, &shell);
-	ft_shell(&shell);
+	if (check_interactive(argc, argv))
+		shell_interactive(&shell);
+	else
+		shell_alone(&shell);
 	return (0);
 }
