@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/25 18:06:31 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/02 11:36:14 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,19 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 
 	new = ft_calloc(1, sizeof(t_redir_out));
 	new->fd_left = 1;
-	if (a->token[a->token_index].location
-		&& *a->token[a->token_index].location == '>')
-		new->append = true;
-	else
-		new->append = false;
 	if (file1)
 		new->fd_left = ft_atoi(file1);
 	if (file1)
 		free(file1);
 	a->token_index += 1;
+	if (a->token[a->token_index].location
+		&& *a->token[a->token_index].location == '>')
+	{
+		new->append = true;
+		a->token_index += 1;
+	}
+	else
+		new->append = false;
 	if (a->token[a->token_index].location
 		&& *a->token[a->token_index].location == '&')
 	{

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/02 08:08:16 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/02 11:37:03 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ t_pipex	*shell_parsing_main(char *line, char **envp)
 		return (NULL);
 	token = ft_calloc(2048, sizeof(t_token));
 	token_count = token_main(line, token);
+	// visual_token(token, token_count, line);
 	if (token_count == -1 || token_count == 0)
 		return (free(token), NULL);
 	// visual_token(token, token_count, line);
