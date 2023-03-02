@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/02 08:22:51 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/02 10:23:26 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	shell_interactive(t_shell *shell)
 {
 	while (1)
 	{
-		// shell_readline(shell);
-		shell->line = ft_strdup("ls >tmp | cat tmp");
+		shell_readline(shell);
+		// shell->line = ft_strdup("ls >tmp | cat tmp");
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
 		// printf("\n\n\n");
 		// print_pipex(shell->p_head);
