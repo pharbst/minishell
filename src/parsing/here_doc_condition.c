@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_condition.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:24:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/24 18:44:18 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/01 16:33:53 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

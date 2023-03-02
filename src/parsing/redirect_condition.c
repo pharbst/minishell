@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_condition.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/25 18:06:31 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/01 17:16:35 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

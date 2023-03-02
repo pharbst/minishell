@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/21 16:04:48 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/01 17:45:36 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_pipex	*parsing_condition(t_parsing *a)
 		else if (a->token[a->token_index].type == SQUOTE_OPEN)
 			string_condition(a, &cmd, pipex);
 		else if (a->token[a->token_index].type == SPACE_START)
-			(a->token_index)++;
+			(a->token_index)++;  
 	}
 	a->token_index += 1;
 	return (pipex->next = parsing_condition(a), pipex);
