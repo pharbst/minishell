@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/28 21:41:51 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/02 08:06:30 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	shell_interactive(t_shell *shell)
 		// shell->line = ft_strdup("ls >tmp | cat tmp >tmp1 2>&1");
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
 		// printf("\n\n\n");
-		print_pipex(shell->p_head);
+		// print_pipex(shell->p_head);
 		execute(shell->p_head, shell->envp);
 		// if (!shell->p_head)
 			//line too long o other error

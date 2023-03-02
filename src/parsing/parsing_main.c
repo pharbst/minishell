@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/21 16:04:48 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/02 08:08:16 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	tokenize(char *line, t_token *token, int i, int index)
 		return (0);
 	while (line[index] && i < MAX_TOKENS)
 	{
-		printf("for: %c\n", line[index]);
 		token_dquote(token, &line[index], &i);
 		token_squote(token, &line[index], &i);
 		token_space(token, &line[index], &i, &index);
