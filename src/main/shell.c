@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/02 14:39:00 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/04 15:01:03 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,14 @@ void	shell_interactive(t_shell *shell)
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
 		// printf("\n\n\n");
 		// print_pipex(shell->p_head);
+		if (!ft_strcmp(shell->p_head->cmd, "exit"))
+		{
+			printf("exit\n");
+			break ;
+		}
 		execute(shell->p_head, shell->envp);
 		// if (!shell->p_head)
 			//line too long o other error
-		if (!ft_strcmp(shell->p_head->cmd, "exit"))
-			break ;
 		//add history
 		free_pipex(shell->p_head);
 	}

@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/02 12:50:01 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/04 13:40:39 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ int				bi_echo(int argc, char **argv);
 int				print_env(char **env);
 char			**var_export(char **envp, char *var_name, char *var_value);
 int				pwd(void);
-void			unset(char *var_name, t_shell *shell);
+void			unset(char *var_name, char **env);
+int				bi_cd(char *path);
+
 // exit
 void			ft_exit(t_shell *shell);
 void			free_pipex(t_pipex *p_head);

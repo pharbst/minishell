@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/02 14:56:05 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/04 14:58:42 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,58 @@ int	change_fds_child(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 	return (1);
 }
 
+void builtin(t_pipex *p_head, t_pipex_common *pipex_info, int flag_builtin)
+{
+	// if (flag_builtin == 2)
+	// 	printf("%i\n", bi_cd(p_head->args[1]));
+	if (flag_builtin == 3)
+		bi_echo(get_arraysize(p_head->args), p_head->args);
+	else if (flag_builtin == 4)
+		print_env(pipex_info->envp);
+	// else if (flag_builtin == 5)
+	// 	print_env(var_export(pipex_info->envp, NULL, NULL));
+	else if (flag_builtin == 6)
+		pwd();
+	// else if (flag_builtin == 7)
+	// 	unset(NULL, pipex_info->envp);
+}		
+
+int check_builtins(t_pipex *p_head)
+{
+	if (!ft_strcmp(p_head->cmd, "cd"))
+		return (2);
+	else if (!ft_strcmp(p_head->cmd, "echo"))
+		return (3);
+	else if (!ft_strcmp(p_head->cmd, "env"))
+		return (4);
+	else if (!ft_strcmp(p_head->cmd, "export"))
+		return (5);
+	else if (!ft_strcmp(p_head->cmd, "pwd"))
+		return (6);
+	else if (!ft_strcmp(p_head->cmd, "unset"))
+		return (7);
+	else if (!ft_strcmp(p_head->cmd, "exit"))
+		return (8);
+	return (0);
+}
+
 int check_before_fork(t_pipex *p_head, char *command)
 {
+	int i;
+
+	i = check_builtins(p_head);
+	if (i)
+		return (i);
 	if (!command)
 	{
 		printf("%s: command not found\n", p_head->cmd);
 		return (0);
 	}
+	return (1);
+}
+
+int open_files(t_pipex *p_head)
+{
 	if (p_head->in)
 	{
 		p_head->fd_in = open(p_head->in, O_RDONLY);
@@ -132,20 +177,28 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 {
 	pid_t	pid;
 	char	*command;
-
+	int flag_builtin;
+	
 	command = get_cmd(p_head, pipex_info->paths);
-	if (!check_before_fork(p_head, command))
+	flag_builtin = check_before_fork(p_head, command);
+	if (!flag_builtin)
 		return ;
 	pid = fork();
 	if (pid < 0)
-		return ;
+		exit(0) ;
 	if (pid == 0)
 	{
+		if (!open_files(p_head))
+			exit(0);
 		if (pipex_info->number_nodes > 1)
 			close_pipes(pipex_info->pipes, process, pipex_info->number_nodes);
 		if (!change_fds_child(p_head, pipex_info, process))
-			return ;
-		
+			exit(0) ;
+		if (flag_builtin != 1)
+		{
+			builtin(p_head, pipex_info, flag_builtin);
+			exit(0) ;
+		}
 		execve(command, p_head->args, pipex_info->envp);
 	}
 }

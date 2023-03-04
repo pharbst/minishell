@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:35:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/25 18:13:40 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/04 13:39:21 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	bi_cd(char **args)
+int	bi_cd(char *path)
 {
-	return (print_arg(args), 0);
+	return (chdir(path));
 }

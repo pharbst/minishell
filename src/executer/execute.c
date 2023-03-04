@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/02/28 18:27:34 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:48:16 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ int	execute(t_pipex *p_head, char **envp)
 {
 	t_pipex_common	*pipex_info;
 	int				i;
+	int j;
+
+	j = 0;
+	while(p_head->args[j])
+		j++;
 
 	pipex_info = malloc(sizeof(t_pipex_common));
 	if (!pipex_info)

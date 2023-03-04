@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/28 16:19:52 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:51:04 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_pipex_common
 	char				**envp;
 	int					**pipes;
 	int					number_nodes;
+	int					argc;
 }	t_pipex_common;
 
 typedef struct s_history
