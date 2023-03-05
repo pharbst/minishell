@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/04 15:01:03 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/05 16:33:28 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	shell_interactive(t_shell *shell)
 			printf("exit\n");
 			break ;
 		}
-		execute(shell->p_head, shell->envp);
+		execute(shell);
+		printf("%p in shell\n", shell->envp);
 		// if (!shell->p_head)
 			//line too long o other error
 		//add history
@@ -56,6 +57,6 @@ void	shell_alone(t_shell *shell)
 	while (shell->argv[++i])
 		shell->line = ft_strjoinfree(shell->line, shell->argv[i]);
 	shell->p_head = shell_parsing_main(shell->line, shell->envp);
-	execute(shell->p_head, shell->envp);
+	execute(shell);
 	ft_exit(shell);
 }

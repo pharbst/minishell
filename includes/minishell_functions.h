@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/04 13:40:39 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/05 16:02:32 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,19 @@ char			*str_cat(t_parsing *a);
 void			hdc(t_parsing *a, t_pipex *pipex);
 
 // pipe functions
-int				execute(t_pipex *p_head, char **envp);
+int				execute(t_shell *shell);
 int				get_info_for_pipex(t_pipex_common *pipex_info, t_pipex *p_head, char **envp);
-void			piping(t_pipex *p_head, t_pipex_common *pipex_info, int process);
+void			piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *shell);
 void			close_pipes(int **pipes, int cur, int number_nodes);
 
 
 //buildins
 int				bi_echo(int argc, char **argv);
 int				print_env(char **env);
-char			**var_export(char **envp, char *var_name, char *var_value);
+char			**var_export(char **envp, char **argv, int argc);
 int				pwd(void);
 void			unset(char *var_name, char **env);
-int				bi_cd(char *path);
+int				bi_cd(char **args, int argc, char **envp);
 
 // exit
 void			ft_exit(t_shell *shell);

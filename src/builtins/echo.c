@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 19:16:04 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/23 16:50:23 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/04 16:10:27 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ static bool	check_flag(char *argv)
 
 static void	print_args(int argc, char **argv, int i)
 {
-	while (i <= argc)
+	while (i < argc)
 	{
 		printf("%s", argv[i]);
-		if (i <= argc - 1)
-			printf(" ");
+		// if (i <= argc - 1)
+		// 	printf(" ");
 		i++;
 	}
 }

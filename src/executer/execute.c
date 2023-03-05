@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/03 12:48:16 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/05 15:58:56 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,27 @@ void	finish_piping(t_pipex_common *pipex_info)
 	}
 }
 
-int	execute(t_pipex *p_head, char **envp)
+int	execute(t_shell *shell)
 {
+	t_pipex *pipex;
 	t_pipex_common	*pipex_info;
 	int				i;
 	int j;
 
 	j = 0;
-	while(p_head->args[j])
+	pipex = shell->p_head;
+	while(pipex->args[j])
 		j++;
-
 	pipex_info = malloc(sizeof(t_pipex_common));
 	if (!pipex_info)
 		return (0);
-	if (!get_info_for_pipex(pipex_info, p_head, envp))
+	if (!get_info_for_pipex(pipex_info, pipex, shell->envp))
 		return (0);
 	i = 0;
 	while (i < pipex_info->number_nodes)
 	{
-		piping(p_head, pipex_info, i);
-		p_head = p_head->next;
+		piping(pipex, pipex_info, i, shell);
+		pipex = pipex->next;
 		i++;
 	}
 	finish_piping(pipex_info);

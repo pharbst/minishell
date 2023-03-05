@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/04 14:58:42 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/05 16:37:20 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,24 +93,30 @@ int	change_fds_child(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 	}
 	else
 	{
-		if (dup2(pipex_info->pipes[process - 1][0], STDIN_FILENO) < 0)
-			return (0);
-		if (dup2(pipex_info->pipes[process][1], STDOUT_FILENO) < 0)
-			return (0);
+		if (p_head->out)
+		{
+			if (!handle_outfile(p_head))
+				return (0);
+		}
+		else
+		{
+			if (dup2(pipex_info->pipes[process - 1][0], STDIN_FILENO) < 0)
+				return (0);
+			if (dup2(pipex_info->pipes[process][1], STDOUT_FILENO) < 0)
+				return (0);
+		}
+		
 	}
 	return (1);
 }
 
-void builtin(t_pipex *p_head, t_pipex_common *pipex_info, int flag_builtin)
+void builtin(t_pipex *p_head, t_shell *shell, int flag_builtin)
 {
-	// if (flag_builtin == 2)
-	// 	printf("%i\n", bi_cd(p_head->args[1]));
 	if (flag_builtin == 3)
 		bi_echo(get_arraysize(p_head->args), p_head->args);
 	else if (flag_builtin == 4)
-		print_env(pipex_info->envp);
-	// else if (flag_builtin == 5)
-	// 	print_env(var_export(pipex_info->envp, NULL, NULL));
+		print_env(shell->envp);
+
 	else if (flag_builtin == 6)
 		pwd();
 	// else if (flag_builtin == 7)
@@ -173,7 +179,7 @@ int open_files(t_pipex *p_head)
 	return (1);
 }
 
-void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process)
+void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *shell)
 {
 	pid_t	pid;
 	char	*command;
@@ -183,6 +189,18 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 	flag_builtin = check_before_fork(p_head, command);
 	if (!flag_builtin)
 		return ;
+	if (flag_builtin == 2 && !p_head->next)
+	{
+		bi_cd(p_head->args, get_arraysize(p_head->args), shell->envp);
+		return ;
+	}
+	else if (flag_builtin == 5)
+	{
+		printf("%p before\n", shell->envp);
+		shell->envp = var_export(shell->envp, p_head->args, get_arraysize(p_head->args));
+		printf("%p after\n", shell->envp);
+		return ;
+	}
 	pid = fork();
 	if (pid < 0)
 		exit(0) ;
@@ -196,9 +214,9 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 			exit(0) ;
 		if (flag_builtin != 1)
 		{
-			builtin(p_head, pipex_info, flag_builtin);
+			builtin(p_head, shell, flag_builtin);
 			exit(0) ;
 		}
-		execve(command, p_head->args, pipex_info->envp);
+		execve(command, p_head->args, shell->envp);
 	}
 }

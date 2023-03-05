@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/03 12:51:04 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/05 16:00:28 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_pipex
 typedef struct s_pipex_common
 {
 	char				**paths;
-	char				**envp;
 	int					**pipes;
 	int					number_nodes;
 	int					argc;
