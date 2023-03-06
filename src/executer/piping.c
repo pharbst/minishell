@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/05 16:37:20 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/06 20:18:31 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,14 +196,19 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	}
 	else if (flag_builtin == 5)
 	{
-		printf("%p before\n", shell->envp);
 		shell->envp = var_export(shell->envp, p_head->args, get_arraysize(p_head->args));
-		printf("%p after\n", shell->envp);
 		return ;
 	}
+	else if (flag_builtin == 7)
+	{
+		shell->envp = unset( shell->envp, p_head->args);
+		return ;
+	}
+
+	
 	pid = fork();
 	if (pid < 0)
-		exit(0) ;
+		exit(0) ; 
 	if (pid == 0)
 	{
 		if (!open_files(p_head))

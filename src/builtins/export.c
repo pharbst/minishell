@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/05 16:09:38 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:54:56 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,54 @@
 // }
 
 
+char	*line_with_quotes(char *line)
+{
+	char 	*new_line;
+	int 	i;
+	int 	j;
+
+	i = 0;
+	j = 0;
+	new_line = malloc(sizeof(char) * ft_strlen(line) + 3);
+	while (line[j])
+	{
+		new_line[i] = line[j];
+		if (line[j] == '=')
+		{
+			i++;
+			new_line[i] = '"';
+		}
+		i++;
+		j++;
+	}
+	new_line[i] = '"';
+	new_line[++i] = '\0';
+	return (new_line);
+}
+
 char		**var_export(char **envp, char **argv, int argc)
 {
 	char	**new_envp;
 	int		arraysize;
 	int		index;
+	char	**name_val;
+	int 	flag;
 	
 	index = 0;
+	flag = 0;
 	if (argc == 1)
 	{
 		while (envp[index])
 		{
 			if (ft_strncmp(envp[index], "_=", 2))
-				printf("%s\n", envp[index]);
+				printf("declare -x %s\n", line_with_quotes(envp[index]));
 			index++;
 		}
 		return (envp);
 	}
 	else
 	{
+		name_val = ft_split(argv[1], '=');
 		arraysize = get_arraysize(envp);
 		new_envp = ft_calloc(arraysize + 2, sizeof(char *));
 		if (!new_envp)
@@ -63,18 +92,18 @@ char		**var_export(char **envp, char **argv, int argc)
 			new_envp[index] = ft_strdup(envp[index]);
 			if (!new_envp[index])
 				return (NULL);
+			if (!ft_strncmp(new_envp[index], name_val[0], ft_strlen(name_val[0])) && new_envp[index][ft_strlen(name_val[0])] == '=')
+			{
+				new_envp[index] = ft_strdup(argv[1]);
+				flag = 1;
+			}
 			index++;
 		}
-		new_envp[index] = argv[1];
-		new_envp[++index] = NULL;
-		printf("%i\n", index);
-		printf("%s\n", argv[1]);
-		int i = 0;
-		while (new_envp[i])
-		{
-			printf("%s\n", new_envp[i]);
-			i++;
+		if (!flag)
+		{	
+			new_envp[index] = ft_strdup(argv[1]);
 		}
+		new_envp[++index] = NULL;
 		return (new_envp);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/05 16:33:28 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/06 18:32:53 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	shell_interactive(t_shell *shell)
 			break ;
 		}
 		execute(shell);
-		printf("%p in shell\n", shell->envp);
 		// if (!shell->p_head)
 			//line too long o other error
 		//add history
