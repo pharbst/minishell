@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
+#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/02 12:50:17 by ccompote         ###   ########.fr        #
+#    Updated: 2023/03/07 20:11:16 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,6 @@ SRC_FILES	=	main.c \
 # parsing
 SRC_FILES	+=	parsing_main.c \
 				quote_expand.c \
-				get_var.c \
 				string_con.c \
 				join_arg.c \
 				validate_fd.c \
