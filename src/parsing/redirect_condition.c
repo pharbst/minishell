@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/02 11:36:14 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/08 14:57:55 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static bool	red_helper2(t_parsing *a, t_redir_out *new)
 	char	*tmp1;
 
 	tmp = str_cat(a);
-	tmp1 = ft_substr(tmp, 1, ft_strlen(tmp) - 1);
+	tmp1 = ft_substr(tmp, 0, ft_strlen(tmp));
 	free(tmp);
-	if (validate_fd(tmp1))
+	if (validate_fd(tmp1 + 1))
 		new->file_right = tmp1;
 	else
 		return (printf("minishell: %d: Bad file descriptor\n"

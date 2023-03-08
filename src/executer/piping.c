@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/06 20:18:31 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/08 16:27:18 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,19 @@ char	*get_cmd(t_pipex *p_head, char **paths)
 
 int	handle_outfile(t_pipex *p_head)
 {
-	if (dup2(p_head->out->fd_left, STDOUT_FILENO) < 0)
-		return (0);
-	close(p_head->out->fd_left);
+	t_redir_out	*tmp;
+
+	tmp = p_head->out;
+	while (tmp)
+	{
+		if (dup2(tmp->fd_right, tmp->fd_left) < 0)
+			return (0);
+		fflush(stdout);
+		if (tmp->fd_right > 2)
+			close(tmp->fd_right);
+		tmp = tmp->next;
+	}
+	
 	return (1);
 }
 
@@ -58,18 +68,15 @@ int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 			return (0);
 		close(p_head->fd_in);
 	}
-	if (p_head->next)
+	if (p_head->out)
+	{
+		if (!handle_outfile(p_head))
+			return (0);
+	}
+	else if (p_head->next)
 	{
 		if (dup2(pipex_info->pipes[0][1], STDOUT_FILENO) < 0)
 			return (0);
-	}
-	else
-	{
-		if (p_head->out)
-		{
-			if (!handle_outfile(p_head))
-				return (0);
-		}
 	}
 	return (1);
 }
@@ -159,6 +166,8 @@ int check_before_fork(t_pipex *p_head, char *command)
 
 int open_files(t_pipex *p_head)
 {
+	t_redir_out	*tmp;
+
 	if (p_head->in)
 	{
 		p_head->fd_in = open(p_head->in, O_RDONLY);
@@ -167,14 +176,26 @@ int open_files(t_pipex *p_head)
 	}
 	if (p_head->out)
 	{
-		if (p_head->out->append)
-			p_head->out->fd_left = open(p_head->out->file_right,
-				O_CREAT | O_WRONLY | O_APPEND, 0644);
-		else
-			p_head->out->fd_left = open(p_head->out->file_right,
-				O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (p_head->out->fd_left < 0)
-		return (0);
+		tmp = p_head->out;
+		while (tmp)
+		{
+			if (*tmp->file_right != '&')
+			{
+				if (tmp->append)
+					tmp->fd_right = open(tmp->file_right,
+						O_CREAT | O_WRONLY | O_APPEND, 0644);
+				else
+					tmp->fd_right = open(tmp->file_right,
+						O_CREAT | O_WRONLY | O_TRUNC, 0644);
+				if (tmp->fd_right < 0)
+					return (0);
+			}
+			else if (*tmp->file_right == '&')
+			{
+				tmp->fd_right = ft_atoi(tmp->file_right + 1);
+			}
+			tmp = tmp->next;
+		}
 	}
 	return (1);
 }
