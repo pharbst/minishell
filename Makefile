@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/07 20:11:16 by pharbst          ###   ########.fr        #
+#    Updated: 2023/03/08 19:24:18 by ccompote         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,8 @@ SRC_FILES	+=	parsing_main.c \
 SRC_FILES	+=	execute.c \
 				prepare.c \
 				piping.c \
+				check_exec_builtin.c \
+				child_handle_fds.c \
 
 # Buildins
 SRC_FILES	+=	cd.c \

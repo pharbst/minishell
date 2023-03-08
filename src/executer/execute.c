@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/05 15:58:56 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:28:15 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,18 @@ void	close_pipes(int **pipes, int cur, int number_nodes)
 	}
 }
 
+void waiting(t_pipex_common *pipex_info)
+{
+	int i;
+
+	i = 0;
+	while (i < pipex_info->number_nodes)
+	{
+		waitpid(pipex_info->pids[i], NULL, 0);
+		i++;
+	}
+}
+
 void	finish_piping(t_pipex_common *pipex_info)
 {
 	int	i;
@@ -66,11 +78,7 @@ void	finish_piping(t_pipex_common *pipex_info)
 		i++;
 	}
 	i = 0;
-	while (i < pipex_info->number_nodes)
-	{
-		waitpid(-1, NULL, 0);
-		i++;
-	}
+	waiting(pipex_info);
 }
 
 int	execute(t_shell *shell)
@@ -81,15 +89,13 @@ int	execute(t_shell *shell)
 	int j;
 
 	j = 0;
+	i = 0;
 	pipex = shell->p_head;
-	while(pipex->args[j])
-		j++;
 	pipex_info = malloc(sizeof(t_pipex_common));
 	if (!pipex_info)
 		return (0);
 	if (!get_info_for_pipex(pipex_info, pipex, shell->envp))
 		return (0);
-	i = 0;
 	while (i < pipex_info->number_nodes)
 	{
 		piping(pipex, pipex_info, i, shell);

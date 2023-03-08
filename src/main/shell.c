@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/06 18:32:53 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/08 20:56:36 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	shell_readline(t_shell *shell)
 
 	line = get_prompt_line(shell);
 	shell->line = readline(line);
+	add_history(shell->line);
 	free(line);
 }
 
@@ -32,11 +33,15 @@ void	shell_interactive(t_shell *shell)
 		// shell->line = ft_strdup("ls >tmp | cat tmp");
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
 		// printf("\n\n\n");
-		// print_pipex(shell->p_head);
-		if (!ft_strcmp(shell->p_head->cmd, "exit"))
+		print_pipex(shell->p_head);
+		if (shell->p_head->cmd)
 		{
-			printf("exit\n");
-			break ;
+			if (!ft_strcmp(shell->p_head->cmd, "exit"))
+			{
+				printf("exit\n");
+				break ;
+			}
+			
 		}
 		execute(shell);
 		// if (!shell->p_head)
