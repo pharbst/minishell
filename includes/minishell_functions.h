@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/07 20:11:32 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/08 18:04:18 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ int				find_var(char **envp_var, char *var_name);
 char			*get_var_content(char **envp_var, char *var_name);
 int				error_code(int error_code, bool read);
 char			**split_free(char *line, char c);
-
+bool			signal_flag(bool read, bool set);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/08 16:27:18 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/08 17:59:58 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	handle_outfile(t_pipex *p_head)
 	{
 		if (dup2(tmp->fd_right, tmp->fd_left) < 0)
 			return (0);
-		fflush(stdout);
 		if (tmp->fd_right > 2)
 			close(tmp->fd_right);
 		tmp = tmp->next;
@@ -205,6 +204,9 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	pid_t	pid;
 	char	*command;
 	int flag_builtin;
+	struct sigaction sa;
+
+	sa.sa_handler = SIG_DFL;
 	
 	command = get_cmd(p_head, pipex_info->paths);
 	flag_builtin = check_before_fork(p_head, command);
@@ -226,12 +228,13 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 		return ;
 	}
 
-	
+	signal_flag(WRITE, true);
 	pid = fork();
 	if (pid < 0)
 		exit(0) ; 
 	if (pid == 0)
 	{
+		sigaction(SIGINT, &sa, NULL);
 		if (!open_files(p_head))
 			exit(0);
 		if (pipex_info->number_nodes > 1)

@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/07 20:11:16 by pharbst          ###   ########.fr        #
+#    Updated: 2023/03/08 18:03:58 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,7 @@ SRC_FILES	+=	grap.c \
 				arraysize.c \
 				error_code.c \
 				split_free.c \
+				signal_helper.c \
 
 # **************************************************************************** #
 # directories
