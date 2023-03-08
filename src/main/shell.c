@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/08 18:03:46 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/08 18:11:46 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ void	shell_interactive(t_shell *shell)
 		shell_readline(shell);
 		// shell->line = ft_strdup("cat soemegpn >tmp 2>&1");
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
-		print_pipex(shell->p_head);
+		// print_pipex(shell->p_head);
 		if (!ft_strcmp(shell->p_head->cmd, "exit"))
 		{
 			printf("exit\n");
 			break ;
 		}
 		execute(shell);
+		signal_flag(WRITE, false);
 		free_pipex(shell->p_head);
 	}
 	ft_exit(shell);
