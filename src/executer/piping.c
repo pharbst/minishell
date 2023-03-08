@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/08 20:54:52 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/08 21:04:07 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,9 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 {
 	char	*command;
 	int flag_builtin;
+	struct sigaction sa;
+
+	sa.sa_handler = SIG_DFL;
 	
 	command = get_cmd(p_head, pipex_info->paths);
 	flag_builtin = check_before_fork(p_head, command);
@@ -143,11 +146,13 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 		return ;
 	if (builtin_main(p_head, shell, flag_builtin))
 		return ;
+	signal_flag(WRITE, true);
 	pipex_info->pids[process] = fork();
 	if (pipex_info->pids[process] < 0)
 		exit(0) ; 
 	if (pipex_info->pids[process] == 0)
 	{
+		sigaction(SIGINT, &sa, NULL);
 		if (!open_files(p_head))
 			exit(0);
 		if (pipex_info->number_nodes > 1)
