@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/07 18:09:08 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/08 13:00:51 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,15 @@ t_pipex	*parsing_condition(t_parsing *a)
 t_pipex	*parsing(char *line, t_token *token, int token_count, char **envp)
 {
 	t_parsing	parameter;
+	t_pipex		*pipex;
 
 	parameter.token = token;
 	parameter.token_count = token_count;
 	parameter.token_index = 0;
 	parameter.line = line;
 	parameter.envp = envp;
-	return (free(token), free(line), parsing_condition(&parameter));
+	pipex = parsing_condition(&parameter);
+	return (free(token), free(line), pipex);
 }
 
 t_pipex	*shell_parsing_main(char *line, char **envp)
