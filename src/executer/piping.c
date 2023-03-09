@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/09 15:43:59 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:11:32 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,25 @@ char	*get_cmd(t_pipex *p_head, char **paths)
 	char	*command;
 
 	i = 0;
-	if (!access(p_head->cmd, 0))
-		return (p_head->cmd);
-	while (paths[i])
+	if (ft_strchr("/.", *p_head->cmd))
 	{
-		tmp = ft_strjoin(paths[i], "/");
-		command = ft_strjoin(tmp, p_head->cmd);
-		if (!command)
-			return (NULL);
-		free(tmp);
-		if (!access(command, 0))
-			return (command);
-		free(command);
-	i++;
+		if (!access(p_head->cmd, 0))
+			return (p_head->cmd);
+	}
+	if (paths)
+	{
+		while (paths[i])
+		{
+			tmp = ft_strjoin(paths[i], "/");
+			command = ft_strjoin(tmp, p_head->cmd);
+			if (!command)
+				return (NULL);
+			free(tmp);
+			if (!access(command, 0))
+				return (command);
+			free(command);
+		i++;
+		}
 	}
 	return (NULL);
 }

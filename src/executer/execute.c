@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/08 20:28:15 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:10:38 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	execute(t_shell *shell)
 	pipex_info = malloc(sizeof(t_pipex_common));
 	if (!pipex_info)
 		return (0);
+	
 	if (!get_info_for_pipex(pipex_info, pipex, shell->envp))
 		return (0);
 	while (i < pipex_info->number_nodes)

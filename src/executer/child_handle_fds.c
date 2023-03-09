@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/09 15:47:37 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/09 22:43:02 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,15 @@ int	handle_outfile(t_pipex *p_head)
 // ls >| llllogs
 // ls > llllogs
 
-// unset path -> segfault
 // change env with cd (first unset, then export)
+// 1. export curent pwd as old pwd
+// 2. cd
+// 3. export current pwd as pwd 
 // ctrl-c - sosatb
 // ctrl-\ - sosatb
 // ctrl-d - sosatb
 // export a=asd; export a - should not change value of a if already exists
 // exit takes only numeric arguments and exits with correct exitcode
-
-// int	handle_outfile(t_pipex *p_head)
-// {
-// 	if (dup2(p_head->out->fd_left, STDOUT_FILENO) < 0)
-// 		return (0);
-// 	close(p_head->out->fd_left);
-// 	return (1);
-// }
 
 int first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {
