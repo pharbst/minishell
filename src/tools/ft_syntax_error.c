@@ -1,37 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_var.c                                         :+:      :+:    :+:   */
+/*   ft_syntax_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 16:31:08 by pharbst           #+#    #+#             */
+/*   Created: 2023/03/09 22:54:55 by pharbst           #+#    #+#             */
 /*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	find_var(char **envp_var, char *var_name)
+void	ft_syntax_error(t_parsing *a)
 {
-	size_t	i;
-
-	i = 0;
-	while (envp_var[i] && ft_strncmp(envp_var[i], var_name,
-			ft_strlen(var_name)))
-		i++;
-	if (!envp_var[i])
-		return (-1);
-	return (i);
-}
-
-char	*get_var_content(char **envp_var, char *var_name)
-{
-	int	i;
-
-	i = find_var(envp_var, var_name);
-	if (i == -1)
-		return (NULL);
-	return (ft_substr(ft_strchr(envp_var[i], '='), 1,
-			ft_strlen(ft_strchr(envp_var[i], '=') + 1)));
+	printf("minishell: syntax error near unexpected token `%c'",
+		*a->token[a->token_index].location);
 }

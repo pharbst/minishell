@@ -6,11 +6,11 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/08 14:57:55 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void	redirect_in_condition(t_parsing *a, t_pipex *pipex)
 {
@@ -84,14 +84,21 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 	if (file1)
 		free(file1);
 	a->token_index += 1;
-	if (a->token[a->token_index].location
-		&& *a->token[a->token_index].location == '>')
+	if (a->token[a->token_index].type == NEWLINE)
+		return (free(new), ft_syntax_error(a));
+	if (a->token[a->token_index].type != PIPE)
 	{
-		new->append = true;
-		a->token_index += 1;
-	}
-	else
-		new->append = false;
+		if (a->token[a->token_index].location
+			&& *a->token[a->token_index].type == REDIRECT_OUT)
+		{
+			a->token_index += 1;
+			if (a->token[a->token_index].type == PIPE)
+				return (printf("minishell: syntax error near unexpected token `|'\n"), free(new));
+			new->append = true;
+		}
+	// 	else
+	// 		new->append = false;
+	// }
 	if (a->token[a->token_index].location
 		&& *a->token[a->token_index].location == '&')
 	{

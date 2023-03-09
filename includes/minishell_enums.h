@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 07:32:39 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/02 08:04:52 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/09 22:36:40 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define DOLLAR -9
 # define STRING_CLOSE -13
 # define REDIRECT_IN -14
+# define NEWLINE -15
 # define MAX_TOKENS 2048
 
 # define READ 1

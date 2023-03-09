@@ -6,11 +6,11 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/08 13:00:51 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	tokenize(char *line, t_token *token, int i, int index)
 {
@@ -49,6 +49,8 @@ int	token_main(char *line, t_token *token)
 			return (-1);
 		i = tokenize(line, token, i, index);
 	}
+	token[i].type = NEWLNE;
+	token[i].location = ft_strchr(line, '\0');
 	return (i);
 }
 
