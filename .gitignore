@@ -57,3 +57,5 @@ minishell
 ./tmp*
 test.c
 a.out
+tester
+tests
