@@ -6,45 +6,51 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/08 20:57:27 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:47:37 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	handle_outfile(t_pipex *p_head)
-// {
-// 	t_redir_out	*tmp;
+int	handle_outfile(t_pipex *p_head)
+{
+	t_redir_out	*tmp;
 
-// 	tmp = p_head->out;
-// 	while (tmp)
-// 	{
-// 		if (dup2(tmp->fd_right, tmp->fd_left) < 0)
-// 			return (0);
-// 		fflush(stdout);
-// 		if (tmp->fd_right > 2)
-// 			close(tmp->fd_right);
-// 		tmp = tmp->next;
-// 	}
-	
-// 	return (1);
-// }
+	tmp = p_head->out;
+	while (tmp)
+	{
+		if (dup2(tmp->fd_right, tmp->fd_left) < 0)
+			return (0);
+		fflush(stdout);
+		if (tmp->fd_right > 2)
+			close(tmp->fd_right);
+		tmp = tmp->next;
+	}
+	return (1);
+}
 
 // ЗАМЕТКИ   dollar sign    доллару пизда (видели американский долг) echo $a
 // segfault empty str or рш
 // ctrld - segfault
+
 // ls >| llllogs
 // ls > llllogs
+
 // unset path -> segfault
 // change env with cd (first unset, then export)
+// ctrl-c - sosatb
+// ctrl-\ - sosatb
+// ctrl-d - sosatb
+// export a=asd; export a - should not change value of a if already exists
+// exit takes only numeric arguments and exits with correct exitcode
 
-int	handle_outfile(t_pipex *p_head)
-{
-	if (dup2(p_head->out->fd_left, STDOUT_FILENO) < 0)
-		return (0);
-	close(p_head->out->fd_left);
-	return (1);
-}
+// int	handle_outfile(t_pipex *p_head)
+// {
+// 	if (dup2(p_head->out->fd_left, STDOUT_FILENO) < 0)
+// 		return (0);
+// 	close(p_head->out->fd_left);
+// 	return (1);
+// }
 
 int first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {

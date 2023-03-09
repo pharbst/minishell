@@ -6,7 +6,7 @@
 #    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/08 20:59:03 by ccompote         ###   ########.fr        #
+#    Updated: 2023/03/09 12:45:20 by ccompote         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -155,13 +155,20 @@ re:
 hard_re:
 	@./spinner.sh make -s proname_header hard_clean $(NAME)
 
-$(NAME):	proname_header libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
-	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) -o $(NAME)
-	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
+# $(NAME):	proname_header libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
+# 	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) -o $(NAME)
+# 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
+CFLAGSS      = -I$(shell brew --prefix readline)/include # -fsanitize=address -fsanitize=undefined #-Wno-gnu-include-next -I LeakSanitizer/include
+LDFLAGS     = -L$(shell brew --prefix readline)/lib/ -lreadline #-LLeakSanitizer  -llsan -lc++
+
+$(NAME):	proname_header libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
+	@$(CC) $(CFLAGS) $(OBJ) $(CFLAGSS) $(LDFLAGS) $(LIBFTIO) -o $(NAME)
+	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
+	
 $(OBJ_DIR)/%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(INC) $(INC_LIBFTIO) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) $(INC_LIBFTIO) $(CFLAGSS) -c $< -o $@
 
 $(LIBFTIO):
 	@make -C $(LIBFTIO_DIR) > /dev/null

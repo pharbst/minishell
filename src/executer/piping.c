@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/08 21:04:07 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:43:59 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	change_fds_child(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 	{
 		if (!first_process(p_head, pipex_info))
 			return (0);
-		
 	}
 	else if (process == pipex_info->number_nodes - 1)
 	{
@@ -57,76 +56,37 @@ int	change_fds_child(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 	return (1);
 }
 
-// int open_files(t_pipex *p_head)
-// {
-// 	t_redir_out	*tmp;
-
-// 	if (p_head->in)
-// 	{
-// 		p_head->fd_in = open(p_head->in, O_RDONLY);
-// 		if (p_head->fd_in < 0)
-// 			return (0);
-// 	}
-// 	if (p_head->out)
-// 	{
-// 		tmp = p_head->out;
-// 		while (tmp)
-// 		{
-// 			if (*tmp->file_right != '&')
-// 			{
-// 				if (tmp->append)
-// 					tmp->fd_right = open(tmp->file_right,
-// 						O_CREAT | O_WRONLY | O_APPEND, 0644);
-// 				else
-// 					tmp->fd_right = open(tmp->file_right,
-// 						O_CREAT | O_WRONLY | O_TRUNC, 0644);
-// 				if (tmp->fd_right < 0)
-// 					return (0);
-// 			}
-// 			else if (*tmp->file_right == '&')
-// 			{
-// 				tmp->fd_right = ft_atoi(tmp->file_right + 1);
-// 			}
-// 			tmp = tmp->next;
-// 		}
-// 	}
-// 	return (1);
-// }
-
 int open_files(t_pipex *p_head)
 {
+	t_redir_out	*tmp;
+
 	if (p_head->in)
 	{
 		p_head->fd_in = open(p_head->in, O_RDONLY);
 		if (p_head->fd_in < 0)
-		{
-			printf("%s: No such file or directory\n", p_head->in);
 			return (0);
-		}
 	}
 	if (p_head->out)
 	{
-		while (p_head->out)
+		tmp = p_head->out;
+		while (tmp)
 		{
-			if (p_head->out->next == NULL)
+			if (*tmp->file_right != '&')
 			{
-				if (p_head->out->append)
-					p_head->out->fd_left = open(p_head->out->file_right,
+				if (tmp->append)
+					tmp->fd_right = open(tmp->file_right,
 						O_CREAT | O_WRONLY | O_APPEND, 0644);
 				else
-					p_head->out->fd_left = open(p_head->out->file_right,
+					tmp->fd_right = open(tmp->file_right,
 						O_CREAT | O_WRONLY | O_TRUNC, 0644);
-				if (p_head->out->fd_left < 0)
+				if (tmp->fd_right < 0)
 					return (0);
-			
-				return (1);
 			}
-			p_head->out->fd_left = open(p_head->out->file_right,
-						O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			if (p_head->out->fd_left < 0)
-					return (0);
-			close(p_head->out->fd_left);
-			p_head->out = p_head->out->next;
+			else if (*tmp->file_right == '&')
+			{
+				tmp->fd_right = ft_atoi(tmp->file_right + 1);
+			}
+			tmp = tmp->next;
 		}
 	}
 	return (1);
