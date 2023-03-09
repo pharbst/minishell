@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:14:33 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/09 23:27:34 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ int	get_info_for_pipex(t_pipex_common *pipex_info, t_pipex *pipex, char **envp)
 	if (!pipex_info->pipes)
 		return (0);
 	pipex_info->paths = split_free(get_var_content(envp, "PATH"), ':');
+	if (!pipex_info->paths)
+	{
+		printf("%s: No such file or directory\n", pipex->cmd);
+		return (0);
+	}
 	while (i < pipex_info->number_nodes - 1)
 	{
 		pipex_info->pipes[i] = malloc(sizeof(int) * 2);

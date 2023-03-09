@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/09 23:27:40 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	execute(t_shell *shell)
 	pipex_info = malloc(sizeof(t_pipex_common));
 	if (!pipex_info)
 		return (0);
+	
 	if (!get_info_for_pipex(pipex_info, pipex, shell->envp))
 		return (0);
 	while (i < pipex_info->number_nodes)
