@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:53:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/02/20 12:53:53 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/09 20:53:44 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,21 @@
 static char	*expand_dollar_var(t_parsing *a)
 {
 	char	*tmp;
-	// char	*ret;
+	char	*ret;
+	int		i;
 
-	printf("enter expand_dollar_var\n");
-	tmp = a->token[a->token_index].location;
-	while (!ft_isspace(*tmp) && tmp < a->token[a->token_index + 1].location)
-		tmp++;
-	// ret = get_var(ft_substr(a->token[a->token_index].location, 1,
-				// (tmp - a->token[a->token_index].location) - 1), a->envp);
-	printf("get_var not implemented yet\n");
-	a->token[a->token_index].location = tmp;
-	// return (ret);
-	return (printf("return value not implemented yet\n"), NULL);
+	i = 1;
+	while (!ft_isspace(*(a->token[a->token_index].location + i)) && *(a->token[a->token_index].location + i) != '\0' && a->token_index < (a->token_count - 1) && (a->token[a->token_index].location + i) < a->token[a->token_index + 1].location)
+		i++;
+	tmp = ft_substr(a->token[a->token_index].location, 1, i - 1);
+	ret = get_var_content(a->envp, tmp);
+	return (free(tmp), ret);
 }
 
 char	*quote_expand(t_parsing *a)
 {
 	char	*tmp;
 
-	printf("enter quote_expand\n");
 	tmp = NULL;
 	if (a->token[a->token_index + 1].type == DQUOTE_CLOSE
 		|| a->token[a->token_index + 1].type == SQUOTE_CLOSE)
@@ -44,14 +40,16 @@ char	*quote_expand(t_parsing *a)
 					- a->token[a->token_index - 2].location) - 1));
 	}
 	while (a->token[a->token_index].type != DQUOTE_CLOSE
-		|| a->token[a->token_index].type != SQUOTE_CLOSE)
+		&& a->token[a->token_index].type != SQUOTE_CLOSE)
 	{
-		tmp = ft_substr(a->token[a->token_index].location, 1,
-				(a->token[a->token_index + 1].location
-					- a->token[a->token_index].location) - 1);
-		a->token_index += 1;
 		if (a->token[a->token_index].type == DOLLAR)
 			tmp = strjoinfree(tmp, expand_dollar_var(a));
+		else
+			tmp = strjoinfree(tmp, ft_substr(a->token[a->token_index].location, 1,
+				(a->token[a->token_index + 1].location
+					- a->token[a->token_index].location) - 1));
+		a->token_index += 1;
 	}
+	a->token_index += 1;
 	return (tmp);
 }
