@@ -6,7 +6,7 @@
 #    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/10 20:03:32 by ccompote         ###   ########.fr        #
+#    Updated: 2023/03/10 21:27:57 by ccompote         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,6 +111,7 @@ SRC_FILES	+=	grap.c \
 				error_code.c \
 				split_free.c \
 				signal_helper.c \
+				ft_syntax_error.c \
 
 # **************************************************************************** #
 # directories

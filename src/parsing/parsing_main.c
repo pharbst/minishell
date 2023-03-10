@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/10 12:35:04 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:29:10 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,13 @@ int	token_main(char *line, t_token *token)
 			return (-1);
 		i = tokenize(line, token, i, index);
 	}
-	token[i].type = NEW_LINE;
-	token[i].location = ft_strchr(line, '\0');
+	if (i != -1 && i < MAX_TOKENS)
+	{
+		token[i].type = NEW_LINE;
+		token[i].location = ft_strchr(line, '\0');
+	}
+	else if (i >= MAX_TOKENS)
+		return (free(token),printf("minishell: parsing error too many tokens\n"), -1);
 	return (i);
 }
 

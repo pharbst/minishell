@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/10 12:36:43 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:28:13 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,7 @@ char			*get_var_content(char **envp_var, char *var_name);
 int				error_code(int error_code, bool read);
 char			**split_free(char *line, char c);
 bool			signal_flag(bool read, bool set);
+void			ft_syntax_error(t_parsing *a);
+bool			syntax_check(bool read, bool value);
 
 #endif

@@ -6,14 +6,11 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/10 20:17:59 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:28:21 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-// #include <readline/readline.h>
-// #include <readline/history.h>
-// #include <stdio.h>
 
 void	sigint_handler(int sig)
 {
@@ -45,6 +42,7 @@ void	shell_interactive(t_shell *shell)
 {
 	struct sigaction	sa;
 
+	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = sigint_handler;
 	sa.sa_flags = SA_RESTART;
 
@@ -52,10 +50,11 @@ void	shell_interactive(t_shell *shell)
 	{
 		sigaction(SIGINT, &sa, NULL);
 		shell_readline(shell);
-		// shell->line = ft_strdup("cat soemegpn >tmp 2>&1");
+		// shell->line = ft_strdup(">");
+		syntax_check(WRITE, false);
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
 		// printf("\n\n\n");
-		if (shell->p_head)
+		if (shell->p_head && !syntax_check(READ, NULL))
 		{
 			// print_pipex(shell->p_head);
 			if (shell->p_head->cmd)
@@ -66,8 +65,8 @@ void	shell_interactive(t_shell *shell)
 				}
 			execute(shell);
 			signal_flag(WRITE, false);
-			free_pipex(shell->p_head);
 		}
+		free_pipex(shell->p_head);
 	}
 	ft_exit(shell);
 }
