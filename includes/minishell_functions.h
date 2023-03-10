@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_functions.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 22:32:38 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/10 19:12:48 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ char			*get_var_content(char **envp_var, char *var_name);
 int				error_code(int error_code, bool read);
 char			**split_free(char *line, char c);
 bool			signal_flag(bool read, bool set);
+void			ft_syntax_error(t_parsing *a);
+bool			syntax_check(bool read, bool value);
 
 #endif

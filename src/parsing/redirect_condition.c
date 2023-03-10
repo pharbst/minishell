@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:07:24 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	redirect_in_condition(t_parsing *a, t_pipex *pipex)
 {
 	a->token_index += 1;
+	if (a->token[a->token_index].type == NEW_LINE)
+		return (ft_syntax_error(a));
 	if (a->token[a->token_index].type == REDIRECT_IN)
 		hdc(a, pipex);
 	else
@@ -46,12 +48,15 @@ static bool	red_helper(t_parsing *a, t_redir_out *new)
 {
 	char	*tmp;
 
+	if (a->token[a->token_index].type == PIPE)
+		a->token_index += 1;
 	if (a->token[a->token_index].type == SPACE_START)
 		a->token_index += 1;
 	tmp = str_cat(a);
+	if (!tmp || *tmp == '&')
+		return (free(new), ft_syntax_error(a), true);
 	if (*tmp == '&')
-		return (printf("minishell: syntax error near unexpected token `&'\n")
-			, true);
+		return (printf("minishell: syntax error near unexpected token `&'\n"), free(new), true);
 	else
 		new->file_right = tmp;
 	return (false);
@@ -84,21 +89,21 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 	if (file1)
 		free(file1);
 	a->token_index += 1;
-	if (a->token[a->token_index].type == NEWLINE)
+	if (a->token[a->token_index].type == NEWLINE || a->token[a->token_index].type == REDIRECT_IN)
 		return (free(new), ft_syntax_error(a));
 	if (a->token[a->token_index].type != PIPE)
 	{
 		if (a->token[a->token_index].location
-			&& *a->token[a->token_index].type == REDIRECT_OUT)
+			&& a->token[a->token_index].type == REDIRECT_OUT)
 		{
 			a->token_index += 1;
 			if (a->token[a->token_index].type == PIPE)
-				return (printf("minishell: syntax error near unexpected token `|'\n"), free(new));
+				return (ft_syntax_error(a), free(new));
 			new->append = true;
 		}
 	// 	else
 	// 		new->append = false;
-	// }
+	}
 	if (a->token[a->token_index].location
 		&& *a->token[a->token_index].location == '&')
 	{

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
+#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/09 12:45:20 by ccompote         ###   ########.fr        #
+#    Updated: 2023/03/10 17:17:17 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -110,6 +110,7 @@ SRC_FILES	+=	grap.c \
 				error_code.c \
 				split_free.c \
 				signal_helper.c \
+				ft_syntax_error.c \
 
 # **************************************************************************** #
 # directories
