@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/10 20:17:59 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	shell_interactive(t_shell *shell)
 			// print_pipex(shell->p_head);
 			if (shell->p_head->cmd)
 				if (!ft_strcmp(shell->p_head->cmd, "exit"))
+				{
+					printf("exit\n");
 					break ;
+				}
 			execute(shell);
 			signal_flag(WRITE, false);
 			free_pipex(shell->p_head);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/10 15:02:01 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static char	**malloc_envp(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		new_envp[i] = ft_strdup(envp[i]);
+		if (ft_strncmp(envp[i], "OLDPWD\0", 6))
+			new_envp[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	new_envp[i] = NULL;

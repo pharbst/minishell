@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_handle_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/09 23:27:42 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/10 21:22:28 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,19 @@ int	handle_outfile(t_pipex *p_head)
 	return (1);
 }
 
-// ЗАМЕТКИ   dollar sign    доллару пизда (видели американский долг) echo $a
-// segfault empty str or рш
-// ctrld - segfault
+// ctrl-c - sosatb
+// ctrl-\ - sosatb
+// ctrl-d - sosatb
 
 // ls >| llllogs
 // ls > llllogs
 
-// change env with cd (first unset, then export)
-// 1. export curent pwd as old pwd
-// 2. cd
-// 3. export current pwd as pwd 
-// ctrl-c - sosatb
-// ctrl-\ - sosatb
-// ctrl-d - sosatb
-// export a=asd; export a - should not change value of a if already exists
 // exit takes only numeric arguments and exits with correct exitcode
+//при выполнении команд всегда обращаемся к внутреннему, при команде экспорт обновляются оба
+//a=b without echo (2 envs)
+//bash-3.2$ export =ab
+// bash: export: `=ab': not a valid identifier
+//close all files?
 
 int first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {

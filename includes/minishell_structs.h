@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 15:20:28 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/10 21:19:20 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_pipex
 	int					fd_in;
 	struct s_redir_out	*out;
 	struct s_pipex		*next;
-	pid_t				pid_child;
 }	t_pipex;
 
 typedef struct s_parsing
@@ -66,6 +65,7 @@ typedef struct s_shell
 	char				**argv;
 	int					argc;
 	char				**envp;
+	char				**envp_exported;
 
 	// char				**history;
 	char				*line;

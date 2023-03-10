@@ -6,7 +6,7 @@
 #    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/09 12:45:20 by ccompote         ###   ########.fr        #
+#    Updated: 2023/03/10 20:03:32 by ccompote         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,12 +80,13 @@ SRC_FILES	+=	parsing_main.c \
 				token_helper_tokencheck_quote.c \
 				token_helper_tokencheck.c \
 				here_doc_condition.c \
+				ft_syntax_error.c \
 
 # execution
 SRC_FILES	+=	execute.c \
 				prepare.c \
 				piping.c \
-				check_exec_builtin.c \
+				builtin_exec.c \
 				child_handle_fds.c \
 
 # Buildins

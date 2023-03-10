@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 22:32:38 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/10 12:36:43 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void			redirect_out_condition(t_parsing *a, t_pipex *pipex,
 void			redirect_in_condition(t_parsing *a, t_pipex *pipex);
 char			*str_cat(t_parsing *a);
 void			hdc(t_parsing *a, t_pipex *pipex);
+void			ft_syntax_error(t_parsing *a);
 
 // pipe functions
 int				execute(t_shell *shell);

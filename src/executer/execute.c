@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/09 23:27:40 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/10 21:19:48 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 
 void free_executor(t_pipex_common *pipex_info)
 {
@@ -23,6 +24,7 @@ void free_executor(t_pipex_common *pipex_info)
 		free(pipex_info->pipes[i]);
 		i++;
 	}
+	free(pipex_info->pids);
 	free(pipex_info->pipes);
 	free(pipex_info);
 }
@@ -91,10 +93,9 @@ int	execute(t_shell *shell)
 	j = 0;
 	i = 0;
 	pipex = shell->p_head;
-	pipex_info = malloc(sizeof(t_pipex_common));
+	pipex_info = ft_calloc(1, sizeof(t_pipex_common));
 	if (!pipex_info)
 		return (0);
-	
 	if (!get_info_for_pipex(pipex_info, pipex, shell->envp))
 		return (0);
 	while (i < pipex_info->number_nodes)

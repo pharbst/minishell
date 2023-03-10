@@ -3,39 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/10 21:12:08 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// char	**var_export(char **envp, char *var_name, char *var_value)
-// {
-// 	char	**new_envp;
-// 	int		arraysize;
-// 	int		index;
-
-// 	arraysize = get_arraysize(envp);
-// 	new_envp = ft_calloc(arraysize + 2, sizeof(char *));
-// 	if (!new_envp)
-// 		return (NULL);
-// 	index = 0;
-// 	while (index < arraysize)
-// 	{
-// 		new_envp[index] = ft_strdup(envp[index]);
-// 		if (!new_envp[index])
-// 			return (NULL);
-// 		index++;
-// 	}
-// 	new_envp[index] = strjoinfree(ft_strjoinchar(var_name, '='), var_value);
-// 	return (new_envp);
-// }
-
-
-char	*line_with_quotes(char *line)
+void	print_line_with_quotes(char *line)
 {
 	char 	*new_line;
 	int 	i;
@@ -43,21 +20,40 @@ char	*line_with_quotes(char *line)
 
 	i = 0;
 	j = 0;
-	new_line = malloc(sizeof(char) * ft_strlen(line) + 3);
-	while (line[j])
+	if (!ft_strchr(line, '='))
+		printf("declare -x %s\n", line);
+	else
 	{
-		new_line[i] = line[j];
-		if (line[j] == '=')
+		new_line = ft_calloc(ft_strlen(line) + 3, sizeof(char));
+		if (!new_line)
+			return ;
+		while (line[j])
 		{
+			new_line[i] = line[j];
+			if (line[j] == '=')
+			{
+				i++;
+				new_line[i] = '"';
+			}
 			i++;
-			new_line[i] = '"';
+			j++;
 		}
-		i++;
-		j++;
+		new_line[i] = '"';
+		new_line[++i] = '\0';
+		printf("declare -x %s\n", new_line);
+		free(new_line);
 	}
-	new_line[i] = '"';
-	new_line[++i] = '\0';
-	return (new_line);
+}
+
+int var_new(char *env, char *name)
+{
+	int new;
+
+	if (!ft_strncmp(env, name, ft_strlen(name)) && (env[ft_strlen(name)] == '=' || env[ft_strlen(name)] == '\0'))
+		new = 0;
+	else
+		new = 1;
+	return (new);
 }
 
 char		**var_export(char **envp, char **argv, int argc)
@@ -67,43 +63,50 @@ char		**var_export(char **envp, char **argv, int argc)
 	int		index;
 	char	**name_val;
 	int 	flag;
+	int 	i;
+	int		new;
 	
+	i = 1;
 	index = 0;
-	flag = 0;
 	if (argc == 1)
 	{
 		while (envp[index])
 		{
 			if (ft_strncmp(envp[index], "_=", 2))
-				printf("declare -x %s\n", line_with_quotes(envp[index]));
+				print_line_with_quotes(envp[index]);
 			index++;
 		}
 		return (envp);
 	}
 	else
 	{
-		name_val = ft_split(argv[1], '=');
 		arraysize = get_arraysize(envp);
-		new_envp = ft_calloc(arraysize + 2, sizeof(char *));
+		new_envp = ft_calloc(arraysize + argc, sizeof(char *));
 		if (!new_envp)
 			return (NULL);
-		while (index < arraysize)
+		while (argv[i])
 		{
-			new_envp[index] = ft_strdup(envp[index]);
-			if (!new_envp[index])
-				return (NULL);
-			if (!ft_strncmp(new_envp[index], name_val[0], ft_strlen(name_val[0])) && new_envp[index][ft_strlen(name_val[0])] == '=')
+			flag = 0;
+			name_val = ft_split(argv[i], '=');
+			while (index < arraysize)
 			{
-				new_envp[index] = ft_strdup(argv[1]);
-				flag = 1;
+				new_envp[index] = ft_strdup(envp[index]);
+				if (!new_envp[index])
+					return (NULL);
+				new = var_new(new_envp[index], name_val[0]);
+				if (!new && name_val[1])
+				{
+					new_envp[index] = ft_strdup(argv[i]);
+					flag = 1;
+				}
+				index++;
 			}
-			index++;
-		}
-		if (!flag)
-		{	
-			new_envp[index] = ft_strdup(argv[1]);
+			if (!flag  && new)
+				new_envp[index] = ft_strdup(argv[i]);
+			i++;
 		}
 		new_envp[++index] = NULL;
+		free_envp(envp);
 		return (new_envp);
 	}
 }

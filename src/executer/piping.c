@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/09 23:27:38 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/10 21:23:35 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*get_cmd(t_pipex *p_head, char **paths)
 			if (!access(command, 0))
 				return (command);
 			free(command);
-		i++;
+			i++;
 		}
 	}
 	return (NULL);
@@ -109,7 +109,7 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	command = get_cmd(p_head, pipex_info->paths);
 	flag_builtin = check_before_fork(p_head, command);
 	if (!flag_builtin)
-		return ;
+		return ; //free command?
 	if (builtin_main(p_head, shell, flag_builtin))
 		return ;
 	signal_flag(WRITE, true);
