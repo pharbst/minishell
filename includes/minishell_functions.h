@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_functions.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/10 21:28:13 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/10 23:45:23 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ void			redirect_out_condition(t_parsing *a, t_pipex *pipex,
 void			redirect_in_condition(t_parsing *a, t_pipex *pipex);
 char			*str_cat(t_parsing *a);
 void			hdc(t_parsing *a, t_pipex *pipex);
+char			*hdc_dollar(t_parsing *a);
+char			*hdc_string(t_parsing *a);
+char			*hdc_dquote(t_parsing *a);
+char			*hdc_squote(t_parsing *a);
 void			ft_syntax_error(t_parsing *a);
 
 // pipe functions

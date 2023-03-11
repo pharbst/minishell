@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
+#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/10 21:27:57 by ccompote         ###   ########.fr        #
+#    Updated: 2023/03/10 23:45:58 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,7 @@ SRC_FILES	+=	parsing_main.c \
 				token_helper_tokencheck_quote.c \
 				token_helper_tokencheck.c \
 				here_doc_condition.c \
+				here_doc_delimiter.c \
 				ft_syntax_error.c \
 
 # execution
@@ -111,7 +112,6 @@ SRC_FILES	+=	grap.c \
 				error_code.c \
 				split_free.c \
 				signal_helper.c \
-				ft_syntax_error.c \
 
 # **************************************************************************** #
 # directories

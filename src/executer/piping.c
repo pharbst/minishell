@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/10 21:23:35 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/11 00:28:38 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,9 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	int flag_builtin;
 	struct sigaction sa;
 
+	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = SIG_DFL;
+	sa.sa_flags = SA_RESTART;
 	
 	command = get_cmd(p_head, pipex_info->paths);
 	flag_builtin = check_before_fork(p_head, command);

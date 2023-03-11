@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/10 21:19:48 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/10 23:40:28 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,7 @@ int	execute(t_shell *shell)
 	t_pipex *pipex;
 	t_pipex_common	*pipex_info;
 	int				i;
-	int j;
 
-	j = 0;
 	i = 0;
 	pipex = shell->p_head;
 	pipex_info = ft_calloc(1, sizeof(t_pipex_common));
