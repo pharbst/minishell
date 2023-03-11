@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/11 02:52:16 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/11 04:26:09 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	shell_interactive(t_shell *shell)
 	{
 		sigaction(SIGINT, &sa, NULL);
 		shell_readline(shell);
-		// shell->line = ft_strdup("echo $?");
+		// shell->line = ft_strdup(">tmp");
 		syntax_check(WRITE, false);
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
 		// printf("\n\n\n");

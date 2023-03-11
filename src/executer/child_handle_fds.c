@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_handle_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/10 21:22:28 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/11 04:40:20 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,17 @@ int	handle_outfile(t_pipex *p_head)
 	tmp = p_head->out;
 	while (tmp)
 	{
+		printf("dup2: %d --> %d\n", tmp->fd_right, tmp->fd_left);
+		fflush(stdout);
 		if (dup2(tmp->fd_right, tmp->fd_left) < 0)
-			return (0);
+			return (printf("debug return 0 cause dup2 is less than 0\n"), fflush(stdout), 0);
+		printf("fd_right: %d\n", tmp->fd_right);
 		fflush(stdout);
 		if (tmp->fd_right > 2)
+		{
+			printf("close: %d\n", tmp->fd_right);
 			close(tmp->fd_right);
+		}
 		tmp = tmp->next;
 	}
 	return (1);
@@ -64,6 +70,7 @@ int first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 	}
 	if (p_head->out)
 	{
+		printf("out\n");
 		if (!handle_outfile(p_head))
 			return (0);
 	}

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/11 01:38:47 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/11 04:22:17 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,14 @@ t_pipex	*parsing_condition(t_parsing *a)
 	if (a->token_index >= a->token_count)
 	{
 		if (!cmd)
-			return (free(pipex), NULL);
+		{
+			if (!pipex->out)
+				return (free(pipex), NULL);
+			else
+				return (pipex);
+		}
 		else
-		return (pipex);
+			return (pipex);
 	}
 	a->token_index += 1;
 	if (a->token[a->token_index].type == PIPE)
