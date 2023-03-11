@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/11 04:32:53 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/11 16:35:23 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,7 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 		}
 		if (command)
 			execve(command, p_head->args, shell->envp);
+		else
+			exit (0);
 	}
 }
