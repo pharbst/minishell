@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/11 04:26:09 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/14 23:18:19 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	shell_readline(t_shell *shell)
 	line = get_prompt_line(shell);
 	shell->line = readline(line);
 	if (!shell->line)
-		return (write(1, "exit", 4), ft_exit(shell));
+		return (write(1, "exit\n", 5), ft_exit(shell));
 	if (ft_strlen(shell->line) > 0)
 		add_history(shell->line);
 	free(line);
@@ -53,8 +53,9 @@ void	shell_interactive(t_shell *shell)
 	{
 		sigaction(SIGINT, &sa, NULL);
 		shell_readline(shell);
-		// shell->line = ft_strdup(">tmp");
+		// shell->line = ft_strdup("ls");
 		syntax_check(WRITE, false);
+		shell->exit_status = 0;
 		shell->p_head = shell_parsing_main(shell->line, shell->envp);
 		// printf("\n\n\n");
 		if (shell->p_head && !syntax_check(READ, NULL))
@@ -66,8 +67,9 @@ void	shell_interactive(t_shell *shell)
 			execute(shell);
 			signal_flag(WRITE, false);
 		}
-		free_pipex(shell->p_head);
+		free_pipex(shell);
 	}
+	write(1, "exit\n", 5);
 	ft_exit(shell);
 }
 

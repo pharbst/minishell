@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/11 16:35:23 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/14 21:42:36 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ char	*get_cmd(t_pipex *p_head, char **paths)
 
 int	change_fds_child(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 {
-	printf("process: %d\n", process);
 	if (process == 0)
 	{
 		if (!first_process(p_head, pipex_info))
@@ -82,16 +81,12 @@ int open_files(t_pipex *p_head)
 		{
 			if (*tmp->file_right != '&')
 			{
-				printf("file_right: %s\n", tmp->file_right);
 				if (tmp->append)
 					tmp->fd_right = open(tmp->file_right,
 						O_CREAT | O_WRONLY | O_APPEND, 0644);
 				else
-				{
 					tmp->fd_right = open(tmp->file_right,
 						O_CREAT | O_WRONLY | O_TRUNC, 0644);
-					printf("file_right: %s --> %d\n", tmp->file_right, tmp->fd_right);
-				}
 				if (tmp->fd_right < 0)
 					return (0);
 			}
@@ -131,10 +126,7 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 		if (!open_files(p_head))
 			exit(0);
 		if (pipex_info->number_nodes > 1)
-		{
-			printf("close_pipes\n");
 			close_pipes(pipex_info->pipes, process, pipex_info->number_nodes);
-		}
 		if (!change_fds_child(p_head, pipex_info, process))
 			exit(0) ;
 		if (flag_builtin != 1)
@@ -147,4 +139,5 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 		else
 			exit (0);
 	}
+	free(command);
 }

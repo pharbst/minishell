@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/10 23:45:23 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/14 23:19:47 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int				bi_cd(char **args, int argc, t_shell *shell);
 
 // exit
 void			ft_exit(t_shell *shell);
-void			free_pipex(t_pipex *p_head);
+void			free_pipex(t_shell *shell);
 void			free_red_out(t_redir_out *r_head);
 void			free_envp(char **envp);
 

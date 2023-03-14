@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/11 03:09:14 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/14 20:37:30 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	**malloc_envp(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	new_envp = malloc(sizeof(char *) * (i + 1));
+	new_envp = ft_calloc(sizeof(char *), (i + 1));
 	i = 0;
 	while (envp[i])
 	{

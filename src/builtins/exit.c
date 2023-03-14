@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:36:12 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/14 23:21:06 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,32 @@ void	free_red_out(t_redir_out *r_head)
 	}
 }
 
-void	free_pipex(t_pipex *p_head)
+void	free_pipex(t_shell *shell)
 {
 	t_pipex	*tmp;
 
-	while (p_head)
+	while (shell->p_head)
 	{
-		tmp = p_head;
-		p_head = p_head->next;
+		tmp = shell->p_head;
+		shell->p_head = shell->p_head->next;
 		if (tmp->args)
 			ft_free_split(tmp->args);
 		if (tmp->in)
 			free(tmp->in);
 		if (tmp->out)
+		{
 			free_red_out(tmp->out);
+			tmp->out = NULL;
+		}
 		free(tmp);
 	}
+	free(shell->p_head);
+	shell->p_head = NULL;
 }
 
 void	ft_exit(t_shell *shell)
 {
-	free_pipex(shell->p_head);
+	free_pipex(shell);
 	free(shell->user);
 	free(shell->pwd);
 	free_envp(shell->envp);

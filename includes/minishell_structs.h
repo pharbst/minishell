@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_structs.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/10 21:19:20 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/14 19:29:50 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_pipex_common
 {
 	char				**paths;
 	int					**pipes;
+	int					error_code;
 	int					number_nodes;
 	int					argc;
 	int					*pids;
@@ -61,6 +62,7 @@ typedef struct s_shell
 {
 	char				*user;
 	char				*pwd;
+	int					exit_status;
 
 	char				**argv;
 	int					argc;
