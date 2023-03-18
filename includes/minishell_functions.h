@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 13:49:19 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 18:08:15 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char			*hdc_string(t_parsing *a);
 char			*hdc_dquote(t_parsing *a);
 char			*hdc_squote(t_parsing *a);
 void			ft_syntax_error(t_parsing *a);
+void			shell_readline(t_shell *shell);
 
 // pipe functions
 int				execute(t_shell *shell);
@@ -82,7 +83,6 @@ void			free_envp(char **envp);
 //tools
 char			*grap(char *str, char **envp);
 char			*last_word(char *str);
-char			*get_prompt_line(t_shell *shell);
 char			*strjoinfree(char *s1, char *s2);
 void			visual_token(t_token *token, int token_count, char *line);
 void			print_token_type(t_token token);

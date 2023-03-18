@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 13:50:33 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 14:56:32 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ static int	token_main(char **line, t_token *token)
 	i = tokenize(*line, token, i, &index);
 	if (i == -1)
 		return (-1);
-	while (open_quote(token, i) && i != -1)
-	{
-		*line = strjoinfree(ft_strjoinchar(*line, '\n'), readline("> "));
-		if (ft_strlen(*line) > 4095)
-			return (-1);
-		i = tokenize(*line, token, i, &index);
-	}
 	get_token_location(token, i, *line);
 	if (i != -1 && i < MAX_TOKENS)
 	{

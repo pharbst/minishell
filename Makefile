@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/18 13:49:35 by pharbst          ###   ########.fr        #
+#    Updated: 2023/03/18 18:07:08 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,7 @@ SRC_FILES	+=	parsing_main.c \
 				here_doc_condition.c \
 				here_doc_delimiter.c \
 				ft_syntax_error.c \
+				shell_readline.c \
 
 # execution
 SRC_FILES	+=	execute.c \

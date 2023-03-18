@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:24:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/11 03:07:13 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 18:37:14 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	exec_hdc(char *delimiter, int pfd[2])
 {
 	char	*line;
 
-	// write(0, "$tmp\n", 5);
 	line = readline("> ");
 	while (ft_strcmp(line, delimiter))
 	{

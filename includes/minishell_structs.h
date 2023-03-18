@@ -77,4 +77,15 @@ typedef struct s_shell
 	// struct s_history	*h_head;
 }	t_shell;
 
+typedef struct s_shell_rl
+{
+	char				*promt;
+	char				*tmp;
+	char				buff;
+	struct sigaction	sa;
+	int					pipe_fd[2][2];
+	int					pid;
+	int					status;
+} t_shell_rl;
+
 #endif

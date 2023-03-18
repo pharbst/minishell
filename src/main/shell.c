@@ -6,38 +6,57 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 12:21:51 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 18:11:14 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	shell_readline(t_shell *shell)
-{
-	char	*line;
+// static bool openquote(char *line)
+// {
+// 	int		i;
+// 	bool	s_quote;
+// 	bool	d_quote;
 
-	line = get_prompt_line(shell);
-	shell->line = readline(line);
-	if (!shell->line)
-		return (write(1, "exit\n", 5), ft_exit(shell));
-	if (ft_strlen(shell->line) > 0)
-		add_history(shell->line);
-	free(line);
-}
+// 	i = 0;
+// 	s_quote = false;
+// 	d_quote = false;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == '\'' && !d_quote && !s_quote)
+// 			s_quote = true;
+// 		else if (line[i] == '\'' && !d_quote && s_quote)
+// 			s_quote = false;
+// 		if (line[i] == '\"' && !s_quote && !d_quote)
+// 			d_quote = true;
+// 		else if (line[i] == '\"' && !s_quote && d_quote)
+// 			d_quote = false;
+// 		i++;
+// 	}
+// 	if (s_quote || d_quote)
+// 		return (true);
+// 	return (false);
+// }
+
+// void	shell_readline(t_shell *shell)
+// {
+// 	char	*line;
+// 	char	*tmp;
+
+// 	line = get_prompt_line(shell);
+// 	shell->line = readline(line);
+// 	free(line);
+// 	if (!shell->line)
+// 		return (write(1, "exit\n", 5), ft_exit(shell));
+// 	if (ft_strlen(shell->line) > 0)
+// 		add_history(shell->line);
+// }
 
 void	sigint_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		if (signal_flag(READ, false))
-			write(1, "\n", 1);
-		else
-		{
-			write(1, "\n", 1);
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			shell_readline(get_shell(READ, NULL));
-		}
+		write(1, "\n", 1);
 	}
 }
 
@@ -55,7 +74,7 @@ void	shell_interactive(t_shell *shell)
 		shell_readline(shell);
 		syntax_check(WRITE, false);
 		shell_parsing_main(shell);
-		print_pipex(shell->p_head);
+		// print_pipex(shell->p_head);
 		if (shell->p_head && !syntax_check(READ, NULL))
 		{
 			if (shell->p_head->cmd)
