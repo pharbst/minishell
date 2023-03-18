@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_handle_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/14 23:22:55 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 18:53:32 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	handle_outfile(t_pipex *p_head)
 // exit takes only numeric arguments and exits with correct exitcode
 //при выполнении команд всегда обращаемся к внутреннему, при команде экспорт обновляются оба
 //a=b without echo (2 envs)
-//bash-3.2$ export =ab
-// bash: export: `=ab': not a valid identifier
 //close all files?
+//echo $b (not exist)
+//ERROR: malloc failed in str_cat
 
 int first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {

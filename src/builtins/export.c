@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/10 21:12:08 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/18 18:50:05 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,19 @@ void	print_line_with_quotes(char *line)
 		printf("declare -x %s\n", new_line);
 		free(new_line);
 	}
+}
+
+int valid_var(char *argv)
+{
+	int i;
+
+	i = 0;
+	while (ft_isalpha(argv[i]))
+		i++;
+	if (argv[i] == '=' && i)
+		return (1);
+	else
+		return (0);
 }
 
 int var_new(char *env, char *name)
@@ -84,25 +97,40 @@ char		**var_export(char **envp, char **argv, int argc)
 		new_envp = ft_calloc(arraysize + argc, sizeof(char *));
 		if (!new_envp)
 			return (NULL);
+		while (envp[index])
+		{
+			new_envp[index] = ft_strdup(envp[index]);
+			if (!new_envp[index])
+				return (NULL);
+			index++;
+		}
 		while (argv[i])
 		{
-			flag = 0;
-			name_val = ft_split(argv[i], '=');
-			while (index < arraysize)
+			if (valid_var(argv[i]))
 			{
-				new_envp[index] = ft_strdup(envp[index]);
-				if (!new_envp[index])
-					return (NULL);
-				new = var_new(new_envp[index], name_val[0]);
-				if (!new && name_val[1])
+				index = 0;
+				flag = 0;
+				name_val = ft_split(argv[i], '=');
+				while (new_envp[index])
 				{
-					new_envp[index] = ft_strdup(argv[i]);
-					flag = 1;
+					if (!var_new(new_envp[index], name_val[0]))
+					{
+						if (name_val[1])
+						{
+							new_envp[index] = ft_strdup(argv[i]);
+							flag = 1;
+							new = 1;
+						}
+						else
+							new = 0;
+					}
+					index++;
 				}
-				index++;
+				if (!flag && new)
+					new_envp[index] = ft_strdup(argv[i]);
 			}
-			if (!flag  && new)
-				new_envp[index] = ft_strdup(argv[i]);
+			else
+				printf("export: `%s': not a valid identifier\n", argv[i]);
 			i++;
 		}
 		new_envp[++index] = NULL;

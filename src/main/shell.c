@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 20:25:59 by pharbst          ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/03/18 20:32:40 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
+
 
 #include "../../includes/minishell.h"
 

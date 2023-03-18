@@ -6,29 +6,11 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:57:35 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/10 20:36:06 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/18 20:23:16 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int check_before_fork(t_pipex *p_head, char *command)
-{
-	int i;
-
-	if (p_head->cmd)
-		i = check_builtins(p_head);
-	else
-		return (1);
-	if (i)
-		return (i);
-	if (!command)
-	{
-		printf("%s: command not found\n", p_head->cmd);
-		return (0);
-	}
-	return (1);
-}
 
 int check_builtins(t_pipex *p_head)
 {
@@ -47,6 +29,24 @@ int check_builtins(t_pipex *p_head)
 	else if (!ft_strcmp(p_head->cmd, "exit"))
 		return (8);
 	return (0);
+}
+
+int check_before_fork(t_pipex *p_head, char *command)
+{
+	int i;
+
+	if (p_head->cmd)
+		i = check_builtins(p_head);
+	else
+		return (1);
+	if (i)
+		return (i);
+	if (!command)
+	{
+		printf("%s: command not found\n", p_head->cmd);
+		return (0);
+	}
+	return (1);
 }
 
 void builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
