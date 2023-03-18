@@ -6,27 +6,11 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 21:14:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/14 23:18:19 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 12:21:51 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void	sigint_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		if (signal_flag(READ, false))
-			write(1, "\n", 1);
-		else
-		{
-			write(1, "\n", 1);
-			rl_replace_line("", 0);
-			rl_on_new_line();
-			rl_redisplay();
-		}
-	}
-}
 
 void	shell_readline(t_shell *shell)
 {
@@ -41,26 +25,39 @@ void	shell_readline(t_shell *shell)
 	free(line);
 }
 
+void	sigint_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		if (signal_flag(READ, false))
+			write(1, "\n", 1);
+		else
+		{
+			write(1, "\n", 1);
+			rl_replace_line("", 0);
+			rl_on_new_line();
+			shell_readline(get_shell(READ, NULL));
+		}
+	}
+}
+
 void	shell_interactive(t_shell *shell)
 {
 	struct sigaction	sa;
 
 	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = sigint_handler;
+	sa.sa_handler = &sigint_handler;
 	sa.sa_flags = SA_RESTART;
 
 	while (1)
 	{
 		sigaction(SIGINT, &sa, NULL);
 		shell_readline(shell);
-		// shell->line = ft_strdup("ls");
 		syntax_check(WRITE, false);
-		shell->exit_status = 0;
-		shell->p_head = shell_parsing_main(shell->line, shell->envp);
-		// printf("\n\n\n");
+		shell_parsing_main(shell);
+		print_pipex(shell->p_head);
 		if (shell->p_head && !syntax_check(READ, NULL))
 		{
-			// print_pipex(shell->p_head);
 			if (shell->p_head->cmd)
 				if (!ft_strcmp(shell->p_head->cmd, "exit"))
 					break ;
@@ -81,7 +78,7 @@ void	shell_alone(t_shell *shell)
 	while (shell->argv[++i])
 		shell->line = strjoinfree(shell->line,
 			ft_strjoin(shell->argv[i], " "));
-	shell->p_head = shell_parsing_main(shell->line, shell->envp);
+	shell_parsing_main(shell);
 	execute(shell);
 	ft_exit(shell);
 }

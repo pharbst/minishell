@@ -6,45 +6,45 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:19:14 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 13:11:50 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	token_dquote(t_token *token, char *line, int *i)
+void	token_dquote(t_token *token, int *i, char *line, int index)
 {
-	if (*line == '"' && !open_squote(token, *i))
+	if (line[index] == '"' && !open_squote(token, *i))
 	{
 		if (!open_dquote(token, *i))
 		{
 			token[*i].type = DQUOTE_OPEN;
-			token[*i].location = line;
+			token[*i].index = index;
 			*i = *i + 1;
 		}
 		else
 		{
 			token[*i].type = DQUOTE_CLOSE;
-			token[*i].location = line;
+			token[*i].index = index;
 			*i = *i + 1;
 		}
 	}
 }
 
-void	token_squote(t_token *token, char *line, int *i)
+void	token_squote(t_token *token, int *i, char *line, int index)
 {
-	if (*line == '\'' && !open_dquote(token, *i))
+	if (line[index] == '\'' && !open_dquote(token, *i))
 	{
 		if (!open_squote(token, *i))
 		{
 			token[*i].type = SQUOTE_OPEN;
-			token[*i].location = line;
+			token[*i].index = index;
 			*i = *i + 1;
 		}
 		else
 		{
 			token[*i].type = SQUOTE_CLOSE;
-			token[*i].location = line;
+			token[*i].index = index;
 			*i = *i + 1;
 		}
 	}

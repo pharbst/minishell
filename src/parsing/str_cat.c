@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:53:49 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/15 02:43:06 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static char	*dollar_helper(t_parsing *a, char *tmp)
 		tmp = strjoinfree(tmp, quote_expand(a));
 	else if (a->token[a->token_index].type == SQUOTE_OPEN)
 		tmp = strjoinfree(tmp, quote_expand(a));
+	if (tmp && *tmp == '?')
+		return (free(tmp), ft_itoa(a->exit_status));
 	return (get_var_content(a->envp, tmp));
 }
 
@@ -64,7 +66,8 @@ static char	*str_cat_helper(t_parsing *a, char *tmp)
 		else
 			tmp = ft_strjoinfree(tmp, "$");
 	}
-		
+	// if (tmp2)
+	// 	free(tmp2);
 	return (tmp);
 }
 

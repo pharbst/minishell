@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell_structs.h                                :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/14 19:29:50 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/17 02:00:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef struct s_token
 {
 	int					type;
 	char				*location;
+	int					index;
 }	t_token;
 
 typedef struct s_redir_out
@@ -42,6 +43,7 @@ typedef struct s_parsing
 {
 	int					token_count;
 	int					token_index;
+	int					exit_status;
 	char				*line;
 	t_token				*token;
 	t_pipex				*pipex;

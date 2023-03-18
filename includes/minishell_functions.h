@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/14 23:19:47 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 13:49:19 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,21 @@ void			shell_interactive(t_shell *shell);
 void			shell_alone(t_shell *shell);
 
 //tokenize
-int				tokenize(char *line, t_token *token, int i, int index);
 bool			open_quote(t_token *token, int i);
 bool			open_squote(t_token *token, int i);
 bool			open_dquote(t_token *token, int i);
 bool			open_string(t_token *token, int i);
-void			token_dquote(t_token *token, char *line, int *i);
-void			token_squote(t_token *token, char *line, int *i);
-void			token_space(t_token *token, char *line, int *i, int *index);
-void			token_dollar(t_token *token, char *line, int *i);
-void			token_redirect(t_token *token, char *line, int *i);
-void			token_pipe(t_token *token, char *line, int *i);
-void			token_string(t_token *token, char *line, int *i);
+void			token_dquote(t_token *token, int *i, char *line, int index);
+void			token_squote(t_token *token, int *i, char *line, int index);
+void			token_space(t_token *token, int *i, char *line, int *index);
+void			token_dollar(t_token *token, int *i, char *line, int index);
+void			token_redirect(t_token *token, int *i, char *line, int index);
+void			token_pipe(t_token *token, int *i, char *line, int index);
+void			token_string(t_token *token, int *i, char *line, int index);
+void			get_token_location(t_token *token, int i, char *line);
 
 //parsing
-t_pipex			*shell_parsing_main(char *line, char **envp);
+void			shell_parsing_main(t_shell *shell);
 void			string_condition(t_parsing *a, bool *cmd, t_pipex *pipex);
 char			*quote_expand(t_parsing *a);
 bool			validate_fd(char *str);

@@ -6,53 +6,54 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/11 04:22:17 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 13:50:33 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	tokenize(char *line, t_token *token, int i, int index)
+static int	tokenize(char *line, t_token *token, int i, int *index)
 {
 	if (!line)
 		return (0);
-	while (line[index] && i < MAX_TOKENS)
+	while (line[*index] && i < MAX_TOKENS)
 	{
-		token_dquote(token, &line[index], &i);
-		token_squote(token, &line[index], &i);
-		token_space(token, &line[index], &i, &index);
-		token_dollar(token, &line[index], &i);
-		token_redirect(token, &line[index], &i);
-		token_pipe(token, &line[index], &i);
-		token_string(token, &line[index], &i);
-		index++;
+		token_dquote(token, &i, line, *index);
+		token_squote(token, &i, line, *index);
+		token_space(token, &i, line, index);
+		token_dollar(token, &i, line, *index);
+		token_redirect(token, &i, line, *index);
+		token_pipe(token, &i, line, *index);
+		token_string(token, &i, line, *index);
+		*index += 1;
 	}
 	if (i >= MAX_TOKENS)
 		return (free(token), -1);
 	return (i);
 }
 
-int	token_main(char *line, t_token *token)
+static int	token_main(char **line, t_token *token)
 {
 	int	i;
 	int	index;
 
 	index = 0;
 	i = 0;
-	i = tokenize(line, token, i, index);
+	i = tokenize(*line, token, i, &index);
 	if (i == -1)
 		return (-1);
 	while (open_quote(token, i) && i != -1)
 	{
-		line = strjoinfree(ft_strjoinchar(line, '\n'), readline("> "));
-		if (ft_strlen(line) > 4095)
+		*line = strjoinfree(ft_strjoinchar(*line, '\n'), readline("> "));
+		if (ft_strlen(*line) > 4095)
 			return (-1);
-		i = tokenize(line, token, i, index);
+		i = tokenize(*line, token, i, &index);
 	}
+	get_token_location(token, i, *line);
 	if (i != -1 && i < MAX_TOKENS)
 	{
 		token[i].type = NEW_LINE;
-		token[i].location = ft_strchr(line, '\0');
+		token[i].location = ft_strchr(*line, '\0');
 	}
 	else if (i >= MAX_TOKENS)
 		return (free(token),printf("minishell: parsing error too many tokens\n"), -1);
@@ -106,36 +107,35 @@ t_pipex	*parsing_condition(t_parsing *a)
 	return (pipex->next = parsing_condition(a), pipex);
 }
 
-t_pipex	*parsing(char *line, t_token *token, int token_count, char **envp)
+void	parsing(t_shell *shell, t_token *token, int token_count)
 {
 	t_parsing	parameter;
-	t_pipex		*pipex;
 
 	parameter.token = token;
 	parameter.token_count = token_count;
 	parameter.token_index = 0;
-	parameter.line = line;
-	parameter.envp = envp;
-	pipex = parsing_condition(&parameter);
-	return (free(token), free(line), pipex);
+	parameter.line = shell->line;
+	parameter.envp = shell->envp;
+	parameter.exit_status = shell->exit_status;
+	shell->p_head = parsing_condition(&parameter);
+	shell->exit_status = parameter.exit_status;
+	return (free(token), free(shell->line));
 }
 
-t_pipex	*shell_parsing_main(char *line, char **envp)
+void	shell_parsing_main(t_shell *shell)
 {
 	t_token	*token;
 	int		token_count;
 
-	if (ft_strlen(line) > 4095)
-		return (NULL);
+	if (ft_strlen(shell->line) > 4095)
+		return ;
 	token_count = 0;
-	// line = ft_strftrim(line, &ft_isspace);
-	if (!line)
-		return (NULL);
+	if (!shell->line)
+		return ;
 	token = ft_calloc(2048, sizeof(t_token));
-	token_count = token_main(line, token);
-	// visual_token(token, token_count, line);
+	token_count = token_main(&shell->line, token);
+	// visual_token(token, token_count, shell->line);
 	if (token_count == -1 || token_count == 0)
-		return (free(token), NULL);
-	// visual_token(token, token_count, line);
-	return (parsing(line, token, token_count, envp));
+		return (free(token));
+	parsing(shell, token, token_count);
 }

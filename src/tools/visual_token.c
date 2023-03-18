@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:03:36 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 11:51:11 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	print_token_type(t_token token)
 		printf("DOLLAR\n");
 	if (token.type == SPACE_START)
 		printf("SPACE_START\n");
+	if (token.type == NEW_LINE)
+		printf("new_line\n");
 }
 
 void	visual_token(t_token *token, int token_count, char *line)

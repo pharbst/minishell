@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/14 20:53:34 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/16 21:06:46 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,16 @@ void	close_pipes(int **pipes, int cur, int number_nodes)
 void waiting(t_pipex_common *pipex_info)
 {
 	int i;
+	int	error;
+	int status;
 
 	i = 0;
 	while (i < pipex_info->number_nodes)
 	{
-		waitpid(pipex_info->pids[i], &pipex_info->error_code, 0);
-		printf("error code: %d\n", pipex_info->error_code);
+		waitpid(pipex_info->pids[i], &error, 0);
+		if (WIFEXITED(error))
+			status = WEXITSTATUS(error);
+		pipex_info->error_code = status;
 		i++;
 	}
 }
@@ -105,7 +109,6 @@ int	execute(t_shell *shell)
 	}
 	finish_piping(pipex_info);
 	shell->exit_status = pipex_info->error_code;
-	printf("exit_status: %d\n", shell->exit_status);
 	free_executor(pipex_info);
 	return (1);
 }

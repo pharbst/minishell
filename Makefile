@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/10 23:45:58 by pharbst          ###   ########.fr        #
+#    Updated: 2023/03/18 13:49:35 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRC_FILES	+=	parsing_main.c \
 				check_open.c \
 				token_helper_tokencheck_quote.c \
 				token_helper_tokencheck.c \
+				token_helper.c \
 				here_doc_condition.c \
 				here_doc_delimiter.c \
 				ft_syntax_error.c \
