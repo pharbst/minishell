@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:08:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 20:04:21 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	string_condition(t_parsing *a, bool *cmd, t_pipex *pipex)
 		redirect_out_condition(a, pipex, tmp);
 	else if (*cmd == false)
 	{
-		pipex->cmd = tmp;
+		pipex->cmd = ft_strlower(tmp);
 		pipex->args = join_arg(pipex, tmp);
 		*cmd = true;
 	}
