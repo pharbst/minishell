@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:24:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 18:37:14 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 20:22:31 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,41 @@ static char	*get_delimiter(t_parsing *a)
 	return (delimiter);
 }
 
-static void	exec_hdc(char *delimiter, int pfd[2])
+static void	exec_hdc(char *delimiter, int pfd[2], t_parsing *a)
 {
 	char	*line;
+	int		pid;
+	int		status;
+	struct sigaction	sa;
 
-	line = readline("> ");
-	while (ft_strcmp(line, delimiter))
+	sa.sa_handler = SIG_DFL;
+	sa.sa_flags = SA_RESTART;
+	pid = fork();
+	if (!pid)
 	{
-		write(pfd[1], line, ft_strlen(line));
-		write(pfd[1], "\n", 1);
-		free(line);
+		close(pfd[0]);
+		sigaction(SIGINT, &sa, NULL);
 		line = readline("> ");
+		while (ft_strcmp(line, delimiter))
+		{
+			write(pfd[1], line, ft_strlen(line));
+			write(pfd[1], "\n", 1);
+			free(line);
+			line = readline("> ");
+		}
+		free(line);
+		close(pfd[1]);
 	}
-	free(line);
-	close(pfd[1]);
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (status)
+		{
+			a->abort = true;
+			close(pfd[0]);
+		}
+		close(pfd[1]);
+	}
 }
 
 void	hdc(t_parsing *a, t_pipex *pipex)
@@ -75,9 +96,10 @@ void	hdc(t_parsing *a, t_pipex *pipex)
 	delimiter = get_delimiter(a);
 	if (pipe(pfd) == -1)
 		return ;
-	exec_hdc(delimiter, pfd);
+	exec_hdc(delimiter, pfd, a);
 	free(delimiter);
-	pipex->fd_in = pfd[0];
+	if (!a->abort)
+		pipex->fd_in = pfd[0];
 	if (pipex->in)
 	{
 		free(pipex->in);

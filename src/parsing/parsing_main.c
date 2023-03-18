@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 14:56:32 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/18 20:08:48 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ t_pipex	*parsing_condition(t_parsing *a)
 			string_condition(a, &cmd, pipex);
 		else if (a->token[a->token_index].type == SPACE_START)
 			(a->token_index)++;
+		if (a->abort)
+			return (free(pipex), NULL);
 	}
 	if (a->token_index >= a->token_count)
 	{
@@ -109,9 +111,12 @@ void	parsing(t_shell *shell, t_token *token, int token_count)
 	parameter.token_index = 0;
 	parameter.line = shell->line;
 	parameter.envp = shell->envp;
+	parameter.abort = false;
 	parameter.exit_status = shell->exit_status;
 	shell->p_head = parsing_condition(&parameter);
 	shell->exit_status = parameter.exit_status;
+	if (parameter.abort)
+		return (free(shell->line), free_pipex(shell), shell->p_head = NULL, free(token));
 	return (free(token), free(shell->line));
 }
 

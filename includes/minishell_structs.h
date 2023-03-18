@@ -44,6 +44,7 @@ typedef struct s_parsing
 	int					token_count;
 	int					token_index;
 	int					exit_status;
+	bool				abort;
 	char				*line;
 	t_token				*token;
 	t_pipex				*pipex;
