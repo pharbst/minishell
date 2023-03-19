@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/18 19:38:29 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/19 19:55:56 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ void waiting(t_pipex_common *pipex_info)
 {
 	int i;
 	int	error;
-	int status;
 
 	i = 0;
 	while (i < pipex_info->number_nodes)
 	{
 		waitpid(pipex_info->pids[i], &error, 0);
-		if (WIFEXITED(error))
-			status = WEXITSTATUS(error);
-		pipex_info->error_code = status;
+		pipex_info->error_code = WEXITSTATUS(error);
+		if (WIFSIGNALED(error) && WTERMSIG(error) == SIGSEGV)
+		{
+			printf("Segfault: 11\n");
+			pipex_info->error_code = 139;
+		}
 		i++;
 	}
 }
@@ -84,8 +86,8 @@ void	finish_piping(t_pipex_common *pipex_info)
 		close(pipex_info->pipes[i][1]);
 		i++;
 	}
-	i = 0;
-	waiting(pipex_info);
+	if (pipex_info->pids)
+		waiting(pipex_info);
 }
 
 int	execute(t_shell *shell)
@@ -98,9 +100,9 @@ int	execute(t_shell *shell)
 	pipex = shell->p_head;
 	pipex_info = ft_calloc(1, sizeof(t_pipex_common));
 	if (!pipex_info)
-		return (0);
+		return (1);
 	if (!get_info_for_pipex(pipex_info, pipex, shell->envp))
-		return (0);
+		return (1);
 	while (i < pipex_info->number_nodes)
 	{
 		piping(pipex, pipex_info, i, shell);
@@ -110,5 +112,5 @@ int	execute(t_shell *shell)
 	finish_piping(pipex_info);
 	shell->exit_status = pipex_info->error_code;
 	free_executor(pipex_info);
-	return (1);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/14 21:42:36 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/19 19:54:40 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,22 +113,31 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	command = get_cmd(p_head, pipex_info->paths);
 	flag_builtin = check_before_fork(p_head, command);
 	if (!flag_builtin)
-		return (free(command)); //free command?
+	{
+		pipex_info->pids = NULL;
+		pipex_info->error_code = 127;
+		return (free(command)); 
+	}
 	if (builtin_main(p_head, shell, flag_builtin))
+	{
+		pipex_info->pids = NULL;
+		pipex_info->error_code = 0;
 		return (free(command));
+	}
 	signal_flag(WRITE, true);
 	pipex_info->pids[process] = fork();
 	if (pipex_info->pids[process] < 0)
-		exit(0); 
+		exit(1); 
 	if (pipex_info->pids[process] == 0)
 	{
 		sigaction(SIGINT, &sa, NULL);
+
 		if (!open_files(p_head))
-			exit(0);
+			exit(1);
 		if (pipex_info->number_nodes > 1)
 			close_pipes(pipex_info->pipes, process, pipex_info->number_nodes);
 		if (!change_fds_child(p_head, pipex_info, process))
-			exit(0) ;
+			exit(1) ;
 		if (flag_builtin != 1)
 		{
 			builtin_child(p_head, shell, flag_builtin);
