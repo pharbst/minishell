@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/19 19:54:40 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:11:52 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	char	*command;
 	int flag_builtin;
 	struct sigaction sa;
+	int status;
 
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = SIG_DFL;
@@ -118,10 +119,11 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 		pipex_info->error_code = 127;
 		return (free(command)); 
 	}
-	if (builtin_main(p_head, shell, flag_builtin))
+	status = builtin_main(p_head, shell, flag_builtin);
+	if (status != 2)
 	{
 		pipex_info->pids = NULL;
-		pipex_info->error_code = 0;
+		pipex_info->error_code = status;
 		return (free(command));
 	}
 	signal_flag(WRITE, true);

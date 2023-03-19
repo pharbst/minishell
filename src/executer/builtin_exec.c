@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:57:35 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/18 20:23:16 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:11:18 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,20 +68,19 @@ void builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
 int builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin)
 {
 	if (flag_builtin == 2 && !p_head->next)
-	{
-		bi_cd(p_head->args, get_arraysize(p_head->args), shell);	
-		return (1);
+	{	
+		return (bi_cd(p_head->args, get_arraysize(p_head->args), shell));
 	}
 	else if (flag_builtin == 5)
 	{
 		shell->envp = var_export(shell->envp, p_head->args, get_arraysize(p_head->args));
 		shell->envp_exported = shell->envp;
-		return (1);
+		return (0);
 	}
 	else if (flag_builtin == 7)
 	{
 		shell->envp = unset( shell->envp, p_head->args);
-		return (1);
+		return (0);
 	}
-	return (0);
+	return (2);
 }

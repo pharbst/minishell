@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:35:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/10 20:46:39 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/19 20:08:05 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	bi_cd(char **args, int argc, t_shell *shell)
 	else
 		i = chdir(args[1]);
 	if (i == -1)
+	{
 		printf("cd: %s: No such file or directory\n", args[1]);
+		return (1);
+	}
 	else
 		shell->envp = var_export(shell->envp, old_pwd, 2);
 	new_pwd = ft_calloc(3, sizeof(char *));
@@ -38,5 +41,5 @@ int	bi_cd(char **args, int argc, t_shell *shell)
 	free(old_pwd);
 	free(new_pwd[1]);
 	free(new_pwd);
-	return (i);
+	return (0);
 }
