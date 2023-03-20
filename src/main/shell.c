@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/03/20 20:14:02 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/20 20:17:40 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void	shell_interactive(t_shell *shell)
 
 void	shell_alone(t_shell *shell)
 {
-	int	i;
+	int		i;
+	char	buff;
 
 	i = 0;
-	while (shell->argv[++i])
-		shell->line = strjoinfree(shell->line,
-			ft_strjoin(shell->argv[i], " "));
+	while (read(0, &buff, 1) > 0)
+		shell->line = ft_strjoinchar(shell->line, buff);
 	shell_parsing_main(shell);
 	execute(shell);
 	ft_exit(shell);
