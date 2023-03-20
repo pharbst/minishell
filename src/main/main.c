@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/14 20:37:30 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/20 19:35:40 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ static char	**malloc_envp(char **envp)
 	return (new_envp);
 }
 
-static bool	check_interactive(int argc, char **argv)
-{
-	if (argc == 1)
-		return (true);
-	if (argc == 2 && !ft_strncmp(argv[1], "-c", 2))
-		return (false);
-	return (true);
-}
+// static bool	check_interactive(int argc, char **argv)
+// {
+// 	if (argc == 1)
+// 		return (true);
+// 	if (argc == 2 && !ft_strncmp(argv[1], "-c", 2))
+// 		return (false);
+// 	return (true);
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	shell.user = NULL;
 	shell.pwd = NULL;
 	get_shell(WRITE, &shell);
-	if (check_interactive(argc, argv))
+	if (isatty(STDIN_FILENO))
 		shell_interactive(&shell);
 	else
 		shell_alone(&shell);

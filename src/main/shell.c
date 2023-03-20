@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/03/19 19:58:22 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:35:54 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void	shell_interactive(t_shell *shell)
 
 void	shell_alone(t_shell *shell)
 {
-	int	i;
+	int		i;
+	char	buff;
 
 	i = 0;
-	while (shell->argv[++i])
-		shell->line = strjoinfree(shell->line,
-			ft_strjoin(shell->argv[i], " "));
+	while (read(0, &buff, 1) > 0)
+		shell->line = ft_strjoinchar(shell->line, buff);
 	shell_parsing_main(shell);
 	execute(shell);
 	ft_exit(shell);
