@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/19 20:11:52 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:29:24 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ int open_files(t_pipex *p_head)
 	{
 		p_head->fd_in = open(p_head->in, O_RDONLY);
 		if (p_head->fd_in < 0)
+		{
+			printf("%s: No such file or directory\n", p_head->in);
 			return (0);
+		}
 	}
 	if (p_head->out)
 	{
@@ -88,7 +91,10 @@ int open_files(t_pipex *p_head)
 					tmp->fd_right = open(tmp->file_right,
 						O_CREAT | O_WRONLY | O_TRUNC, 0644);
 				if (tmp->fd_right < 0)
+				{
+					printf("%s: Permission denied\n", tmp->file_right);
 					return (0);
+				}
 			}
 			else if (*tmp->file_right == '&')
 			{
@@ -141,10 +147,7 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 		if (!change_fds_child(p_head, pipex_info, process))
 			exit(1) ;
 		if (flag_builtin != 1)
-		{
-			builtin_child(p_head, shell, flag_builtin);
-			exit(0) ;
-		}
+			exit(builtin_child(p_head, shell, flag_builtin));
 		if (command)
 			execve(command, p_head->args, shell->envp);
 		else

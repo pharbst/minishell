@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:57:35 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/19 20:11:18 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:00:44 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int check_before_fork(t_pipex *p_head, char *command)
 	return (1);
 }
 
-void builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
+int builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
 {
 	char *cur_dir;
 	
@@ -60,9 +60,12 @@ void builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
 	else if (flag_builtin == 6)
 	{
 		cur_dir = pwd();
+		if (!cur_dir)
+			return (1);
 		printf("%s\n", cur_dir);
 		free(cur_dir);
 	}
+	return (0);
 }
 
 int builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin)

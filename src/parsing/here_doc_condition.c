@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_condition.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:24:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 20:22:31 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/20 20:12:25 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	exec_hdc(char *delimiter, int pfd[2], t_parsing *a)
 	pid = fork();
 	if (!pid)
 	{
-		close(pfd[0]);
+		// close(pfd[0]);
 		sigaction(SIGINT, &sa, NULL);
 		line = readline("> ");
 		while (ft_strcmp(line, delimiter))
@@ -70,6 +70,7 @@ static void	exec_hdc(char *delimiter, int pfd[2], t_parsing *a)
 		}
 		free(line);
 		close(pfd[1]);
+		exit(0);
 	}
 	else
 	{

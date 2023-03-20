@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/19 19:55:56 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/20 20:13:23 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	execute(t_shell *shell)
 		pipex = pipex->next;
 		i++;
 	}
+	close(shell->p_head->fd_in);
 	finish_piping(pipex_info);
 	shell->exit_status = pipex_info->error_code;
 	free_executor(pipex_info);

@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/18 18:53:32 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/20 19:49:47 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	handle_outfile(t_pipex *p_head)
 // ls > llllogs
 
 // exit takes only numeric arguments and exits with correct exitcode
-//при выполнении команд всегда обращаемся к внутреннему, при команде экспорт обновляются оба
-//a=b without echo (2 envs)
+
 //close all files?
 //echo $b (not exist)
 //ERROR: malloc failed in str_cat
+// < tmp not existing
 
 int first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {

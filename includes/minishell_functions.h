@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_functions.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 18:08:15 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/20 13:02:08 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int				middle_process(t_pipex *p_head, t_pipex_common *pipex_info, int process);
 int				last_process(t_pipex *p_head, t_pipex_common *pipex_info, int process);
 int				check_before_fork(t_pipex *p_head, char *command);
 int				builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin);
-void			builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin);
+int				builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin);
 int				check_builtins(t_pipex *p_head);
 int				handle_outfile(t_pipex *p_head);
 
