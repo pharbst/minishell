@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/03/20 20:17:40 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/22 11:22:39 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	shell_interactive(t_shell *shell)
 		shell_readline(shell);
 		syntax_check(WRITE, false);
 		shell_parsing_main(shell);
+		shell->line = NULL;
 		// print_pipex(shell->p_head);
 		if (shell->p_head && !syntax_check(READ, NULL))
 		{
@@ -87,20 +88,21 @@ void	shell_interactive(t_shell *shell)
 			signal_flag(WRITE, false);
 		}
 		free_pipex(shell);
+		shell->p_head = NULL;
 	}
 	write(1, "exit\n", 5);
 	ft_exit(shell);
 }
 
-void	shell_alone(t_shell *shell)
-{
-	int		i;
-	char	buff;
+// void	shell_alone(t_shell *shell)
+// {
+// 	int		i;
+// 	char	buff;
 
-	i = 0;
-	while (read(0, &buff, 1) > 0)
-		shell->line = ft_strjoinchar(shell->line, buff);
-	shell_parsing_main(shell);
-	execute(shell);
-	ft_exit(shell);
-}
+// 	i = 0;
+// 	while (read(0, &buff, 1) > 0)
+// 		shell->line = ft_strjoinchar(shell->line, buff);
+// 	shell_parsing_main(shell);
+// 	execute(shell);
+// 	ft_exit(shell);
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_functions.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/20 13:02:08 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/22 07:14:05 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void			free_envp(char **envp);
 //tools
 char			*grap(char *str, char **envp);
 char			*last_word(char *str);
-char			*strjoinfree(char *s1, char *s2);
 void			visual_token(t_token *token, int token_count, char *line);
 void			print_token_type(t_token token);
 void			print_pipex(t_pipex *p_head);

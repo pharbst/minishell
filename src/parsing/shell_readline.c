@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:13:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 18:14:42 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/22 11:22:32 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ static void	shell_rloq(t_shell_rl rl)
 	close(rl.pipe_fd[0][0]);
 	while (openquote(line))
 	{
-		rl.tmp = readline("> ");
+		if (isatty(STDIN_FILENO))
+			rl.tmp = readline("> ");
+		else
+			rl.tmp = gnl(0);
 		if (!rl.tmp)
 		{
 			ft_putstr_fd("minishell: bash: unexpected EOF while looking for matching `\"'\n", 2);
@@ -91,10 +94,24 @@ void	shell_readline(t_shell *shell)
 	rl.sa.sa_handler = SIG_DFL;
 	rl.sa.sa_flags = SA_RESTART;
 	rl.promt = get_prompt_line(shell);
-	shell->line = readline(rl.promt);
+	if (isatty(STDIN_FILENO))
+		shell->line = readline(rl.promt);
+	else
+	{
+		shell->line = gnl(0);
+		rl.tmp = shell->line;
+		shell->line = ft_strtrim(shell->line, "\n");
+		free(rl.tmp);
+	}
+	// printf("line: %s\n", shell->line);
 	free(rl.promt);
 	if (!shell->line)
-		return (write(1, "exit\n", 5), ft_exit(shell));
+	{
+		if (isatty(STDIN_FILENO))
+			return (write(1, "exit\n", 5), ft_exit(shell));
+		else
+			return (ft_exit(shell));
+	}
 	if (openquote(shell->line))
 	{
 		if (pipe(rl.pipe_fd[0]) == -1)

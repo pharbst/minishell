@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 06:27:24 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/20 19:35:40 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/22 07:31:20 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int	main(int argc, char **argv, char **envp)
 	shell.user = NULL;
 	shell.pwd = NULL;
 	get_shell(WRITE, &shell);
-	if (isatty(STDIN_FILENO))
-		shell_interactive(&shell);
-	else
-		shell_alone(&shell);
+	// if (isatty(STDIN_FILENO))
+	shell_interactive(&shell);
+	// else
+	// 	shell_alone(&shell);
 	return (0);
 }

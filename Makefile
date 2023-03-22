@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/18 18:07:08 by pharbst          ###   ########.fr        #
+#    Updated: 2023/03/22 07:27:06 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -104,7 +104,6 @@ SRC_FILES	+=	cd.c \
 # tools
 SRC_FILES	+=	grap.c \
 				last_word.c \
-				strjoinfree.c \
 				prompt_line.c \
 				visual_token.c \
 				print_pipex.c \
@@ -156,9 +155,6 @@ all:
 re:
 	@./spinner.sh make -s proname_header fclean $(NAME)
 
-hard_re:
-	@./spinner.sh make -s proname_header hard_clean $(NAME)
-
 # $(NAME):	proname_header libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
 # 	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) -o $(NAME)
 # 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
@@ -185,19 +181,10 @@ $(LIBFTIO):
 # Cleaning Rules
 # **************************************************************************** #
 fclean:	proname_header
-	@./spinner.sh make cleanall
+	@./spinner.sh make hard_cleanall
 
 clean:	proname_header
 	@./spinner.sh make clean_simple
-
-hard_clean:	proname_header
-	@./spinner.sh make hard_cleanall
-
-cleanall:
-	@printf "$(FRed)FCleaning$(RESET)										  	      "
-	@rm -rf $(OBJ_DIR)
-	@rm -rf $(NAME)
-	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 clean_simple:
 	@printf "$(FRed)Cleaning$(RESET)		 			 						      "
@@ -205,7 +192,7 @@ clean_simple:
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 hard_cleanall:
-	@printf "$(FRed)Hard Cleaning$(RESET)										  	      "
+	@printf "$(FRed)FCleaning$(RESET)										  	      "
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(NAME)
 	@make -C $(LIBFTIO_DIR) fclean > /dev/null
