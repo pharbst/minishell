@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/20 20:13:23 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/22 12:48:10 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,8 @@ int	execute(t_shell *shell)
 		pipex = pipex->next;
 		i++;
 	}
-	close(shell->p_head->fd_in);
+	if (shell->p_head->fd_in != 0)
+		close(shell->p_head->fd_in);
 	finish_piping(pipex_info);
 	shell->exit_status = pipex_info->error_code;
 	free_executor(pipex_info);
