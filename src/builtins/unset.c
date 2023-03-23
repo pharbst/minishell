@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:24:29 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 09:50:33 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 15:47:09 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,41 @@
 // 	return ;
 // }
 
-char	**unset(char **envp, char **argv)
+int	valid_var_unset(char *argv)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isalpha(argv[i]))
+		i++;
+	if (i)
+		return (1);
+	else
+		return (0);
+}
+
+int	unset(t_shell *shell, char **argv)
 {
 	int	i;
 	int	argc;
 
 	argc = get_arraysize(argv);
 	if (argc == 1)
-		return (envp);
-	i = find_var(envp, argv[1]);
-	if (i == -1)
-		return (envp);
-	while (envp[i])
+		return (0);
+	if (!valid_var_unset(argv[1]))
 	{
-		envp[i] = envp[i + 1];
+		ft_putstr_fd("unset: `", 2);
+		ft_putstr_fd(argv[1], 2);
+		ft_putstr_fd("': not a valid identifier\n", 2);
+		return (1);
+	}
+	i = find_var(shell->envp, argv[1]);
+	if (i == -1)
+		return (0);
+	while (shell->envp[i])
+	{
+		shell->envp[i] = shell->envp[i + 1];
 		i++;
 	}
-	return (envp);
+	return (0);
 }

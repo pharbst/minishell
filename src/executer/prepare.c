@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:14:33 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/23 09:40:23 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 12:14:44 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	get_info_for_pipex(t_pipex_common *pipex_info, t_pipex *pipex, char **envp)
 	pipex_info->paths = split_free(get_var_content(envp, "PATH"), ':');
 	if (!pipex_info->paths)
 	{
-		printf("%s: No such file or directory\n", pipex->cmd);
+		ft_putstr_fd(pipex->cmd, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		return (0);
 	}
 	while (i < pipex_info->number_nodes - 1)

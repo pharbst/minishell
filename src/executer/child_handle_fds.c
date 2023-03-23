@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_handle_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/23 09:37:43 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 17:14:24 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,25 @@ int	handle_outfile(t_pipex *p_head)
 // exit takes only numeric arguments and exits with correct exitcode
 
 //close all files?
+
 //echo $b (not exist)
 //ERROR: malloc failed in str_cat
-// < tmp not existing
+///bin/echo $notexist - frees not allocated and exits
+
+// /bin/echo $HOME - trash in first arg
+// /Users/ccompote
+// arg[0]: ???
+// arg[1]: /Users/ccompote
+
+//  /bin/ls
+//  pointer of arg[0] being freed was not allocated
+
+// < tmp 
+//finishes before executor
+
+// echo '$USER' must print $USER
+
+
 
 int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {

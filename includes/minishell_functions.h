@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_functions.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 09:30:31 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 15:45:18 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int				handle_outfile(t_pipex *p_head);
 //buildins
 int				bi_echo(int argc, char **argv);
 int				print_env(char **env);
-char			**var_export(char **envp, char **argv, int argc);
+int				var_export(t_shell *shell, char **argv, int argc);
 char			*pwd(void);
-char			**unset(char **envp, char **argv);
+int				unset(t_shell *shell, char **argv);
 int				bi_cd(char **args, int argc, t_shell *shell);
 
 // exit

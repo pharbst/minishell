@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 10:39:23 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 15:26:55 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	valid_var(char *argv)
 	i = 0;
 	while (ft_isalpha(argv[i]))
 		i++;
-	if (argv[i] == '=' && i)
+	if ((argv[i] == '=' && i) || argv[i] == '\0')
 		return (1);
 	else
 		return (0);
@@ -70,7 +70,7 @@ int	var_new(char *env, char *name)
 	return (new);
 }
 
-char	**var_export(char **envp, char **argv, int argc)
+int	var_export(t_shell *shell, char **argv, int argc)
 {
 	char	**new_envp;
 	int		arraysize;
@@ -79,30 +79,32 @@ char	**var_export(char **envp, char **argv, int argc)
 	int		flag;
 	int		i;
 	int		new;
+	int		exit_status;
 
 	i = 1;
 	index = 0;
+	exit_status = 0;
 	if (argc == 1)
 	{
-		while (envp[index])
+		while (shell->envp[index])
 		{
-			if (ft_strncmp(envp[index], "_=", 2))
-				print_line_with_quotes(envp[index]);
+			if (ft_strncmp(shell->envp[index], "_=", 2))
+				print_line_with_quotes(shell->envp[index]);
 			index++;
 		}
-		return (envp);
+		return (0);
 	}
 	else
 	{
-		arraysize = get_arraysize(envp);
+		arraysize = get_arraysize(shell->envp);
 		new_envp = ft_calloc(arraysize + argc, sizeof(char *));
 		if (!new_envp)
-			return (NULL);
-		while (envp[index])
+			return (1);
+		while (shell->envp[index])
 		{
-			new_envp[index] = ft_strdup(envp[index]);
+			new_envp[index] = ft_strdup(shell->envp[index]);
 			if (!new_envp[index])
-				return (NULL);
+				return (1);
 			index++;
 		}
 		while (argv[i])
@@ -135,11 +137,13 @@ char	**var_export(char **envp, char **argv, int argc)
 				ft_putstr_fd("export: `", 2);
 				ft_putstr_fd(argv[i], 2);
 				ft_putstr_fd("': not a valid identifier\n", 2);
+				exit_status = 1;
 			}
 			i++;
 		}
 		new_envp[++index] = NULL;
-		free_envp(envp);
-		return (new_envp);
+		free_envp(shell->envp);
+		shell->envp = new_envp;
+		return (exit_status);
 	}
 }

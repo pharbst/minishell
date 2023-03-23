@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:35:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 10:37:58 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 15:11:48 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	bi_cd(char **args, int argc, t_shell *shell)
 		return (1);
 	}
 	else
-		shell->envp = var_export(shell->envp, old_pwd, 2);
+		// shell->envp = var_export(shell->envp, old_pwd, 2);
 	new_pwd = ft_calloc(3, sizeof(char *));
 	new_pwd[1] = ft_calloc(4 + ft_strlen(pwd()), sizeof(char));
 	new_pwd[1] = ft_strjoin("PWD=", pwd());
-	shell->envp = var_export(shell->envp, new_pwd, 2);
+	// shell->envp = var_export(shell->envp, new_pwd, 2);
 	return (free(old_pwd[1]), free(old_pwd), free(new_pwd[1]), free(new_pwd),
 		0);
 }
