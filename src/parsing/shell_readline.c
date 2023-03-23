@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:13:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/22 13:08:31 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:46:54 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*get_prompt_line(t_shell *shell)
 	return (line);
 }
 
-static bool openquote(char *line)
+static bool	openquote(char *line)
 {
 	int		i;
 	bool	s_quote;
@@ -103,7 +103,6 @@ void	shell_readline(t_shell *shell)
 		shell->line = ft_strtrim(shell->line, "\n");
 		free(rl.tmp);
 	}
-	// printf("line: %s\n", shell->line);
 	free(rl.promt);
 	if (!shell->line)
 	{
@@ -148,4 +147,3 @@ void	shell_readline(t_shell *shell)
 	if (ft_strlen(shell->line) > 0)
 		add_history(shell->line);
 }
-

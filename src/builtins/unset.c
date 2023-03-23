@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:24:29 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/09 23:02:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:50:33 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@
 // 	return ;
 // }
 
-char **unset(char **envp, char **argv)
+char	**unset(char **envp, char **argv)
 {
-	int i;
-	int argc;
-	
+	int	i;
+	int	argc;
+
 	argc = get_arraysize(argv);
 	if (argc == 1)
 		return (envp);

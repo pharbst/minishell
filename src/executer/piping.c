@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/20 19:29:24 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/23 09:40:11 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	change_fds_child(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 	return (1);
 }
 
-int open_files(t_pipex *p_head)
+int	open_files(t_pipex *p_head)
 {
 	t_redir_out	*tmp;
 
@@ -86,10 +86,10 @@ int open_files(t_pipex *p_head)
 			{
 				if (tmp->append)
 					tmp->fd_right = open(tmp->file_right,
-						O_CREAT | O_WRONLY | O_APPEND, 0644);
+							O_CREAT | O_WRONLY | O_APPEND, 0644);
 				else
 					tmp->fd_right = open(tmp->file_right,
-						O_CREAT | O_WRONLY | O_TRUNC, 0644);
+							O_CREAT | O_WRONLY | O_TRUNC, 0644);
 				if (tmp->fd_right < 0)
 				{
 					printf("%s: Permission denied\n", tmp->file_right);
@@ -106,24 +106,24 @@ int open_files(t_pipex *p_head)
 	return (1);
 }
 
-void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *shell)
+void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process,
+t_shell *shell)
 {
-	char	*command;
-	int flag_builtin;
-	struct sigaction sa;
-	int status;
+	char				*command;
+	int					flag_builtin;
+	struct sigaction	sa;
+	int					status;
 
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = SIG_DFL;
 	sa.sa_flags = SA_RESTART;
-	
 	command = get_cmd(p_head, pipex_info->paths);
 	flag_builtin = check_before_fork(p_head, command);
 	if (!flag_builtin)
 	{
 		pipex_info->pids = NULL;
 		pipex_info->error_code = 127;
-		return (free(command)); 
+		return (free(command));
 	}
 	status = builtin_main(p_head, shell, flag_builtin);
 	if (status != 2)
@@ -135,17 +135,16 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	signal_flag(WRITE, true);
 	pipex_info->pids[process] = fork();
 	if (pipex_info->pids[process] < 0)
-		exit(1); 
+		exit(1);
 	if (pipex_info->pids[process] == 0)
 	{
 		sigaction(SIGINT, &sa, NULL);
-
 		if (!open_files(p_head))
 			exit(1);
 		if (pipex_info->number_nodes > 1)
 			close_pipes(pipex_info->pipes, process, pipex_info->number_nodes);
 		if (!change_fds_child(p_head, pipex_info, process))
-			exit(1) ;
+			exit(1);
 		if (flag_builtin != 1)
 			exit(builtin_child(p_head, shell, flag_builtin));
 		if (command)

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:31:46 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 13:21:24 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:48:03 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	token_dollar(t_token *token, int *i, char *line, int index)
 
 void	token_string(t_token *token, int *i, char *line, int index)
 {
-	if (!open_quote(token, *i) && ft_isprint(line[index]) && !ft_isspace(line[index]) && !ft_strchr("<>|$\"'", line[index]))
+	if (!open_quote(token, *i) && ft_isprint(line[index])
+		&& !ft_isspace(line[index]) && !ft_strchr("<>|$\"'", line[index]))
 	{
 		if (!open_string(token, *i))
 		{
@@ -71,7 +72,9 @@ void	token_string(t_token *token, int *i, char *line, int index)
 			token[*i].index = index;
 			*i = *i + 1;
 		}
-		if (open_string(token, *i) && (ft_isspace(line[index + 1]) || ft_strchr("<>|\"'$", line[index + 1]) || line[index + 1] == '\0'))
+		if (open_string(token, *i) && (ft_isspace(line[index + 1])
+				|| ft_strchr("<>|\"'$", line[index + 1])
+				|| line[index + 1] == '\0'))
 		{
 			token[*i].type = STRING_CLOSE;
 			token[*i].index = index;

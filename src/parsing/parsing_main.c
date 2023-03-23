@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 20:08:48 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:48:48 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static int	token_main(char **line, t_token *token)
 		token[i].location = ft_strchr(*line, '\0');
 	}
 	else if (i >= MAX_TOKENS)
-		return (free(token),printf("minishell: parsing error too many tokens\n"), -1);
+		return (free(token),
+			printf("minishell: parsing error too many tokens\n"), -1);
 	return (i);
 }
 
@@ -63,7 +64,8 @@ t_pipex	*parsing_condition(t_parsing *a)
 		return (NULL);
 	pipex = ft_calloc(1, sizeof(t_pipex));
 	if (!pipex)
-		return (printf("Error: malloc failed in parsing condition\n"),free(pipex), NULL);
+		return (printf("Error: malloc failed in parsing condition\n"),
+			free(pipex), NULL);
 	while (a->token_index < a->token_count && a->token[a->token_index].type
 		!= PIPE)
 	{
@@ -116,7 +118,8 @@ void	parsing(t_shell *shell, t_token *token, int token_count)
 	shell->p_head = parsing_condition(&parameter);
 	shell->exit_status = parameter.exit_status;
 	if (parameter.abort)
-		return (free(shell->line), free_pipex(shell), shell->p_head = NULL, free(token));
+		return (free(shell->line),
+			free_pipex(shell), shell->p_head = NULL, free(token));
 	return (free(token), free(shell->line));
 }
 
@@ -132,7 +135,6 @@ void	shell_parsing_main(t_shell *shell)
 		return ;
 	token = ft_calloc(2048, sizeof(t_token));
 	token_count = token_main(&shell->line, token);
-	// visual_token(token, token_count, shell->line);
 	if (token_count == -1 || token_count == 0)
 		return (free(token));
 	parsing(shell, token, token_count);

@@ -6,10 +6,9 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:55:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/22 07:14:05 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:30:31 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_FUNCTIONS_H
 # define MINISHELL_FUNCTIONS_H
@@ -54,15 +53,20 @@ void			shell_readline(t_shell *shell);
 
 // pipe functions
 int				execute(t_shell *shell);
-int				get_info_for_pipex(t_pipex_common *pipex_info, t_pipex *p_head, char **envp);
-void			piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *shell);
+int				get_info_for_pipex(t_pipex_common *pipex_info, t_pipex *p_head,
+					char **envp);
+void			piping(t_pipex *p_head, t_pipex_common *pipex_info, int process,
+					t_shell *shell);
 void			close_pipes(int **pipes, int cur, int number_nodes);
 int				first_process(t_pipex *p_head, t_pipex_common *pipex_info);
-int				middle_process(t_pipex *p_head, t_pipex_common *pipex_info, int process);
-int				last_process(t_pipex *p_head, t_pipex_common *pipex_info, int process);
+int				middle_process(t_pipex *p_head, t_pipex_common *pipex_info,
+					int process);
+int				last_process(t_pipex *p_head, t_pipex_common *pipex_info,
+					int process);
 int				check_before_fork(t_pipex *p_head, char *command);
 int				builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin);
-int				builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin);
+int				builtin_child(t_pipex *p_head, t_shell *shell,
+					int flag_builtin);
 int				check_builtins(t_pipex *p_head);
 int				handle_outfile(t_pipex *p_head);
 
@@ -71,7 +75,7 @@ int				bi_echo(int argc, char **argv);
 int				print_env(char **env);
 char			**var_export(char **envp, char **argv, int argc);
 char			*pwd(void);
-char 			**unset(char **envp, char **argv);
+char			**unset(char **envp, char **argv);
 int				bi_cd(char **args, int argc, t_shell *shell);
 
 // exit

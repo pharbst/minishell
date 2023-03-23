@@ -6,19 +6,18 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/22 12:48:10 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 10:41:15 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
-void free_executor(t_pipex_common *pipex_info)
+void	free_executor(t_pipex_common *pipex_info)
 {
 	int	i;
 
 	i = 0;
-	ft_free_split(pipex_info->paths);;
+	ft_free_split(pipex_info->paths);
 	while (pipex_info->pipes[i])
 	{
 		free(pipex_info->pipes[i]);
@@ -56,9 +55,9 @@ void	close_pipes(int **pipes, int cur, int number_nodes)
 	}
 }
 
-void waiting(t_pipex_common *pipex_info)
+void	waiting(t_pipex_common *pipex_info)
 {
-	int i;
+	int	i;
 	int	error;
 
 	i = 0;
@@ -68,7 +67,7 @@ void waiting(t_pipex_common *pipex_info)
 		pipex_info->error_code = WEXITSTATUS(error);
 		if (WIFSIGNALED(error) && WTERMSIG(error) == SIGSEGV)
 		{
-			printf("Segfault: 11\n");
+			ft_putstr_fd("Segfault: 11\n", 2);
 			pipex_info->error_code = 139;
 		}
 		i++;
@@ -92,7 +91,7 @@ void	finish_piping(t_pipex_common *pipex_info)
 
 int	execute(t_shell *shell)
 {
-	t_pipex 		*pipex;
+	t_pipex			*pipex;
 	t_pipex_common	*pipex_info;
 	int				i;
 

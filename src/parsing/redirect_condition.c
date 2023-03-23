@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 17:32:34 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 18:47:21 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:45:37 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static bool	red_helper(t_parsing *a, t_redir_out *new)
 	if (!tmp || *tmp == '&')
 		return (free(new), ft_syntax_error(a), true);
 	if (*tmp == '&')
-		return (printf("minishell: syntax error near unexpected token `&'\n"), free(new), true);
+		return (printf("minishell: syntax error near unexpected token `&'\n"),
+			free(new), true);
 	else
 		new->file_right = tmp;
 	return (false);
@@ -101,8 +102,8 @@ void	redirect_out_condition(t_parsing *a, t_pipex *pipex, char *file1)
 				return (ft_syntax_error(a), free(new));
 			new->append = true;
 		}
-	// 	else
-	// 		new->append = false;
+		else
+			new->append = false;
 	}
 	if (a->token[a->token_index].location
 		&& *a->token[a->token_index].location == '&')

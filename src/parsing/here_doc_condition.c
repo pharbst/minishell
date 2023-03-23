@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc_condition.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:24:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/20 20:12:25 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/23 09:41:34 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static char	*get_delimiter(t_parsing *a)
 
 static void	exec_hdc(char *delimiter, int pfd[2], t_parsing *a)
 {
-	char	*line;
-	int		pid;
-	int		status;
+	char				*line;
+	int					pid;
+	int					status;
 	struct sigaction	sa;
 
 	sa.sa_handler = SIG_DFL;
@@ -58,7 +58,6 @@ static void	exec_hdc(char *delimiter, int pfd[2], t_parsing *a)
 	pid = fork();
 	if (!pid)
 	{
-		// close(pfd[0]);
 		sigaction(SIGINT, &sa, NULL);
 		line = readline("> ");
 		while (ft_strcmp(line, delimiter))

@@ -1,4 +1,4 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell_structs.h                                :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/17 02:00:22 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:31:42 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,8 @@ typedef struct s_shell
 	char				**envp;
 	char				**envp_exported;
 
-	// char				**history;
 	char				*line;
 	struct s_pipex		*p_head;
-	// struct s_history	*h_head;
 }	t_shell;
 
 typedef struct s_shell_rl
@@ -87,6 +85,6 @@ typedef struct s_shell_rl
 	int					pipe_fd[2][2];
 	int					pid;
 	int					status;
-} t_shell_rl;
+}	t_shell_rl;
 
 #endif

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:57:35 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/20 13:00:44 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/23 10:40:35 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int check_builtins(t_pipex *p_head)
+int	check_builtins(t_pipex *p_head)
 {
 	if (!ft_strcmp(p_head->cmd, "cd"))
 		return (2);
@@ -31,9 +31,9 @@ int check_builtins(t_pipex *p_head)
 	return (0);
 }
 
-int check_before_fork(t_pipex *p_head, char *command)
+int	check_before_fork(t_pipex *p_head, char *command)
 {
-	int i;
+	int	i;
 
 	if (p_head->cmd)
 		i = check_builtins(p_head);
@@ -43,16 +43,17 @@ int check_before_fork(t_pipex *p_head, char *command)
 		return (i);
 	if (!command)
 	{
-		printf("%s: command not found\n", p_head->cmd);
+		ft_putstr_fd(p_head->cmd, 2);
+		ft_putstr_fd(": command not found\n", 2);
 		return (0);
 	}
 	return (1);
 }
 
-int builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
+int	builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
 {
-	char *cur_dir;
-	
+	char	*cur_dir;
+
 	if (flag_builtin == 3)
 		bi_echo(get_arraysize(p_head->args), p_head->args);
 	else if (flag_builtin == 4)
@@ -68,7 +69,7 @@ int builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
 	return (0);
 }
 
-int builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin)
+int	builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin)
 {
 	if (flag_builtin == 2 && !p_head->next)
 	{	
@@ -76,13 +77,14 @@ int builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin)
 	}
 	else if (flag_builtin == 5)
 	{
-		shell->envp = var_export(shell->envp, p_head->args, get_arraysize(p_head->args));
+		shell->envp = var_export(shell->envp, p_head->args,
+				get_arraysize(p_head->args));
 		shell->envp_exported = shell->envp;
 		return (0);
 	}
 	else if (flag_builtin == 7)
 	{
-		shell->envp = unset( shell->envp, p_head->args);
+		shell->envp = unset(shell->envp, p_head->args);
 		return (0);
 	}
 	return (2);

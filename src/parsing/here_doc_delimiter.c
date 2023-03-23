@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 23:23:50 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/10 23:58:57 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:42:00 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ char	*hdc_dquote(t_parsing *a)
 	while (a->token[a->token_index + i].type != DQUOTE_CLOSE)
 		i++;
 	tmp = ft_substr(a->token[a->token_index].location, 1,
-			(a->token[a->token_index + i].location - a->token[a->token_index].location) - 1);
+			(a->token[a->token_index + i].location
+				- a->token[a->token_index].location) - 1);
 	a->token_index += i + 1;
 	return (tmp);
 }
@@ -52,7 +53,8 @@ char	*hdc_squote(t_parsing *a)
 	while (a->token[a->token_index + i].type != SQUOTE_CLOSE)
 		i++;
 	tmp = ft_substr(a->token[a->token_index].location, 1,
-			(a->token[a->token_index + i].location - a->token[a->token_index].location) - 1);
+			(a->token[a->token_index + i].location
+				- a->token[a->token_index].location) - 1);
 	a->token_index += i + 1;
 	return (tmp);
 }

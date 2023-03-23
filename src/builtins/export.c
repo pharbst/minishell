@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 18:50:05 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/23 10:39:23 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	print_line_with_quotes(char *line)
 {
-	char 	*new_line;
-	int 	i;
-	int 	j;
+	char	*new_line;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -45,9 +45,9 @@ void	print_line_with_quotes(char *line)
 	}
 }
 
-int valid_var(char *argv)
+int	valid_var(char *argv)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ft_isalpha(argv[i]))
@@ -58,27 +58,28 @@ int valid_var(char *argv)
 		return (0);
 }
 
-int var_new(char *env, char *name)
+int	var_new(char *env, char *name)
 {
-	int new;
+	int	new;
 
-	if (!ft_strncmp(env, name, ft_strlen(name)) && (env[ft_strlen(name)] == '=' || env[ft_strlen(name)] == '\0'))
+	if (!ft_strncmp(env, name, ft_strlen(name)) && (env[ft_strlen(name)] == '='
+			|| env[ft_strlen(name)] == '\0'))
 		new = 0;
 	else
 		new = 1;
 	return (new);
 }
 
-char		**var_export(char **envp, char **argv, int argc)
+char	**var_export(char **envp, char **argv, int argc)
 {
 	char	**new_envp;
 	int		arraysize;
 	int		index;
 	char	**name_val;
-	int 	flag;
-	int 	i;
+	int		flag;
+	int		i;
 	int		new;
-	
+
 	i = 1;
 	index = 0;
 	if (argc == 1)
@@ -130,7 +131,11 @@ char		**var_export(char **envp, char **argv, int argc)
 					new_envp[index] = ft_strdup(argv[i]);
 			}
 			else
-				printf("export: `%s': not a valid identifier\n", argv[i]);
+			{
+				ft_putstr_fd("export: `", 2);
+				ft_putstr_fd(argv[i], 2);
+				ft_putstr_fd("': not a valid identifier\n", 2);
+			}
 			i++;
 		}
 		new_envp[++index] = NULL;

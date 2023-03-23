@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_handle_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/20 19:49:47 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/23 09:37:43 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	handle_outfile(t_pipex *p_head)
 //ERROR: malloc failed in str_cat
 // < tmp not existing
 
-int first_process(t_pipex *p_head, t_pipex_common *pipex_info)
+int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {
 	if (p_head->next)
 	{
@@ -69,7 +69,7 @@ int first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 	return (1);
 }
 
-int middle_process(t_pipex *p_head, t_pipex_common *pipex_info, int process)
+int	middle_process(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 {
 	if (dup2(pipex_info->pipes[process - 1][0], STDIN_FILENO) < 0)
 		return (0);
@@ -89,7 +89,7 @@ int middle_process(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 	return (1);
 }
 
-int last_process(t_pipex *p_head, t_pipex_common *pipex_info, int process)
+int	last_process(t_pipex *p_head, t_pipex_common *pipex_info, int process)
 {
 	if (p_head->fd_in)
 	{
