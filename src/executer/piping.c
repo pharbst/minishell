@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/23 15:21:06 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/24 12:12:03 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	status = builtin_main(p_head, shell, flag_builtin);
 	if (status != 2)
 	{
-		pipex_info->pids = NULL;
+		pipex_info->pids[process] = 0;
 		pipex_info->error_code = status;
 		return (free(command));
 	}
@@ -139,7 +139,6 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	if (pipex_info->pids[process] == 0)
 	{
 		sigaction(SIGINT, &sa, NULL);
-
 		if (!open_files(p_head))
 			exit(1);
 		if (pipex_info->number_nodes > 1)

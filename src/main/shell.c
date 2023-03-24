@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 00:00:00 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 18:11:46 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/24 12:33:18 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,34 @@ void	shell_interactive(t_shell *shell)
 		syntax_check(WRITE, false);
 		shell_parsing_main(shell);
 		shell->line = NULL;
-		// print_pipex(shell->p_head);
+		print_pipex(shell->p_head);
 		if (shell->p_head && !syntax_check(READ, NULL))
 		{
 			if (shell->p_head->cmd)
+			{
 				if (!ft_strcmp(shell->p_head->cmd, "exit"))
-					break ;
+				{
+					if (get_arraysize(shell->p_head->args) > 1)
+					{
+						if (!ft_atoi(shell->p_head->args[1]) && *shell->p_head->args[1] != '0')
+						{
+							shell->exit_status = 255;
+							ft_putstr_fd("exit: ", 2);
+							ft_putstr_fd(shell->p_head->args[1], 2);
+							ft_putstr_fd(": numeric argument required\n", 2);
+							break;
+						}
+					}
+					if (get_arraysize(shell->p_head->args) > 2)
+					{
+						shell->exit_status = 1;
+						ft_putstr_fd("exit: too many arguments\n", 2);
+					}
+					else
+						break ;
+				}
+				
+			}
 			execute(shell);
 			signal_flag(WRITE, false);
 		}

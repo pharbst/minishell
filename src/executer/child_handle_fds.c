@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/23 17:14:24 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/24 12:51:07 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,54 @@ int	handle_outfile(t_pipex *p_head)
 
 // echo '$USER' must print $USER
 
+// exit ""
+// exit
+// bash: exit: : numeric argument required
+// ccompote@1-D-6 minishell % echo $?
+// 255
 
+// bash-3.2$ cat << hello
+// > $USER
+// > $NOVAR
+// > $HOME
+// > hello
+// ccompote
+
+// /Users/ccompote
+
+// cat << 'lim'
+// $USER
+// $NOVAR
+// $HOME
+// lim
+
+// $USER
+// $NOVAR
+// $HOME
+
+// cat << lim ''
+// > cds
+// > lim
+// cat: : No such file or directory
+
+// command ""
+// bash: : command not found, 1 error
+// minishell new prompt, 137
+
+// "."
+// freed not allocated
+
+// ./ls
+// bash: ./ls: No such file or directory
+// minishell working
+
+// echo $PWD when PWD was changed - not updated
+
+// export tmp_test ok???
+
+// export X="  A  B  "
+// echo $X
+// gives 0x0
 
 int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {
