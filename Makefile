@@ -50,10 +50,12 @@ TICK			=	$(shell echo "\xE2\x9C\x94")
 # **************************************************************************** #
 CC			=	cc
 CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS		+=	-L/usr/local/lib -I/usr/local/include -lreadline
 CFLAGS		+=	-g
 # CFLAGS		+=	-fsanitize=address
-
+ifeq ($(UNAME), Darwin)
+CFLAGSS      = -I$(shell brew --prefix readline)/include # -fsanitize=address -fsanitize=undefined #-Wno-gnu-include-next -I LeakSanitizer/include
+LDFLAGS     = -L$(shell brew --prefix readline)/lib/ #-LLeakSanitizer  -llsan -lc++
+endif
 
 # **************************************************************************** #
 # Project
@@ -121,14 +123,12 @@ INC_DIR		=	./includes
 SRC_DIR		=	./src/*/
 OBJ_DIR		=	./obj
 LIBFTIO_DIR	=	./libftio
-# PIPEX_DIR	=	./pipex
 
 
 # **************************************************************************** #
 # libraries
 # **************************************************************************** #
 LIBFTIO		=	$(LIBFTIO_DIR)/libftio.a
-# PIPEX		=	$(PIPEX_DIR)/pipex.a
 
 
 # **************************************************************************** #
@@ -136,7 +136,6 @@ LIBFTIO		=	$(LIBFTIO_DIR)/libftio.a
 # **************************************************************************** #
 INC			=	-I $(INC_DIR)
 INC_LIBFTIO	=	-I $(LIBFTIO_DIR)/includes
-# INC_PIPEX	=	-I $(PIPEX_DIR)/includes
 
 
 # **************************************************************************** #
@@ -159,11 +158,8 @@ re:
 # 	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) -o $(NAME)
 # 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
-CFLAGSS      = -I$(shell brew --prefix readline)/include # -fsanitize=address -fsanitize=undefined #-Wno-gnu-include-next -I LeakSanitizer/include
-LDFLAGS     = -L$(shell brew --prefix readline)/lib/ -lreadline #-LLeakSanitizer  -llsan -lc++
-
 $(NAME):	proname_header libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
-	@$(CC) $(CFLAGS) $(OBJ) $(CFLAGSS) $(LDFLAGS) $(LIBFTIO) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(CFLAGSS) $(LDFLAGS) -lreadline $(LIBFTIO) -o $(NAME)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 	
 $(OBJ_DIR)/%.o:	$(SRC_DIR)%.c
@@ -172,10 +168,6 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)%.c
 
 $(LIBFTIO):
 	@make -C $(LIBFTIO_DIR) > /dev/null
-
-# $(PIPEX):
-# 	@make -C $(PIPEX_DIR) > /dev/null
-
 
 # **************************************************************************** #
 # Cleaning Rules
@@ -196,7 +188,6 @@ hard_cleanall:
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(NAME)
 	@make -C $(LIBFTIO_DIR) fclean > /dev/null
-#	@make -C $(PIPEX_DIR) fclean > /dev/null
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
 # **************************************************************************** #
@@ -219,9 +210,6 @@ update:
 # **************************************************************************** #
 libftio_header:
 	@printf "$(FBlue)Compiling Libftio$(Reset)										     "
-
-# pipex_header:
-# 	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling Pipex$(Reset)											     "
 
 obj_header:
 	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling .o files$(RESET)										     "
