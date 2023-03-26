@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:14:33 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 05:48:50 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 08:39:47 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,7 @@ int	get_info_for_pipex(t_pipex_common *pipex_info, t_pipex *pipex, char **envp)
 		return (0);
 	pipex_info->paths = split_free(get_var_content(envp, "PATH"), ':');
 	if (!pipex_info->paths)
-	{
-		ft_putstr_fd(pipex->cmd, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		return (0);
-	}
+		return (ft_putstrsfd(2, pipex->cmd, NO_SUCH_FILE, NULL), 0);
 	while (i < pipex_info->number_nodes - 1)
 	{
 		pipex_info->pipes[i] = malloc(sizeof(int) * 2);

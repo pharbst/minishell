@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 03:46:43 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 08:02:08 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 09:19:18 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ void	shell_rl_helper(t_shell *shell, t_shell_rl *rl)
 
 void	shell_rl_exit(t_shell *shell)
 {
-	if (isatty(STDIN_FILENO))
-		return (write(1, "exit\n", 5), ft_exit(shell));
-	else
-		return (ft_exit(shell));
+	if (!isatty(STDIN_FILENO))
+		ft_exit(-1, NULL, shell);
+	ft_exit(1, NULL, shell);
 }

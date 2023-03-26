@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 06:24:21 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 08:39:18 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ int open_files(t_pipex *p_head)
 	{
 		p_head->fd_in = open(p_head->in, O_RDONLY);
 		if (p_head->fd_in < 0)
-		{
-			printf("%s: No such file or directory\n", p_head->in);
-			return (0);
-		}
+			return (ft_putstrsfd(2, p_head->in, NO_SUCH_FILE, NULL), 0);
 	}
 	if (p_head->out)
 	{
@@ -86,15 +83,12 @@ int open_files(t_pipex *p_head)
 			{
 				if (tmp->append)
 					tmp->fd_right = open(tmp->file_right,
-						O_CREAT | O_WRONLY | O_APPEND, 0644);
+							O_CREAT | O_WRONLY | O_APPEND, 0644);
 				else
 					tmp->fd_right = open(tmp->file_right,
-						O_CREAT | O_WRONLY | O_TRUNC, 0644);
+							O_CREAT | O_WRONLY | O_TRUNC, 0644);
 				if (tmp->fd_right < 0)
-				{
-					printf("%s: Permission denied\n", tmp->file_right);
-					return (0);
-				}
+					return (ft_putstrsfd(2, tmp->file_right, NO_PERM, NULL), 0);
 			}
 			else if (*tmp->file_right == '&')
 			{
@@ -116,14 +110,14 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = SIG_DFL;
 	sa.sa_flags = SA_RESTART;
-	
+
 	command = get_cmd(p_head, pipex_info->paths);
 	flag_builtin = check_before_fork(p_head, command);
 	if (!flag_builtin)
 	{
 		pipex_info->pids = NULL;
 		pipex_info->error_code = 127;
-		return (free(command)); 
+		return (free(command));
 	}
 	status = builtin_main(p_head, shell, flag_builtin);
 	if (status != 2)

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:24:29 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 08:01:06 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 08:29:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	unset(t_shell *shell, char **argv)
 		return (0);
 	if (!valid_var_unset(argv[1]))
 	{
-		ft_putstrsfd(2, "unset: `", argv[1], "': not a valid identifier\n", NULL);
+		ft_putstrsfd(2, "unset: `", argv[1], VAR_NO_VALID, NULL);
 		// ft_putstr_fd("unset: `", 2);
 		// ft_putstr_fd(argv[1], 2);
 		// ft_putstr_fd("': not a valid identifier\n", 2);

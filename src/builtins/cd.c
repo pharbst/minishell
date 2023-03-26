@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:35:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 08:08:41 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 08:34:31 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	bi_cd(char **args, int argc, t_shell *shell)
 		i = chdir(args[1]);
 	if (i == -1)
 	{
-		ft_putstrsfd(2, "cd: ", args[1], ": No such file or directory\n", NULL);
+		ft_putstrsfd(2, "cd: ", args[1], NO_SUCH_FILE, NULL);
 		// ft_putstr_fd("cd: ", 2);
 		// ft_putstr_fd(args[1], 2);
 		// ft_putstr_fd(": No such file or directory\n", 2);

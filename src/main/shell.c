@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 00:00:00 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 06:23:39 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 09:25:47 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,37 @@ void	sigint_handler(int sig)
 	}
 }
 
+void	pre_execute(t_shell *shell)
+{
+	if (shell->p_head->cmd)
+	{
+		if (!ft_strcmp(shell->p_head->cmd, "exit"))
+		{
+			ft_exit(get_arraysize(shell->p_head->args),
+				shell->p_head->args, shell);
+		// 	if (get_arraysize(shell->p_head->args) > 1)
+		// 	{
+		// 		if (!ft_atoi(shell->p_head->args[1]) && *shell->p_head->args[1] != '0')
+		// 		{
+		// 			shell->exit_status = 255;
+		// 			write(1, "exit\n", 5);
+		// 			ft_putstrsfd(2, "exit: ", shell->p_head->args[1], EXIT_WRONG_ARG, NULL);
+		// 			ft_exit(shell);
+		// 		}
+		// 	}
+		// 	if (get_arraysize(shell->p_head->args) > 2)
+		// 	{
+		// 		shell->exit_status = 1;
+		// 		ft_putstr_fd(EXIT_TOO_MANY_ARGS, 2);
+		// 	}
+		// 	else
+		// 		ft_exit(shell);
+		}
+	}
+	execute(shell);
+	signal_flag(WRITE, false);
+}
+
 void	shell_interactive(t_shell *shell)
 {
 	struct sigaction	sa;
@@ -80,40 +111,10 @@ void	shell_interactive(t_shell *shell)
 		shell->line = NULL;
 		// print_pipex(shell->p_head);
 		if (shell->p_head && !syntax_check(READ, NULL))
-		{
-			if (shell->p_head->cmd)
-			{
-				if (!ft_strcmp(shell->p_head->cmd, "exit"))
-				{
-					if (get_arraysize(shell->p_head->args) > 1)
-					{
-						if (!ft_atoi(shell->p_head->args[1]) && *shell->p_head->args[1] != '0')
-						{
-							shell->exit_status = 255;
-							ft_putstr_fd("exit: ", 2);
-							ft_putstr_fd(shell->p_head->args[1], 2);
-							ft_putstr_fd(": numeric argument required\n", 2);
-							break;
-						}
-					}
-					if (get_arraysize(shell->p_head->args) > 2)
-					{
-						shell->exit_status = 1;
-						ft_putstr_fd("exit: too many arguments\n", 2);
-					}
-					else
-						break ;
-				}
-				
-			}
-			execute(shell);
-			signal_flag(WRITE, false);
-		}
+			pre_execute(shell);
 		free_pipex(shell);
 		shell->p_head = NULL;
 	}
-	write(1, "exit\n", 5);
-	ft_exit(shell);
 }
 
 // void	shell_alone(t_shell *shell)

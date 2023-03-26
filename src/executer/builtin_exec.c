@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:57:35 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 05:48:34 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 08:45:59 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,7 @@ int	check_before_fork(t_pipex *p_head, char *command)
 	if (i)
 		return (i);
 	if (!command)
-	{
-		ft_putstr_fd(p_head->cmd, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		return (0);
-	}
+		return (ft_putstrsfd(2, p_head->cmd, NO_COMMAND, NULL), 1);
 	return (1);
 }
 
