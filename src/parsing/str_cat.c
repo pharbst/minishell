@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:53:49 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 06:02:26 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:57:02 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,20 @@ char	*dollar_helper(t_parsing *a, char *tmp)
 	char	*tmp2;
 
 	i = 0;
-	if (a->token[a->token_index].location[0] == '?')
-		return (strjoinfree(tmp, ft_itoa(a->exit_status)));
-	while (ft_isalnum(a->token[a->token_index].location[i]))
+	if (a->token[a->token_index].location[i] == '?')
+	{
+		tmp = strjoinfree(tmp, ft_itoa(a->exit_status));
 		i++;
-	tmp2 = ft_substr(a->token[a->token_index].location, 0, i);
-	tmp = strjoinfree(tmp, get_var_content(a->envp, tmp2));
-	free(tmp2);
+	}
+	else
+	{
+		while (ft_isalnum(a->token[a->token_index].location[i])
+			|| a->token[a->token_index].location[i] == '_')
+			i++;
+		tmp2 = ft_substr(a->token[a->token_index].location, 0, i);
+		tmp = strjoinfree(tmp, get_var_content(a->envp, tmp2));
+		free(tmp2);
+	}
 	if (&a->token[a->token_index].location[i]
 		< a->token[a->token_index + 1].location)
 		a->token[a->token_index].location

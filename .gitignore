@@ -60,3 +60,4 @@ a.out
 tester
 tests
 .DS_Store
+./.vscode

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 22:23:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 05:38:49 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 09:36:33 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,12 @@
 # define SYNTAX_RL_EOF "unexpected EOF while looking for matching `\"'\n"
 # define SYNTAX_EOF "syntax error: unexpected end of file\n"
 # define SYNTAX_NL "syntax error near unexpected token `newline'\n"
+# define NO_SUCH_FILE ": No such file or directory\n"
+# define VAR_NO_VALID "': not a valid identifier\n"
+# define NO_COMMAND ": command not found\n"
+# define NO_PERM ": Permission denied\n"
+# define EXIT_WRONG_ARG ": numeric argument required\n"
+# define EXIT_TOO_MANY_ARGS "exit: too many arguments\n"
+# define SYNTAX_ERROR "syntax error near unexpected token `"
 
 #endif

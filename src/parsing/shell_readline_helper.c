@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 03:46:43 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 06:02:21 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 09:19:18 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	shell_rloq_parent(t_shell *shell, t_shell_rl *rl)
 	if (rl->status)
 	{
 		if (rl->status == 256)
-			ft_putstrsfd(2, SHELL_NAME, SYNTAX_EOF);
+			ft_putstrsfd(2, SHELL_NAME, SYNTAX_EOF, NULL);
 		close(rl->pipe_fd[1][0]);
 		return ;
 	}
@@ -51,8 +51,7 @@ void	shell_rl_helper(t_shell *shell, t_shell_rl *rl)
 
 void	shell_rl_exit(t_shell *shell)
 {
-	if (isatty(STDIN_FILENO))
-		return (write(1, "exit\n", 5), ft_exit(shell));
-	else
-		return (ft_exit(shell));
+	if (!isatty(STDIN_FILENO))
+		ft_exit(-1, NULL, shell);
+	ft_exit(1, NULL, shell);
 }
