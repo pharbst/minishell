@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:57:35 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 05:48:34 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:51:29 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ int	builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
 int	builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin)
 {
 	if (flag_builtin == 2 && !p_head->next)
-	{	
 		return (bi_cd(p_head->args, get_arraysize(p_head->args), shell));
-	}
 	else if (flag_builtin == 5)
 	{
 		return (var_export(shell, p_head->args,
