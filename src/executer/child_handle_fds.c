@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/24 12:51:07 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 05:24:29 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	handle_outfile(t_pipex *p_head)
 
 // ctrl-c - sosatb
 // ctrl-\ - sosatb
-// ctrl-d - sosatb
 
 // ls >| llllogs
 // ls > llllogs
@@ -71,15 +70,6 @@ int	handle_outfile(t_pipex *p_head)
 
 // /Users/ccompote
 
-// cat << 'lim'
-// $USER
-// $NOVAR
-// $HOME
-// lim
-
-// $USER
-// $NOVAR
-// $HOME
 
 // cat << lim ''
 // > cds
@@ -99,11 +89,12 @@ int	handle_outfile(t_pipex *p_head)
 
 // echo $PWD when PWD was changed - not updated
 
-// export tmp_test ok???
-
 // export X="  A  B  "
 // echo $X
 // gives 0x0
+
+//tests:
+//builtins: 219, 228
 
 int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {

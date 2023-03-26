@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 15:26:55 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 04:56:50 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,18 @@ int	valid_var(char *argv)
 	int	i;
 
 	i = 0;
-	while (ft_isalpha(argv[i]))
-		i++;
-	if ((argv[i] == '=' && i) || argv[i] == '\0')
-		return (1);
-	else
+	if (!ft_isalpha(argv[i]) && argv[i] != '_')
 		return (0);
+	i++;
+	while (argv[i])
+	{
+		if (argv[i] == '=')
+			return (1);
+		if (!ft_isalnum(argv[i]) && argv[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int	var_new(char *env, char *name)
