@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_executer.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 05:28:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 05:49:32 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 22:03:23 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

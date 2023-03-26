@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 12:30:59 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 22:23:01 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,8 @@ int	handle_outfile(t_pipex *p_head)
 // ls >| llllogs
 // ls > llllogs
 
-// exit takes only numeric arguments and exits with correct exitcode
 
 //close all files?
-
-//echo $b (not exist)
-//ERROR: malloc failed in str_cat
-///bin/echo $notexist - frees not allocated and exits
-
-// /bin/echo $HOME - trash in first arg
-// /Users/ccompote
-// arg[0]: ???
-// arg[1]: /Users/ccompote
 
 //  /bin/ls
 //  pointer of arg[0] being freed was not allocated
@@ -77,11 +67,11 @@ int	handle_outfile(t_pipex *p_head)
 // cat: : No such file or directory
 
 // command ""
-// bash: : command not found, 1 error
-// minishell new prompt, 137
+// bash: : command not found, 127 error
+// minishell new prompt, 137. should be parsed as empty command (finds this path to it /Users/ccompote/.brew/bin/ )
 
-// "."
-// freed not allocated
+// "." / "/" 
+//  new prompt, random error, isn't giving NULL to command because of ft_strchr("/.") in get_cmd
 
 // ./ls
 // bash: ./ls: No such file or directory
@@ -95,8 +85,23 @@ int	handle_outfile(t_pipex *p_head)
 
 // arg[1]: Apple_Terminal
 
+// /bin/echo $"HOME"$USER
+// $HOMEccompote
+// bash:
+// HOMEccompote
+
+//  /bin/echo "$"
+// /var/folders/zz/zyxvpxvq6csfxvn_n000cf740033js/T/
+
 //tests:
 //builtins: 193 ok (wrong order), 232, 261, 265 ok, 
+//269-273-279 (change findvar), 265-359 ok (mb wrong output fd)
+//redirs: 48-54 ok, 60-64 ok (&& not handled), 77-99 ok (heredoc), 108, 114-132 ok (not handling)
+//cmds: 11, 26 + 30 + 32 + 34 + 36 + 40 + 44
+//vars: 8 - 10 ok, 12 - 22, 26-56, 79, 89-134
+//correction: same
+//paths: need to change path variable in child process
+
 
 int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {

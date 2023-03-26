@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 08:29:31 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 22:03:46 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,6 @@ int	var_export(t_shell *shell, char **argv, int argc)
 			else
 			{
 				ft_putstrsfd(2, "export: `", argv[i], VAR_NO_VALID, NULL);
-				// ft_putstr_fd("export: `", 2);
-				// ft_putstr_fd(argv[i], 2);
-				// ft_putstr_fd("': not a valid identifier\n", 2);
 				exit_status = 1;
 			}
 			i++;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:36:12 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 09:40:29 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 13:42:05 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_buildins.h"
 
-void	ft_exit(int argc, char **args, t_shell *shell)
+int	ft_exit(int argc, char **args, t_shell *shell)
 {
 	int	status;
 
@@ -33,7 +33,7 @@ void	ft_exit(int argc, char **args, t_shell *shell)
 	{
 		ft_putstr_fd(EXIT_TOO_MANY_ARGS, 2);
 		shell->exit_status = 1;
-		return ;
+		return (1);
 	}
 	free_pipex(shell);
 	free(shell->user);

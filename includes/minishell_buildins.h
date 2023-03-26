@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_buildins.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 05:21:44 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 09:02:08 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 13:03:19 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int		bi_cd(char **args, int argc, t_shell *shell);
 int		bi_echo(int argc, char **argv);
 int		print_env(char **env);
-void	ft_exit(int argc, char **argv, t_shell *shell);
+int		ft_exit(int argc, char **argv, t_shell *shell);
 
 // export
 void	print_line_with_quotes(char *line);

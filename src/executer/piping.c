@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 11:54:03 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 22:03:05 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	sa.sa_handler = SIG_DFL;
 	sa.sa_flags = SA_RESTART;
 
+	
 	command = get_cmd(p_head, pipex_info->paths);
 	flag_builtin = check_before_fork(p_head, command);
 	if (!flag_builtin)
@@ -126,12 +127,43 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 		pipex_info->error_code = status;
 		return (free(command));
 	}
+	// flag_builtin = check_before_fork(p_head);
+	if (!flag_builtin)
+	{
+		pipex_info->pids[pipex_info->number_nodes - 1] = 5;
+		pipex_info->error_code = 127;
+		return (free(command));
+	}
+	// status = builtin_main(p_head, shell, flag_builtin);
+	// printf("%d\n", status);
+	// if (status != 2)
+	// {
+	// 	pipex_info->pids[pipex_info->number_nodes - 1] = 5;
+	// 	pipex_info->error_code = status;
+	// 	// return (free(command));
+	// 	// return ;
+	// }
 	signal_flag(WRITE, true);
 	pipex_info->pids[process] = fork();
 	if (pipex_info->pids[process] < 0)
 		exit(1); 
 	if (pipex_info->pids[process] == 0)
 	{
+		// pipex_info->paths = split_free(get_var_content(shell->envp, "PATH"), ':');
+		// if (!pipex_info->paths)
+		// {
+		// 	if (flag_builtin == 1 || flag_builtin == 4)
+		// 	{
+		// 		ft_putstrsfd(2, p_head->cmd, NO_SUCH_FILE, NULL);
+		// 		exit (1);
+		// 	}
+		// }
+		// command = get_cmd(p_head, pipex_info->paths);
+		// if (!command && flag_builtin == 1)
+		// {
+		// 	ft_putstrsfd(2, p_head->cmd, NO_COMMAND, NULL);
+		// 	exit(127);
+		// }
 		sigaction(SIGINT, &sa, NULL);
 		if (!open_files(p_head))
 			exit(1);

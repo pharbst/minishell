@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 00:00:00 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 12:34:15 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 21:47:17 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,14 @@ void	sigint_handler(int sig)
 
 void	pre_execute(t_shell *shell)
 {
+	int skip_exec;
+
+	skip_exec = 0;
 	if (shell->p_head->cmd)
 	{
 		if (!ft_strcmp(shell->p_head->cmd, "exit"))
 		{
-			ft_exit(get_arraysize(shell->p_head->args),
+			skip_exec = ft_exit(get_arraysize(shell->p_head->args),
 				shell->p_head->args, shell);
 		// 	if (get_arraysize(shell->p_head->args) > 1)
 		// 	{
@@ -101,7 +104,8 @@ void	pre_execute(t_shell *shell)
 		// 		ft_exit(shell);
 		}
 	}
-	execute(shell);
+	if (!skip_exec)
+		execute(shell);
 	signal_flag(WRITE, false);
 }
 
