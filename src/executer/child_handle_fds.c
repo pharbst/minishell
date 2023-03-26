@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_handle_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 06:24:10 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 12:30:59 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,16 @@ int	handle_outfile(t_pipex *p_head)
 // bash: ./ls: No such file or directory
 // minishell working
 
-// echo $PWD when PWD was changed - not updated
-
 // export X="  A  B  "
 // echo $X
 // gives 0x0
 
+// unset "$"
+
+// arg[1]: Apple_Terminal
+
 //tests:
-//builtins: 219, 228
+//builtins: 193 ok (wrong order), 232, 261, 265 ok, 
 
 int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {

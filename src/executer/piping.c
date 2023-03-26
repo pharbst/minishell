@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 08:39:18 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 11:54:03 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,14 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	flag_builtin = check_before_fork(p_head, command);
 	if (!flag_builtin)
 	{
-		pipex_info->pids = NULL;
+		pipex_info->pids[pipex_info->number_nodes - 1] = 5;
 		pipex_info->error_code = 127;
 		return (free(command));
 	}
 	status = builtin_main(p_head, shell, flag_builtin);
 	if (status != 2)
 	{
-		pipex_info->pids[process] = 0;
+		pipex_info->pids[pipex_info->number_nodes - 1] = 5;
 		pipex_info->error_code = status;
 		return (free(command));
 	}

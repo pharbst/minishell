@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/26 16:33:02 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 06:24:17 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 11:50:59 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	finish_piping(t_pipex_common *pipex_info)
 		close(pipex_info->pipes[i][1]);
 		i++;
 	}
-	if (pipex_info->pids)
+	if (pipex_info->pids[pipex_info->number_nodes - 1] != 5)
 		waiting(pipex_info);
 }
 

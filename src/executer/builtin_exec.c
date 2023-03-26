@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:57:35 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 11:42:00 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 11:57:58 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_before_fork(t_pipex *p_head, char *command)
 	if (i)
 		return (i);
 	if (!command)
-		return (ft_putstrsfd(2, p_head->cmd, NO_COMMAND, NULL), 1);
+		return (ft_putstrsfd(2, p_head->cmd, NO_COMMAND, NULL), 0);
 	return (1);
 }
 
