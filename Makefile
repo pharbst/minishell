@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/22 07:27:06 by pharbst          ###   ########.fr        #
+#    Updated: 2023/03/26 05:27:36 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,11 +72,13 @@ SRC_FILES	=	main.c \
 
 # parsing
 SRC_FILES	+=	parsing_main.c \
+				parsing_helper.c \
 				quote_expand.c \
 				string_con.c \
 				join_arg.c \
 				validate_fd.c \
 				redirect_condition.c \
+				redirect_helper.c \
 				str_cat.c \
 				check_open.c \
 				token_helper_tokencheck_quote.c \
@@ -86,6 +88,7 @@ SRC_FILES	+=	parsing_main.c \
 				here_doc_delimiter.c \
 				ft_syntax_error.c \
 				shell_readline.c \
+				shell_readline_helper.c \
 
 # execution
 SRC_FILES	+=	execute.c \
@@ -106,7 +109,6 @@ SRC_FILES	+=	cd.c \
 # tools
 SRC_FILES	+=	grap.c \
 				last_word.c \
-				prompt_line.c \
 				visual_token.c \
 				print_pipex.c \
 				shell_g.c \
@@ -115,6 +117,7 @@ SRC_FILES	+=	grap.c \
 				error_code.c \
 				split_free.c \
 				signal_helper.c \
+				shell_free.c \
 
 # **************************************************************************** #
 # directories

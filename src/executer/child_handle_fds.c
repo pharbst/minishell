@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   child_handle_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 05:24:29 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 06:24:10 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_executer.h"
 
 int	handle_outfile(t_pipex *p_head)
 {

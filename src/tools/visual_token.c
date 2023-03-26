@@ -6,11 +6,11 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 19:03:36 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 11:51:11 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 05:48:09 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_tools.h"
 
 void	print_token_type(t_token token)
 {

@@ -6,13 +6,13 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:13:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 09:46:54 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:02:24 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_parsing.h"
 
-static char	*get_prompt_line(t_shell *shell)
+char	*get_prompt_line(t_shell *shell)
 {
 	char	*line;
 	char	*pwd;
@@ -29,7 +29,7 @@ static char	*get_prompt_line(t_shell *shell)
 	return (line);
 }
 
-static bool	openquote(char *line)
+bool	openquote(char *line)
 {
 	int		i;
 	bool	s_quote;
@@ -55,7 +55,26 @@ static bool	openquote(char *line)
 	return (false);
 }
 
-static void	shell_rloq(t_shell_rl rl)
+void	shell_rliq(t_shell_rl rl, char *line)
+{
+	while (openquote(line))
+	{
+		if (isatty(STDIN_FILENO))
+			rl.tmp = readline("> ");
+		else
+			rl.tmp = gnl(0);
+		if (!rl.tmp)
+		{
+			ft_putstrsfd(2, SHELL_NAME, SYNTAX_RL_EOF);
+			free(line);
+			close(rl.pipe_fd[1][1]);
+			exit(1);
+		}
+		line = strjoinfree(ft_strjoinchar(line, '\n'), rl.tmp);
+	}
+}
+
+void	shell_rloq(t_shell_rl rl)
 {
 	char	*line;
 
@@ -65,21 +84,7 @@ static void	shell_rloq(t_shell_rl rl)
 	while (read(rl.pipe_fd[0][0], &rl.buff, 1) > 0)
 		line = ft_strjoinchar(line, rl.buff);
 	close(rl.pipe_fd[0][0]);
-	while (openquote(line))
-	{
-		if (isatty(STDIN_FILENO))
-			rl.tmp = readline("> ");
-		else
-			rl.tmp = gnl(0);
-		if (!rl.tmp)
-		{
-			ft_putstr_fd("minishell: bash: unexpected EOF while looking for matching `\"'\n", 2);
-			free(line);
-			close(rl.pipe_fd[1][1]);
-			exit(1);
-		}
-		line = strjoinfree(ft_strjoinchar(line, '\n'), rl.tmp);
-	}
+	shell_rliq(rl, line);
 	ft_putstr_fd(line, rl.pipe_fd[1][1]);
 	free(line);
 	close(rl.pipe_fd[1][1]);
@@ -105,45 +110,9 @@ void	shell_readline(t_shell *shell)
 	}
 	free(rl.promt);
 	if (!shell->line)
-	{
-		if (isatty(STDIN_FILENO))
-			return (write(1, "exit\n", 5), ft_exit(shell));
-		else
-			return (ft_exit(shell));
-	}
+		shell_rl_exit(shell);
 	if (openquote(shell->line))
-	{
-		if (pipe(rl.pipe_fd[0]) == -1)
-			return ;
-		if (pipe(rl.pipe_fd[1]) == -1)
-			return ;
-		write(rl.pipe_fd[0][1], shell->line, ft_strlen(shell->line));
-		close(rl.pipe_fd[0][1]);
-		free(shell->line);
-		shell->line = NULL;
-		rl.pid = fork();
-		if (!rl.pid)
-			shell_rloq(rl);
-		else
-		{
-			close(rl.pipe_fd[0][0]);
-			close(rl.pipe_fd[1][1]);
-			waitpid(rl.pid, &rl.status, 0);
-			if (rl.status)
-			{
-				if (rl.status == 256)
-					ft_putstr_fd("minishell: syntax error: unexpected end of file\n", 2);
-				close(rl.pipe_fd[1][0]);
-				return ;
-			}
-			else
-			{
-				while (read(rl.pipe_fd[1][0], &rl.buff, 1) > 0)
-					shell->line = ft_strjoinchar(shell->line, rl.buff);
-				close(rl.pipe_fd[1][0]);
-			}
-		}
-	}
+		shell_rl_helper(shell, &rl);
 	if (ft_strlen(shell->line) > 0)
 		add_history(shell->line);
 }

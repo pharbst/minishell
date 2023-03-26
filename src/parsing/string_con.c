@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   string_con.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 14:08:01 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 04:16:57 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 06:23:53 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_parsing.h"
 
 void	string_condition(t_parsing *a, bool *cmd, t_pipex *pipex)
 {

@@ -6,11 +6,11 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 23:23:50 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 09:42:00 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:01:57 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_parsing.h"
 
 char	*hdc_dollar(t_parsing *a)
 {

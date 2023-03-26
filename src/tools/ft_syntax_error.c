@@ -6,11 +6,11 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 22:54:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 10:36:15 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 05:46:22 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_tools.h"
 
 bool	syntax_check(bool read, bool value)
 {
@@ -29,7 +29,7 @@ void	ft_syntax_error(t_parsing *a)
 	syntax_check(WRITE, true);
 	a->exit_status = 1;
 	if (a->token[a->token_index].type == NEW_LINE)
-		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
+		ft_putstrsfd(2, SHELL_NAME, SYNTAX_NL);
 	else
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);

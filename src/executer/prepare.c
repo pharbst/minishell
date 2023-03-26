@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prepare.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:14:33 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/24 12:06:08 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 05:48:50 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_executer.h"
 
 int	count_nodes(t_pipex *pipex)
 {

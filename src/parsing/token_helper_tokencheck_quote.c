@@ -6,11 +6,11 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:19:14 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/18 13:11:50 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:02:33 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_parsing.h"
 
 void	token_dquote(t_token *token, int *i, char *line, int index)
 {

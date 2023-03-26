@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   shell.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 00:00:00 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 05:12:03 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 06:23:39 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_structs.h"
+#include "minishell_parsing.h"
+#include "minishell_buildins.h"
+#include "minishell_executer.h"
+
 
 // static bool openquote(char *line)
 // {

@@ -6,13 +6,13 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:24:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 09:41:34 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:01:54 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_parsing.h"
 
-static bool	hdc_syntax_check(t_parsing *a)
+bool	hdc_syntax_check(t_parsing *a)
 {
 	if (a->token[a->token_index].type != STRING_OPEN
 		&& a->token[a->token_index].type != DQUOTE_OPEN
@@ -22,7 +22,7 @@ static bool	hdc_syntax_check(t_parsing *a)
 	return (false);
 }
 
-static char	*get_delimiter(t_parsing *a)
+char	*get_delimiter(t_parsing *a)
 {
 	char	*delimiter;
 	char	*tmp;
@@ -46,9 +46,25 @@ static char	*get_delimiter(t_parsing *a)
 	return (delimiter);
 }
 
-static void	exec_hdc(char *delimiter, int pfd[2], t_parsing *a)
+void	hdc_child(char *delimiter, int pfd[2])
 {
-	char				*line;
+	char	*line;
+
+	line = readline("> ");
+	while (ft_strcmp(line, delimiter))
+	{
+		write(pfd[1], line, ft_strlen(line));
+		write(pfd[1], "\n", 1);
+		free(line);
+		line = readline("> ");
+	}
+	free(line);
+	close(pfd[1]);
+	exit(0);
+}
+
+void	exec_hdc(char *delimiter, int pfd[2], t_parsing *a)
+{
 	int					pid;
 	int					status;
 	struct sigaction	sa;
@@ -59,17 +75,7 @@ static void	exec_hdc(char *delimiter, int pfd[2], t_parsing *a)
 	if (!pid)
 	{
 		sigaction(SIGINT, &sa, NULL);
-		line = readline("> ");
-		while (ft_strcmp(line, delimiter))
-		{
-			write(pfd[1], line, ft_strlen(line));
-			write(pfd[1], "\n", 1);
-			free(line);
-			line = readline("> ");
-		}
-		free(line);
-		close(pfd[1]);
-		exit(0);
+		hdc_child(delimiter, pfd);
 	}
 	else
 	{

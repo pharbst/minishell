@@ -6,11 +6,11 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/11 09:31:46 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 09:48:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:02:36 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_parsing.h"
 
 void	token_space(t_token *token, int *i, char *line, int *index)
 {

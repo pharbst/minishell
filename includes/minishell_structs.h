@@ -6,12 +6,15 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 09:31:42 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:06:08 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_STRUCTS_H
 # define MINISHELL_STRUCTS_H
+
+# include <stdbool.h>
+# include <signal.h>
 
 typedef struct s_token
 {

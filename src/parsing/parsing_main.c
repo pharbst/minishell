@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 22:13:30 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 04:17:05 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/26 06:23:49 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_parsing.h"
 
-static int	tokenize(char *line, t_token *token, int i, int *index)
+int	tokenize(char *line, t_token *token, int i, int *index)
 {
 	if (!line)
 		return (0);
@@ -32,7 +32,7 @@ static int	tokenize(char *line, t_token *token, int i, int *index)
 	return (i);
 }
 
-static int	token_main(char **line, t_token *token)
+int	token_main(char **line, t_token *token)
 {
 	int	i;
 	int	index;
@@ -60,47 +60,17 @@ t_pipex	*parsing_condition(t_parsing *a)
 	t_pipex	*pipex;
 
 	cmd = false;
-	if (a->token_index >= a->token_count)
-		return (NULL);
 	pipex = ft_calloc(1, sizeof(t_pipex));
-	if (!pipex)
-		return (printf("Error: malloc failed in parsing condition\n"),
-			free(pipex), NULL);
 	while (a->token_index < a->token_count && a->token[a->token_index].type
 		!= PIPE)
 	{
-		if (a->token[a->token_index].type == STRING_OPEN)
-			string_condition(a, &cmd, pipex);
-		else if (a->token[a->token_index].type == REDIRECT_IN)
-			redirect_in_condition(a, pipex);
-		else if (a->token[a->token_index].type == REDIRECT_OUT)
-			redirect_out_condition(a, pipex, NULL);
-		else if (a->token[a->token_index].type == DOLLAR)
-			string_condition(a, &cmd, pipex);
-		else if (a->token[a->token_index].type == DQUOTE_OPEN)
-			string_condition(a, &cmd, pipex);
-		else if (a->token[a->token_index].type == SQUOTE_OPEN)
-			string_condition(a, &cmd, pipex);
-		else if (a->token[a->token_index].type == SPACE_START)
-			(a->token_index)++;
+		case_check(a, pipex, &cmd);
 		if (a->abort)
 			return (free(pipex), NULL);
 	}
-	if (a->token_index >= a->token_count)
-	{
-		if (!cmd)
-		{
-			if (!pipex->out)
-				return (free(pipex), NULL);
-			else
-				return (pipex);
-		}
-		else
-			return (pipex);
-	}
-	a->token_index += 1;
-	if (a->token[a->token_index].type == PIPE)
-		ft_syntax_error(a);
+	pipex = post_check(a, pipex, cmd);
+	if (!pipex)
+		return (NULL);
 	return (pipex->next = parsing_condition(a), pipex);
 }
 

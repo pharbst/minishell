@@ -6,13 +6,13 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:53:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/23 09:44:09 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 06:02:11 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell_parsing.h"
 
-static char	*expand_dollar_var(t_parsing *a)
+char	*expand_dollar_var(t_parsing *a)
 {
 	char	*tmp;
 	char	*ret;
