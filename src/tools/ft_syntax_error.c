@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 22:54:55 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 05:46:22 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 07:59:49 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_syntax_error(t_parsing *a)
 	syntax_check(WRITE, true);
 	a->exit_status = 1;
 	if (a->token[a->token_index].type == NEW_LINE)
-		ft_putstrsfd(2, SHELL_NAME, SYNTAX_NL);
+		ft_putstrsfd(2, SHELL_NAME, SYNTAX_NL, NULL);
 	else
 	{
 		ft_putstr_fd("minishell: syntax error near unexpected token `", 2);

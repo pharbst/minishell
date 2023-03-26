@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:13:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 06:02:24 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/26 08:01:47 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	shell_rliq(t_shell_rl rl, char *line)
 			rl.tmp = gnl(0);
 		if (!rl.tmp)
 		{
-			ft_putstrsfd(2, SHELL_NAME, SYNTAX_RL_EOF);
+			ft_putstrsfd(2, SHELL_NAME, SYNTAX_RL_EOF, NULL);
 			free(line);
 			close(rl.pipe_fd[1][1]);
 			exit(1);
