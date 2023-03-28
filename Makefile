@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
+#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/28 20:02:42 by ccompote         ###   ########.fr        #
+#    Updated: 2023/03/28 20:25:04 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ ifeq ($(UNAME), Darwin)
 CFLAGSS      = -I$(shell brew --prefix readline)/include # -fsanitize=address -fsanitize=undefined #-Wno-gnu-include-next -I LeakSanitizer/include
 LDFLAGS     = -L$(shell brew --prefix readline)/lib/ #-LLeakSanitizer  -llsan -lc++
 endif
+
 
 # **************************************************************************** #
 # Project
@@ -161,13 +162,16 @@ re:
 # 	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) -o $(NAME)
 # 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
-$(NAME):	proname_header libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
+$(NAME):	proname_header libftio_update_header libftio_update libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
 	@$(CC) $(CFLAGS) $(OBJ) $(CFLAGSS) $(LDFLAGS) -lreadline $(LIBFTIO) -o $(NAME)
 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 	
 $(OBJ_DIR)/%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(INC) $(INC_LIBFTIO) $(CFLAGSS) -c $< -o $@
+
+libftio_update:
+	@git submodule update --init >/dev/null 2>&1
 
 $(LIBFTIO):
 	@make -C $(LIBFTIO_DIR) > /dev/null
@@ -212,7 +216,10 @@ update:
 # Header Rules
 # **************************************************************************** #
 libftio_header:
-	@printf "$(FBlue)Compiling Libftio$(Reset)										     "
+	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling Libftio$(Reset)										     "
+
+libftio_update_header:
+	@printf "$(FBlue)Updating Libftio$(Reset)										     "
 
 obj_header:
 	@printf " $(FGreen)[$(TICK)]\n$(FBlue)Compiling .o files$(RESET)										     "
