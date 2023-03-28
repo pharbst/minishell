@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:24:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 06:01:54 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:36:16 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	exec_hdc(char *delimiter, int pfd[2], t_parsing *a)
 	int					status;
 	struct sigaction	sa;
 
+	ft_bzero(&sa, sizeof(sa));
 	sa.sa_handler = SIG_DFL;
 	sa.sa_flags = SA_RESTART;
 	pid = fork();

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:53:49 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 13:36:12 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:25:45 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ char	*str_cat_helper(t_parsing *a, char *tmp)
 		a->token_index += 2;
 	}
 	else if (a->token[a->token_index].type == DQUOTE_OPEN)
-		tmp = strjoinfree(tmp, quote_expand(a));
+		tmp = strjoinfree(tmp, dquote_expand(a));
 	else if (a->token[a->token_index].type == SQUOTE_OPEN)
-		tmp = strjoinfree(tmp, quote_expand(a));
+		tmp = strjoinfree(tmp, squote_expand(a));
 	else if (a->token[a->token_index].type == DOLLAR)
 	{
 		a->token_index++;

@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:53:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 17:04:22 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:27:30 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*expand_dollar_var(t_parsing *a)
 	return (free(tmp), ret);
 }
 
-char	*quote_expand(t_parsing *a)
+char	*dquote_expand(t_parsing *a)
 {
 	char	*tmp;
 
@@ -56,6 +56,23 @@ char	*quote_expand(t_parsing *a)
 							- a->token[a->token_index].location) - 1));
 		a->token_index += 1;
 	}
+	a->token_index += 1;
+	return (tmp);
+}
+
+char	*squote_expand(t_parsing *a)
+{
+	char	*tmp;
+
+	tmp = NULL;
+	while (a->token[a->token_index].type != SQUOTE_CLOSE)
+	{
+		tmp = strjoinfree(tmp, ft_substr(a->token[a->token_index].location,
+					0, (a->token[a->token_index + 1].location
+						- a->token[a->token_index].location)));
+		a->token_index += 1;
+	}
+	tmp = ft_strtrim(tmp, "'");
 	a->token_index += 1;
 	return (tmp);
 }

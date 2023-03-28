@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 03:47:11 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 19:05:46 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:26:08 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	shell_parsing_main(t_shell *shell);
 
 // quote_expand.c
 char	*expand_dollar_var(t_parsing *a);
-char	*quote_expand(t_parsing *a);
+char	*dquote_expand(t_parsing *a);
+char	*squote_expand(t_parsing *a);
 
 // redirect_condition.c
 void	redirect_in_condition(t_parsing *a, t_pipex *pipex);
