@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 00:00:00 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 15:39:43 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:45:20 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	shell_interactive(t_shell *shell)
 		signal_flag(WRITE, true);
 		shell_parsing_main(shell);
 		shell->line = NULL;
-		// print_pipex(shell->p_head);
 		if (shell->p_head && !syntax_check(READ, NULL))
 			pre_execute(shell);
 		free_pipex(shell);

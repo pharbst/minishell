@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:53:49 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 19:25:45 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:44:34 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ char	*str_cat(t_parsing *a)
 	{
 		tmp = str_cat_helper(a, tmp);
 		if (!tmp)
-			// return (printf("ERROR: malloc failed in str_cat\n"), NULL);
 			return (NULL);
 	}
 	return (tmp);

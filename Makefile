@@ -6,7 +6,7 @@
 #    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/26 05:27:36 by pharbst          ###   ########.fr        #
+#    Updated: 2023/03/28 19:44:19 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -109,7 +109,6 @@ SRC_FILES	+=	cd.c \
 # tools
 SRC_FILES	+=	grap.c \
 				last_word.c \
-				visual_token.c \
 				print_pipex.c \
 				shell_g.c \
 				find_var.c \
