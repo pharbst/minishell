@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:13:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 12:43:53 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 19:15:39 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,24 @@
 
 char	*get_prompt_line(t_shell *shell)
 {
-	char	*line;
-	char	*pwd;
-	char	*tmp;
-	char	*usr;
+	char				*line;
+	char				*pwd;
+	char				*tmp;
+	char				*usr;
+	static unsigned int	i;
 
 	tmp = getcwd(NULL, 0);
-	pwd = last_word(tmp);
-	usr = get_var_content(shell->envp, "USER");
-	line = strjoinfree(ft_strdup("\033[0;37m"), usr);
-	line = ft_strjoinfree(line, "@\033[1;32mm\033[1;33mi\033[1;35mn\033[1;36mi\033[1;34ms\033[1;31mhell \033[0;33m");
-	line = ft_strjoinfree(line, pwd);
-	line = ft_strjoinfree(line, "$ \033[0;37m");
+	pwd = ft_strdup(last_word(tmp));
 	free(tmp);
+	usr = get_var_content(shell->envp, "USER");
+	tmp = strjoinfree(ft_strdup("\033[1;3"),
+			ft_strjoinfree(ft_itoa(i % 7 + 1), "m"));
+	line = strjoinfree(tmp, usr);
+	line = ft_strjoinfree(line, COLOR_SET_1);
+	line = ft_strjoinfree(line, COLOR_SET_2);
+	line = strjoinfree(line, pwd);
+	line = ft_strjoinfree(line, "$ \033[0;37m");
+	i++;
 	return (line);
 }
 
