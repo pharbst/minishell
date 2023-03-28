@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_buildins.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 05:21:44 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 13:03:19 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:44:55 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,5 @@ int		var_export(t_shell *shell, char **argv, int argc);
 
 int		unset(t_shell *shell, char **argv);
 char	*pwd(void);
-
 
 #endif
