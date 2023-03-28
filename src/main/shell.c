@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 00:00:00 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 11:00:47 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 15:39:43 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	shell_interactive(t_shell *shell)
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = &sigint_handler;
 	sa.sa_flags = SA_RESTART;
-	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		sigaction(SIGINT, &sa, NULL);
 		signal_flag(WRITE, false);
 		shell_readline(shell);
