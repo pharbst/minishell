@@ -6,11 +6,19 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:36:12 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 16:32:49 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:06:50 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_buildins.h"
+
+void	finish_exit(t_shell *shell)
+{
+	free_pipex(shell);
+	free(shell->user);
+	free(shell->pwd);
+	free_envp(shell->envp);
+}
 
 int	ft_exit(int argc, char **args, t_shell *shell)
 {
@@ -35,9 +43,6 @@ int	ft_exit(int argc, char **args, t_shell *shell)
 		shell->exit_status = 1;
 		return (1);
 	}
-	free_pipex(shell);
-	free(shell->user);
-	free(shell->pwd);
-	free_envp(shell->envp);
+	finish_exit(shell);
 	exit(status);
 }

@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/28 17:01:41 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:09:30 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	handle_outfile(t_pipex *p_head)
 //cmds: 11, 26 + 30 + 32 + 34 + 36 + 40 + 44
 //vars: 8 - 10 ok, 12 - 22, 26-56, 79, 89-134
 //correction: same
-//paths: need to change path variable in child process
+
 
 
 int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)

@@ -6,11 +6,30 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:24:29 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 12:36:49 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:59:17 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_buildins.h"
+
+int	valid_var(char *argv)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(argv[i]) && argv[i] != '_')
+		return (0);
+	i++;
+	while (argv[i])
+	{
+		if (argv[i] == '=')
+			return (1);
+		if (!ft_isalnum(argv[i]) && argv[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 int	unset(t_shell *shell, char **argv)
 {

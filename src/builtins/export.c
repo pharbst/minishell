@@ -6,60 +6,48 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 16:25:57 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:59:13 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_buildins.h"
 
-void	print_line_with_quotes(char *line)
+void	print_line_with_quotes(char *line, char *new_line)
 {
-	char	*new_line;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
+	while (line[j])
+	{
+		new_line[i] = line[j];
+		if (line[j] == '=')
+		{
+			i++;
+			new_line[i] = '"';
+		}
+		i++;
+		j++;
+	}
+	new_line[i] = '"';
+	new_line[++i] = '\0';
+	printf("declare -x %s\n", new_line);
+	free(new_line);
+}
+
+int	line_with_quotes(char *line)
+{
+	char	*new_line;
+
 	if (!ft_strchr(line, '='))
 		printf("declare -x %s\n", line);
 	else
 	{
 		new_line = ft_calloc(ft_strlen(line) + 3, sizeof(char));
 		if (!new_line)
-			return ;
-		while (line[j])
-		{
-			new_line[i] = line[j];
-			if (line[j] == '=')
-			{
-				i++;
-				new_line[i] = '"';
-			}
-			i++;
-			j++;
-		}
-		new_line[i] = '"';
-		new_line[++i] = '\0';
-		printf("declare -x %s\n", new_line);
-		free(new_line);
-	}
-}
-
-int	valid_var(char *argv)
-{
-	int	i;
-
-	i = 0;
-	if (!ft_isalpha(argv[i]) && argv[i] != '_')
-		return (0);
-	i++;
-	while (argv[i])
-	{
-		if (argv[i] == '=')
-			return (1);
-		if (!ft_isalnum(argv[i]) && argv[i] != '_')
 			return (0);
-		i++;
+		print_line_with_quotes(line, new_line);
 	}
 	return (1);
 }
@@ -76,78 +64,29 @@ int	var_new(char *env, char *name)
 	return (new);
 }
 
+int	export_alone(char **envp)
+{
+	int	index;
+	int	k;
+
+	index = 0;
+	while (envp[index])
+	{
+		if (ft_strncmp(envp[index], "_=", 2))
+		{
+			k = line_with_quotes(envp[index]);
+			if (!k)
+				return (1);
+		}
+		index++;
+	}
+	return (0);
+}
+
 int	var_export(t_shell *shell, char **argv, int argc)
 {
-	char	**new_envp;
-	int		arraysize;
-	int		index;
-	char	**name_val;
-	int		flag;
-	int		i;
-	int		new;
-	int		exit_status;
-
-	i = 1;
-	index = 0;
-	exit_status = 0;
 	if (argc == 1)
-	{
-		while (shell->envp[index])
-		{
-			if (ft_strncmp(shell->envp[index], "_=", 2))
-				print_line_with_quotes(shell->envp[index]);
-			index++;
-		}
-		return (0);
-	}
+		return (export_alone(shell->envp));
 	else
-	{
-		arraysize = get_arraysize(shell->envp);
-		new_envp = ft_calloc(arraysize + argc, sizeof(char *));
-		if (!new_envp)
-			return (1);
-		while (shell->envp[index])
-		{
-			new_envp[index] = ft_strdup(shell->envp[index]);
-			if (!new_envp[index])
-				return (1);
-			index++;
-		}
-		while (argv[i])
-		{
-			if (valid_var(argv[i]))
-			{
-				index = 0;
-				flag = 0;
-				name_val = ft_split(argv[i], '=');
-				new = 1;
-				while (new_envp[index])
-				{
-					if (!var_new(new_envp[index], name_val[0]))
-					{
-						if (name_val[1])
-						{
-							new_envp[index] = ft_strdup(argv[i]);
-							flag = 1;
-							new = 0;
-						}
-						// printf("not new\n");
-					}
-					index++;
-				}
-				if (!flag && new)
-					new_envp[index] = ft_strdup(argv[i]);
-			}
-			else
-			{
-				ft_putstrsfd(2, "export: `", argv[i], VAR_NO_VALID, NULL);
-				exit_status = 1;
-			}
-			i++;
-		}
-		new_envp[++index] = NULL;
-		free_envp(shell->envp);
-		shell->envp = new_envp;
-		return (exit_status);
-	}
+		return (export_args(shell, argv, argc));
 }

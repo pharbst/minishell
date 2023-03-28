@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_buildins.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 05:21:44 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 19:44:55 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 20:03:44 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ int		print_env(char **env);
 int		ft_exit(int argc, char **argv, t_shell *shell);
 
 // export
-void	print_line_with_quotes(char *line);
-int		valid_var(char *argv);
+int		line_with_quotes(char *line);
 int		var_new(char *env, char *name);
 int		var_export(t_shell *shell, char **argv, int argc);
+int		export_args(t_shell *shell, char **argv, int argc);
 
 int		unset(t_shell *shell, char **argv);
+int		valid_var(char *argv);
 char	*pwd(void);
 
 #endif

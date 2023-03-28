@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:35:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 11:42:56 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:04:17 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,9 @@ int	bi_cd(char **args, int argc, t_shell *shell)
 	if (i == -1)
 	{
 		ft_putstrsfd(2, "cd: ", args[1], NO_SUCH_FILE, NULL);
-		// ft_putstr_fd("cd: ", 2);
-		// ft_putstr_fd(args[1], 2);
-		// ft_putstr_fd(": No such file or directory\n", 2);
 		return (1);
 	}
 	else
-	var_export(shell, old_pwd, 2);
 		var_export(shell, old_pwd, 2);
 	new_pwd = ft_calloc(3, sizeof(char *));
 	new_pwd[1] = ft_calloc(4 + ft_strlen(pwd()), sizeof(char));
