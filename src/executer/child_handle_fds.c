@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 22:23:01 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:01:41 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	handle_outfile(t_pipex *p_head)
 // /var/folders/zz/zyxvpxvq6csfxvn_n000cf740033js/T/
 
 //tests:
-//builtins: 193 ok (wrong order), 232, 261, 265 ok, 
+//builtins: 193 ok (wrong order), 261, 265 ok, 
 //269-273-279 (change findvar), 265-359 ok (mb wrong output fd)
 //redirs: 48-54 ok, 60-64 ok (&& not handled), 77-99 ok (heredoc), 108, 114-132 ok (not handling)
 //cmds: 11, 26 + 30 + 32 + 34 + 36 + 40 + 44

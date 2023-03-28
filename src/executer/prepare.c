@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:14:33 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 22:03:12 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:10:20 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	get_info_for_pipex(t_pipex_common *pipex_info, t_pipex *pipex, char **envp)
 	pipex_info->pipes = ft_calloc(pipex_info->number_nodes + 1, sizeof(int *));
 	if (!pipex_info->pipes)
 		return (0);
-	pipex_info->paths = split_free(get_var_content(envp, "PATH"), ':');
-	if (!pipex_info->paths)
-		return (ft_putstrsfd(2, pipex->cmd, NO_SUCH_FILE, NULL), 0);
+	// pipex_info->paths = split_free(get_var_content(envp, "PATH"), ':');
+	// if (!pipex_info->paths)
+	// 	return (ft_putstrsfd(2, pipex->cmd, NO_SUCH_FILE, NULL), 0);
 	while (i < pipex_info->number_nodes - 1)
 	{
 		pipex_info->pipes[i] = malloc(sizeof(int) * 2);

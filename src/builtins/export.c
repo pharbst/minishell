@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 22:03:46 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:25:57 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	var_export(t_shell *shell, char **argv, int argc)
 				index = 0;
 				flag = 0;
 				name_val = ft_split(argv[i], '=');
+				new = 1;
 				while (new_envp[index])
 				{
 					if (!var_new(new_envp[index], name_val[0]))
@@ -128,10 +129,9 @@ int	var_export(t_shell *shell, char **argv, int argc)
 						{
 							new_envp[index] = ft_strdup(argv[i]);
 							flag = 1;
-							new = 1;
-						}
-						else
 							new = 0;
+						}
+						// printf("not new\n");
 					}
 					index++;
 				}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_executer.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 05:28:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 12:34:32 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:01:58 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int		middle_process(t_pipex *p_head, t_pipex_common *pipex_info,
 			int process);
 int		last_process(t_pipex *p_head, t_pipex_common *pipex_info,
 			int process);
-int		check_before_fork(t_pipex *p_head, char *command);
+// int		check_before_fork(t_pipex *p_head, char *command);
+int		check_before_fork(t_pipex *p_head);
 int		builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin);
 int		builtin_child(t_pipex *p_head, t_shell *shell,
 			int flag_builtin);

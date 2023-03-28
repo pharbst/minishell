@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   piping.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:11:03 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/28 15:55:02 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/28 16:41:45 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_cmd(t_pipex *p_head, char **paths)
 		if (!access(p_head->cmd, 0))
 			return (p_head->cmd);
 	}
-	if (paths)
+	else if (paths)
 	{
 		while (paths[i])
 		{
@@ -112,58 +112,51 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 	sa.sa_flags = SA_RESTART;
 
 	
-	command = get_cmd(p_head, pipex_info->paths);
-	flag_builtin = check_before_fork(p_head, command);
+	// command = get_cmd(p_head, pipex_info->paths);
+	// flag_builtin = check_before_fork(p_head, command);
+	// if (!flag_builtin)
+	// {
+	// 	pipex_info->pids[pipex_info->number_nodes - 1] = 5;
+	// 	pipex_info->error_code = 127;
+	// 	return (free(command));
+	// }
+	// status = builtin_main(p_head, shell, flag_builtin);
+	// if (status != 2)
+	// {
+	// 	pipex_info->pids[pipex_info->number_nodes - 1] = 5;
+	// 	pipex_info->error_code = status;
+	// 	return (free(command));
+	// }
+	
+	flag_builtin = check_before_fork(p_head);
 	if (!flag_builtin)
 	{
 		pipex_info->pids[pipex_info->number_nodes - 1] = 5;
 		pipex_info->error_code = 127;
-		return (free(command));
+		return ;
 	}
 	status = builtin_main(p_head, shell, flag_builtin);
 	if (status != 2)
 	{
 		pipex_info->pids[pipex_info->number_nodes - 1] = 5;
 		pipex_info->error_code = status;
-		return (free(command));
+		return ;
 	}
-	// flag_builtin = check_before_fork(p_head);
-	if (!flag_builtin)
-	{
-		pipex_info->pids[pipex_info->number_nodes - 1] = 5;
-		pipex_info->error_code = 127;
-		return (free(command));
-	}
-	// status = builtin_main(p_head, shell, flag_builtin);
-	// printf("%d\n", status);
-	// if (status != 2)
-	// {
-	// 	pipex_info->pids[pipex_info->number_nodes - 1] = 5;
-	// 	pipex_info->error_code = status;
-	// 	// return (free(command));
-	// 	// return ;
-	// }
 	signal_flag(WRITE, true);
 	pipex_info->pids[process] = fork();
 	if (pipex_info->pids[process] < 0)
 		exit(1); 
 	if (pipex_info->pids[process] == 0)
 	{
-		// pipex_info->paths = split_free(get_var_content(shell->envp, "PATH"), ':');
-		// if (!pipex_info->paths)
-		// {
-		// 	if (flag_builtin == 1 || flag_builtin == 4)
-		// 	{
-		// 		ft_putstrsfd(2, p_head->cmd, NO_SUCH_FILE, NULL);
-		// 		exit (1);
-		// 	}
-		// }
-		// command = get_cmd(p_head, pipex_info->paths);
-		// if (!command && flag_builtin == 1)
-		// {
-		// 	ft_putstrsfd(2, p_head->cmd, NO_COMMAND, NULL);
-		// 	exit(127);
-		// }
+		pipex_info->paths = split_free(get_var_content(shell->envp, "PATH"), ':');
+		if (!pipex_info->paths)
+		{
+			if (flag_builtin == 1 || flag_builtin == 4)
+			{
+				ft_putstrsfd(2, p_head->cmd, NO_SUCH_FILE, NULL);
+				exit (1);
+			}
+		}
 		sigaction(SIGINT, &sa, NULL);
 		signal(SIGQUIT, SIG_DFL);
 		if (!open_files(p_head))
@@ -174,6 +167,12 @@ void	piping(t_pipex *p_head, t_pipex_common *pipex_info, int process, t_shell *s
 			exit(1);
 		if (flag_builtin != 1)
 			exit(builtin_child(p_head, shell, flag_builtin));
+		command = get_cmd(p_head, pipex_info->paths);
+		if (!command && flag_builtin == 1)
+		{
+			ft_putstrsfd(2, p_head->cmd, NO_COMMAND, NULL);
+			exit(127);
+		}
 		if (command)
 			execve(command, p_head->args, shell->envp);
 		else

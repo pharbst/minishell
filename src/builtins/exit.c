@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:36:12 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 13:42:05 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:32:49 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_exit(int argc, char **args, t_shell *shell)
 
 	status = 0;
 	if (argc != -1)
-		write(1, "exit\n", 5);
+		write(2, "exit\n", 5);
 	else
 		status = shell->exit_status;
 	if (argc >= 2 && (!ft_atoi(args[1])

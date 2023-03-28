@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:57:35 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/26 22:02:15 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:02:13 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,7 @@ int	check_builtins(t_pipex *p_head)
 	return (0);
 }
 
-int	check_before_fork(t_pipex *p_head, char *command)
-{
-	int	i;
-
-	if (p_head->cmd)
-		i = check_builtins(p_head);
-	else
-		return (1);
-	if (i)
-		return (i);
-	if (!command)
-		return (ft_putstrsfd(2, p_head->cmd, NO_COMMAND, NULL), 0);
-	return (1);
-}
-
-// int	check_before_fork(t_pipex *p_head)
+// int	check_before_fork(t_pipex *p_head, char *command)
 // {
 // 	int	i;
 
@@ -56,8 +41,23 @@ int	check_before_fork(t_pipex *p_head, char *command)
 // 		return (1);
 // 	if (i)
 // 		return (i);
+// 	if (!command)
+// 		return (ft_putstrsfd(2, p_head->cmd, NO_COMMAND, NULL), 0);
 // 	return (1);
 // }
+
+int	check_before_fork(t_pipex *p_head)
+{
+	int	i;
+
+	if (p_head->cmd)
+		i = check_builtins(p_head);
+	else
+		return (1);
+	if (i)
+		return (i);
+	return (1);
+}
 
 int	builtin_child(t_pipex *p_head, t_shell *shell, int flag_builtin)
 {
