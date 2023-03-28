@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_cat.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:53:49 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 12:00:19 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 13:36:12 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ char	*dollar_helper(t_parsing *a, char *tmp)
 
 char	*str_cat_helper(t_parsing *a, char *tmp)
 {
-	char	*tmp2;
-
-	tmp2 = NULL;
 	if (a->token[a->token_index].type == STRING_OPEN)
 	{
 		tmp = strjoinfree(tmp, ft_substr(a->token[a->token_index].location,
@@ -61,7 +58,12 @@ char	*str_cat_helper(t_parsing *a, char *tmp)
 	{
 		a->token_index++;
 		if (a->token[a->token_index].type != STRING_OPEN)
+		{
+			if (a->token[a->token_index].type == DQUOTE_OPEN
+				||a->token[a->token_index].type == SQUOTE_OPEN)
+				return (tmp);
 			return (ft_strjoinfree(tmp, "$"));
+		}
 		tmp = dollar_helper(a, tmp);
 	}
 	return (tmp);

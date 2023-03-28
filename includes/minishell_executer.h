@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_executer.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 05:28:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/26 22:03:23 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:34:32 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_EXECUTER_H
 # define MINISHELL_EXECUTER_H
 
+# include <sys/wait.h>
 # include "libftio.h"
 # include "minishell_structs.h"
 # include "minishell_tools.h"
