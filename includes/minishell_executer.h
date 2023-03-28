@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 05:28:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 16:01:58 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 21:48:48 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@ int		middle_process(t_pipex *p_head, t_pipex_common *pipex_info,
 			int process);
 int		last_process(t_pipex *p_head, t_pipex_common *pipex_info,
 			int process);
-// int		check_before_fork(t_pipex *p_head, char *command);
 int		check_before_fork(t_pipex *p_head);
 int		builtin_main(t_pipex *p_head, t_shell *shell, int flag_builtin);
 int		builtin_child(t_pipex *p_head, t_shell *shell,
 			int flag_builtin);
 int		check_builtins(t_pipex *p_head);
 int		handle_outfile(t_pipex *p_head);
+char	*get_cmd(t_pipex *p_head, char **paths);
+int		open_files(t_pipex *p_head);
+int		change_fds_child(t_pipex *p_head, t_pipex_common *pipex_info,
+			int process);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 15:57:35 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/28 16:02:13 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:05:27 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	check_builtins(t_pipex *p_head)
 {
 	if (!ft_strcmp(p_head->cmd, "cd"))
 		return (2);
-	else if (!ft_strcmp(p_head->cmd, "echo") || !ft_strcmp(p_head->cmd, "/bin/echo"))
+	else if (!ft_strcmp(p_head->cmd, "echo")
+		|| !ft_strcmp(p_head->cmd, "/bin/echo"))
 		return (3);
 	else if (!ft_strcmp(p_head->cmd, "env"))
 		return (4);

@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 16:22:34 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/28 19:09:30 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:05:58 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,81 +27,6 @@ int	handle_outfile(t_pipex *p_head)
 	}
 	return (1);
 }
-
-// ctrl-c - sosatb
-// ctrl-\ - sosatb
-
-// ls >| llllogs
-// ls > llllogs
-
-
-//close all files?
-
-//  /bin/ls
-//  pointer of arg[0] being freed was not allocated
-
-// < tmp 
-//finishes before executor
-
-// echo '$USER' must print $USER
-
-// exit ""
-// exit
-// bash: exit: : numeric argument required
-// ccompote@1-D-6 minishell % echo $?
-// 255
-
-// bash-3.2$ cat << hello
-// > $USER
-// > $NOVAR
-// > $HOME
-// > hello
-// ccompote
-
-// /Users/ccompote
-
-
-// cat << lim ''
-// > cds
-// > lim
-// cat: : No such file or directory
-
-// command ""
-// bash: : command not found, 127 error
-// minishell new prompt, 137. should be parsed as empty command (finds this path to it /Users/ccompote/.brew/bin/ )
-
-// "." / "/" 
-//  new prompt, random error, isn't giving NULL to command because of ft_strchr("/.") in get_cmd
-
-// ./ls
-// bash: ./ls: No such file or directory
-// minishell working
-
-// export X="  A  B  "
-// echo $X
-// gives 0x0
-
-// unset "$"
-
-// arg[1]: Apple_Terminal
-
-// /bin/echo $"HOME"$USER
-// $HOMEccompote
-// bash:
-// HOMEccompote
-
-//  /bin/echo "$"
-// /var/folders/zz/zyxvpxvq6csfxvn_n000cf740033js/T/
-
-//tests:
-//builtins: 193 ok (wrong order), 261, 265 ok, 
-//269-273-279 (change findvar), 265-359 ok (mb wrong output fd)
-//redirs: 48-54 ok, 60-64 ok (&& not handled), 77-99 ok (heredoc), 108, 114-132 ok (not handling)
-//cmds: 11, 26 + 30 + 32 + 34 + 36 + 40 + 44
-//vars: 8 - 10 ok, 12 - 22, 26-56, 79, 89-134
-//correction: same
-
-
 
 int	first_process(t_pipex *p_head, t_pipex_common *pipex_info)
 {

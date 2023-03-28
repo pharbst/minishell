@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/28 20:25:04 by pharbst          ###   ########.fr        #
+#    Updated: 2023/03/28 21:51:26 by ccompote         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,6 +97,7 @@ SRC_FILES	+=	execute.c \
 				piping.c \
 				builtin_exec.c \
 				child_handle_fds.c \
+				piping_dup_open.c \
 
 # Buildins
 SRC_FILES	+=	cd.c \
