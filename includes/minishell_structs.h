@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 01:58:02 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 20:40:07 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:40:25 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 
 # include <stdbool.h>
 # include <signal.h>
+
+typedef struct s_cd
+{
+	int		i;
+	char	**old_pwd;
+	char	**new_pwd;
+	char	*n_pwd;
+	char	*o_pwd;
+	char	*str_dir;
+}	t_cd;
 
 typedef struct s_token
 {
