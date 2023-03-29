@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:13:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 19:15:39 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/29 15:58:17 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ bool	openquote(char *line)
 	return (false);
 }
 
-void	shell_rliq(t_shell_rl rl, char *line)
+void	shell_rliq(t_shell_rl rl, char **line)
 {
-	while (openquote(line))
+	while (openquote(*line))
 	{
 		if (isatty(STDIN_FILENO))
 			rl.tmp = readline("> ");
@@ -72,11 +72,11 @@ void	shell_rliq(t_shell_rl rl, char *line)
 		if (!rl.tmp)
 		{
 			ft_putstrsfd(2, SHELL_NAME, SYNTAX_RL_EOF, NULL);
-			free(line);
+			free(*line);
 			close(rl.pipe_fd[1][1]);
 			exit(1);
 		}
-		line = strjoinfree(ft_strjoinchar(line, '\n'), rl.tmp);
+		*line = strjoinfree(ft_strjoinchar(*line, '\n'), rl.tmp);
 	}
 }
 
@@ -90,7 +90,7 @@ void	shell_rloq(t_shell_rl rl)
 	while (read(rl.pipe_fd[0][0], &rl.buff, 1) > 0)
 		line = ft_strjoinchar(line, rl.buff);
 	close(rl.pipe_fd[0][0]);
-	shell_rliq(rl, line);
+	shell_rliq(rl, &line);
 	ft_putstr_fd(line, rl.pipe_fd[1][1]);
 	free(line);
 	close(rl.pipe_fd[1][1]);

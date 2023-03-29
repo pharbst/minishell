@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 03:47:11 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 19:26:08 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/29 15:57:03 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	shell_rl_exit(t_shell *shell);
 // shell_readline.c
 char	*get_prompt_line(t_shell *shell);
 bool	openquote(char *line);
-void	shell_rliq(t_shell_rl rl, char *line);
+void	shell_rliq(t_shell_rl rl, char **line);
 void	shell_rloq(t_shell_rl rl);
 void	shell_readline(t_shell *shell);
 

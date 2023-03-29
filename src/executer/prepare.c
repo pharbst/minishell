@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:14:33 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/28 21:33:35 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/29 13:28:17 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ char	*get_cmd_relative(char **paths, t_pipex *p_head)
 
 char	*get_cmd(t_pipex *p_head, char **paths)
 {
-	int		i;
-
-	i = 0;
 	if (!p_head->cmd)
 		return (NULL);
 	if (ft_strchr("/.", *p_head->cmd))
