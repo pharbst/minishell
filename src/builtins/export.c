@@ -6,49 +6,30 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 15:53:03 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 19:59:13 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:45:58 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_buildins.h"
 
-void	print_line_with_quotes(char *line, char *new_line)
+void	print_line_with_quotes(char *line)
 {
-	int		i;
-	int		j;
+	char	*new_line;
 
-	i = 0;
-	j = 0;
-	while (line[j])
-	{
-		new_line[i] = line[j];
-		if (line[j] == '=')
-		{
-			i++;
-			new_line[i] = '"';
-		}
-		i++;
-		j++;
-	}
-	new_line[i] = '"';
-	new_line[++i] = '\0';
+	new_line = ft_substr(line, 0, ft_strchr(line, '=') - line);
+	new_line = ft_strjoinchar(new_line, '"');
+	new_line = ft_strjoinfree(new_line, ft_strchr(line, '=') + 1);
+	new_line = ft_strjoinchar(new_line, '"');
 	printf("declare -x %s\n", new_line);
 	free(new_line);
 }
 
 int	line_with_quotes(char *line)
 {
-	char	*new_line;
-
 	if (!ft_strchr(line, '='))
 		printf("declare -x %s\n", line);
 	else
-	{
-		new_line = ft_calloc(ft_strlen(line) + 3, sizeof(char));
-		if (!new_line)
-			return (0);
-		print_line_with_quotes(line, new_line);
-	}
+		print_line_with_quotes(line);
 	return (1);
 }
 

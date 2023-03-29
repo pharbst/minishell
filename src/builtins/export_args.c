@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:58:19 by ccompote          #+#    #+#             */
-/*   Updated: 2023/03/28 20:00:00 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:45:45 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	export_dups(char **new_envp, char *argv, char **name_val, int flag)
 		{
 			if (name_val[1] || argv[ft_strlen(name_val[0])] == '=')
 			{
+				free(new_envp[index]);
 				new_envp[index] = ft_strdup(argv);
 				if (!new_envp[index])
 					return (-1);
@@ -58,6 +59,7 @@ int	export_valid_arg(char *argv, char **new_envp)
 	if (!name_val)
 		return (-1);
 	index = export_dups(new_envp, argv, name_val, flag);
+	free_envp(name_val);
 	return (index);
 }
 
@@ -84,7 +86,6 @@ int	export_singe_arg(char **new_envp, char **argv, t_shell *shell, int index)
 		i++;
 	}
 	new_envp[++index] = NULL;
-	free_envp(shell->envp);
 	shell->envp = new_envp;
 	return (exit_status);
 }
@@ -103,9 +104,11 @@ int	export_args(t_shell *shell, char **argv, int argc)
 	while (shell->envp[index])
 	{
 		new_envp[index] = ft_strdup(shell->envp[index]);
+		free(shell->envp[index]);
 		if (!new_envp[index])
 			return (1);
 		index++;
 	}
+	free(shell->envp);
 	return (export_singe_arg(new_envp, argv, shell, index));
 }

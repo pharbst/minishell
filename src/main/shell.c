@@ -6,7 +6,7 @@
 /*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 00:00:00 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 20:03:32 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:07:25 by ccompote         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	shell_interactive(t_shell *shell)
 		syntax_check(WRITE, false);
 		signal_flag(WRITE, true);
 		shell_parsing_main(shell);
+		// print_pipex(shell->p_head);
 		shell->line = NULL;
 		if (shell->p_head && !syntax_check(READ, NULL))
 			pre_execute(shell);
