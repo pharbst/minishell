@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:53:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 19:27:30 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/30 16:34:21 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*expand_dollar_var(t_parsing *a)
 	int		i;
 
 	i = 1;
+	if (a->token[a->token_index].location[i] == '?')
+		return (ft_itoa(a->exit_status));
 	if (!ft_isalnum(a->token[a->token_index].location[i]))
 		return (ft_strdup("$"));
 	while (ft_isalnum(a->token[a->token_index].location[i])
