@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 15:21:12 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/30 16:29:33 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/30 17:43:18 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	hdc_mid(char *line, char **new_line, t_shell *shell)
 	int	i;
 
 	i = 0;
-	while (line[i])
+	while (line && line[i])
 	{
 		if (line[i] == '$')
 			*new_line = strjoinfree(*new_line,
