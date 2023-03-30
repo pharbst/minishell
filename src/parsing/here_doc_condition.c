@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:24:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/30 16:25:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/30 16:42:56 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ void	hdc_child(char *delimiter, int pfd[2])
 		write(pfd[1], line, ft_strlen(line));
 		write(pfd[1], "\n", 1);
 		free(line);
-		line = readline("> ");
+		if (isatty(0))
+			line = readline("> ");
+		else
+			line = gnl(0);
 	}
 	free(line);
 	close(pfd[1]);
