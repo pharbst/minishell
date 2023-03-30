@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 17:24:17 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/28 19:36:16 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/30 16:25:03 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	hdc(t_parsing *a, t_pipex *pipex)
 	exec_hdc(delimiter, pfd, a);
 	free(delimiter);
 	if (!a->abort)
-		pipex->fd_in = pfd[0];
+		hdc_interpreter(pfd[0], pipex);
 	if (pipex->in)
 	{
 		free(pipex->in);

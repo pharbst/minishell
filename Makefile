@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+         #
+#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/28 21:51:26 by ccompote         ###   ########.fr        #
+#    Updated: 2023/03/30 16:03:54 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,6 +90,7 @@ SRC_FILES	+=	parsing_main.c \
 				ft_syntax_error.c \
 				shell_readline.c \
 				shell_readline_helper.c \
+				here_doc_interpret.c \
 
 # execution
 SRC_FILES	+=	execute.c \

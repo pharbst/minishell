@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 03:47:11 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/29 15:57:03 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/30 16:30:04 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 # include "minishell_enums.h"
 # include "minishell_buildins.h"
 # include "libftio.h"
-
-# define COLOR_SET_1 "\033[1;34m@\033[1;32mm\033[1;33mi\033[1;35mn"
-# define COLOR_SET_2 "\033[1;36mi\033[1;34ms\033[1;31mhell \033[0;33m"
 
 // check_open.c
 bool	open_quote(t_token *token, int i);
@@ -46,6 +43,11 @@ char	*hdc_dollar(t_parsing *a);
 char	*hdc_string(t_parsing *a);
 char	*hdc_dquote(t_parsing *a);
 char	*hdc_squote(t_parsing *a);
+
+// here_doc_interpret.c
+void	hdc_interpreter(int fd, t_pipex *pipex);
+void	hdc_mid(char *line, char **new_line, t_shell *shell);
+char	*hdc_inter_dollar(char *line, int *index, t_shell *shell);
 
 // join_arg.c
 char	**join_arg(t_pipex *pipex, char *tmp);

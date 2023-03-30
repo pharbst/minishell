@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccompote <ccompote@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:35:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/29 19:39:49 by ccompote         ###   ########.fr       */
+/*   Updated: 2023/03/30 14:40:52 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	bi_cd(char **args, int argc, t_shell *shell)
 	a.old_pwd[1] = ft_strjoin("OLDPWD=", a.o_pwd);
 	if (argc == 1)
 	{
-		a.str_dir = get_var_content(shell->envp, "HOME=");
+		a.str_dir = get_var_content(shell->envp, "HOME");
 		a.i = chdir(a.str_dir);
 		free(a.str_dir);
 	}
