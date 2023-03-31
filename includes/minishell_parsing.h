@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 03:47:11 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/30 16:30:04 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/31 08:09:51 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include "minishell_enums.h"
 # include "minishell_buildins.h"
 # include "libftio.h"
+
+# define COLOR_SET_1 "\001\033[1;34m\002@\001\033[1;32m\002m\001\033[1;33m\002i\001\033[1;35m\002n"
+# define COLOR_SET_2 "\001\033[1;36m\002i\001\033[1;34m\002s\001\033[1;31m\002hell \001\033[0;33m\002"
 
 // check_open.c
 bool	open_quote(t_token *token, int i);

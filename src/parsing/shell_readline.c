@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 15:13:57 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/31 08:02:09 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/31 08:09:26 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ char	*get_prompt_line(t_shell *shell)
 	char				*pwd;
 	char				*tmp;
 	char				*usr;
+	static unsigned int	i;
 
 	tmp = getcwd(NULL, 0);
 	pwd = ft_strdup(last_word(tmp));
 	free(tmp);
 	usr = get_var_content(shell->envp, "USER");
-	line = ft_strjoinfree(usr, "@minishell ");
+	tmp = strjoinfree(ft_strdup("\001\033[1;3"),
+			ft_strjoinfree(ft_itoa(i % 7 + 1), "m\002"));
+	line = strjoinfree(tmp, usr);
+	line = ft_strjoinfree(line, COLOR_SET_1);
+	line = ft_strjoinfree(line, COLOR_SET_2);
 	line = strjoinfree(line, pwd);
-	line = ft_strjoinfree(line, "$ ");
+	line = ft_strjoinfree(line, "$ \001\033[0;37m\002");
+	i++;
 	return (line);
 }
 
