@@ -6,7 +6,7 @@
 /*   By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 18:53:22 by pharbst           #+#    #+#             */
-/*   Updated: 2023/03/30 16:34:21 by pharbst          ###   ########.fr       */
+/*   Updated: 2023/03/31 08:00:32 by pharbst          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*expand_dollar_var(t_parsing *a)
 
 	i = 1;
 	if (a->token[a->token_index].location[i] == '?')
-		return (ft_itoa(a->exit_status));
+		return (a->token[a->token_index].location += 2, ft_itoa(a->exit_status));
 	if (!ft_isalnum(a->token[a->token_index].location[i]))
 		return (ft_strdup("$"));
 	while (ft_isalnum(a->token[a->token_index].location[i])
@@ -31,6 +31,7 @@ char	*expand_dollar_var(t_parsing *a)
 		i++;
 	tmp = ft_substr(a->token[a->token_index].location, 1, i - 1);
 	ret = get_var_content(a->envp, tmp);
+	a->token[a->token_index].location += i;
 	return (free(tmp), ret);
 }
 
@@ -58,6 +59,7 @@ char	*dquote_expand(t_parsing *a)
 							- a->token[a->token_index].location) - 1));
 		a->token_index += 1;
 	}
+	tmp = strjoinfree(tmp, ft_substr(a->token[a->token_index - 1].location, 0, a->token[a->token_index].location - a->token[a->token_index -1].location));
 	a->token_index += 1;
 	return (tmp);
 }
