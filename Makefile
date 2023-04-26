@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pharbst <pharbst@student.42heilbronn.de    +#+  +:+       +#+         #
+#    By: pharbst <pharbst@student.42heilbronn.de>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/02 04:41:59 by pharbst           #+#    #+#              #
-#    Updated: 2023/03/30 16:03:54 by pharbst          ###   ########.fr        #
+#    Updated: 2023/04/26 23:04:43 by pharbst          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,8 +134,11 @@ LIBFTIO_DIR	=	./libftio
 # **************************************************************************** #
 # libraries
 # **************************************************************************** #
-LIBFTIO		=	$(LIBFTIO_DIR)/libftio.a
-
+ifeq ($(UNAME), Darwin)
+	LIBFTIO		=	$(LIBFTIO_DIR)/libftio.a
+else
+	LIBFTIO		=	$(LIBFTIO_DIR)/libftio_linux.a
+endif
 
 # **************************************************************************** #
 # Includes
@@ -155,6 +158,20 @@ OBJ			=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 # **************************************************************************** #
 
 all:
+	@make -s proname_header
+	@make -s libftio_update_header
+	@./spinner.sh make -s libftio_update
+	@make -s libftio_header
+	@./spinner.sh make -s $(LIBFTIO)
+	@make -s obj_header
+	@./spinner.sh make -s $(OBJ)
+	@make -s linking_header
+	@./spinner.sh make -s $(NAME)
+	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
+	
+
+relink:
+	@rm -f $(NAME)
 	@./spinner.sh make -s $(NAME)
 
 re:
@@ -164,10 +181,9 @@ re:
 # 	@$(CC) $(CFLAGS) $(OBJ) -L/usr/local/lib -I/usr/local/include -lreadline $(LIBFTIO) -o $(NAME)
 # 	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
 
-$(NAME):	proname_header libftio_update_header libftio_update libftio_header $(LIBFTIO) obj_header $(OBJ) linking_header
+$(NAME):	$(LIBFTIO) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(CFLAGSS) $(LDFLAGS) -lreadline $(LIBFTIO) -o $(NAME)
-	@printf "$(FGreen)[$(TICK)]\n$(RESET)"
-	
+
 $(OBJ_DIR)/%.o:	$(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) $(INC) $(INC_LIBFTIO) $(CFLAGSS) -c $< -o $@
@@ -182,10 +198,10 @@ $(LIBFTIO):
 # Cleaning Rules
 # **************************************************************************** #
 fclean:	proname_header
-	@./spinner.sh make hard_cleanall
+	@./spinner.sh make -s hard_cleanall
 
 clean:	proname_header
-	@./spinner.sh make clean_simple
+	@./spinner.sh make -s clean_simple
 
 clean_simple:
 	@printf "$(FRed)Cleaning$(RESET)		 			 						      "
